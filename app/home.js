@@ -1,6 +1,7 @@
 import { SafeAreaView, ScrollView, View, Text } from "react-native";
 import { Stack, useRouter } from "expo-router";
 import Trendings from "../components/home/Trendings";
+import BestRated from "../components/home/BestRated";
 
 import commonStyles from "../styles/common";
 
@@ -20,7 +21,8 @@ const Home = () => {
           /> 
 
           <Trendings />
-
+          <BestRated />
+          
         </SafeAreaView>
       </View>
     );

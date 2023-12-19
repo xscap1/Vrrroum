@@ -1,22 +1,28 @@
 import { SafeAreaView, ScrollView, View, Text } from "react-native";
 import { Stack, useRouter } from "expo-router";
+import commonStyles from "../styles/common";
 
 const Home = () => {
     const router = useRouter()
   
     return (
-      <SafeAreaView style={{ flex: 1 }}>
-        <Stack.Screen
-          options={{
-            headerStyle: {},
-            headerShadowVisible: false,
-            headerTitle: "",
-            headerLeft: null,
-          }}
-        />
+      <View style={commonStyles.body}>
+        <SafeAreaView>
+          <Stack.Screen
+            options={{
+              headerStyle: commonStyles.header,
+              headerShadowVisible: false,
+              headerTitle: "",
+              headerBackVisible : false
+            }}
+          />
 
-        <Text>Salut</Text>
-      </SafeAreaView>
+          <View style={commonStyles.container}>
+            <Text style={commonStyles.heading}>Salut</Text>
+          </View>  
+
+        </SafeAreaView>
+      </View>
     );
   };
   

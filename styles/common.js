@@ -1,11 +1,10 @@
 import { StyleSheet } from "react-native";
 import { COLORS, SIZES } from "../constants";
 
-import { Dimensions } from 'react-native'
+import { Dimensions } from "react-native";
 
-const windowsWidth = Dimensions.get('window').width
-const windowsHeight = Dimensions.get('window').height
-
+ww = Dimensions.get('window').width;
+wh = Dimensions.get('window').height;
 
 const commonStyles = StyleSheet.create({
     body: {
@@ -19,10 +18,20 @@ const commonStyles = StyleSheet.create({
     },
 
     container: {
-        paddingTop: 0.05 * windowsWidth,
-        paddingBottom: 0.05 * windowsWidth,
-        paddingLeft: 0.05 * windowsWidth,
-        paddingRight: 0.05 * windowsWidth,
+        paddingTop: 0.05 * ww,
+        paddingBottom: 0.05 * ww,
+        paddingLeft: 0.05 * ww,
+        paddingRight: 0.05 * ww,
+    },
+
+    subcontainer: {
+        backgroundColor : COLORS.darkgray,
+        marginTop: 0.05 * ww,
+        paddingTop: 0.05 * ww,
+        paddingBottom: 0.05 * ww,
+        paddingLeft: 0.05 * ww,
+        paddingRight: 0.05 * ww,
+        borderRadius: 10
     },
 
     text: {
@@ -37,7 +46,8 @@ const commonStyles = StyleSheet.create({
 
     heading: {
         fontSize : SIZES.xLarge,
-        color: COLORS.lightwhite
+        color: COLORS.lightwhite,
+        fontWeight: 'bold'
     }
 });
 

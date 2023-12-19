@@ -1,5 +1,7 @@
 import { SafeAreaView, ScrollView, View, Text } from "react-native";
 import { Stack, useRouter } from "expo-router";
+import Trendings from "../components/home/Trendings";
+
 import commonStyles from "../styles/common";
 
 const Home = () => {
@@ -15,11 +17,9 @@ const Home = () => {
               headerTitle: "",
               headerBackVisible : false
             }}
-          />
+          /> 
 
-          <View style={commonStyles.container}>
-            <Text style={commonStyles.heading}>Salut</Text>
-          </View>  
+          <Trendings />
 
         </SafeAreaView>
       </View>

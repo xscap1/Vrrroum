@@ -39,6 +39,12 @@ const commonStyles = StyleSheet.create({
         color: COLORS.lightwhite
     },
 
+    textBold: {
+        fontSize : SIZES.large,
+        color: COLORS.lightwhite,
+        fontWeight: 'bold'
+    },
+
     subtext : {
         fontsize : SIZES.medium,
         color : COLORS.subwhite

@@ -11,30 +11,30 @@ const Categories = () => {
     const categories = [
         {
             id : 1,
-            icon : icons.motoroil,
+            icon : icons.motoroil_selected,
             name : 'Nettoyant jantes'
         },
         {
             id : 2,
-            icon : icons.motoroil,
+            icon : icons.motoroil_selected,
             name : 'Shampooing'
         },
         {
             id : 3,
-            icon : icons.motoroil,
+            icon : icons.motoroil_selected,
             name : 'Nettoyant intérieur'
         },
         {
             id : 4,
-            icon : icons.motoroil,
+            icon : icons.motoroil_selected,
             name : 'Nettoyant extérieur'
         },        {
             id : 5,
-            icon : icons.motoroil,
+            icon : icons.motoroil_selected,
             name : 'Cire'
         },        {
             id : 6,
-            icon : icons.motoroil,
+            icon : icons.motoroil_selected,
             name : 'Huile moteur'
         },
     ];

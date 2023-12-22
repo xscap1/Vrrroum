@@ -9,7 +9,7 @@ import {COLORS, SIZES } from "../../constants"
 const BestRated = () => {
     const router = useRouter();
     
-    const data = ["Nom", "Nom", "Nom", "Nom"];
+    const data = [1, 2, 3];
 
     return (
         <View style={commonStyles.container}>
@@ -22,7 +22,7 @@ const BestRated = () => {
                         product={item}
                     />
                  )}
-                 keyExtractor={(item) => item.id+1}
+                 keyExtractor={(item) => item}
                  contentContainerStyle={{ columnGap: SIZES.medium }}
                  horizontal
                  showsHorizontalScrollIndicator={false}

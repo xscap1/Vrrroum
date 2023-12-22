@@ -8,13 +8,18 @@ wh = Dimensions.get('window').height;
 
 const commonStyles = StyleSheet.create({
     body: {
-        backgroundColor : COLORS.background,
+        backgroundColor : COLORS.darkgray,
         width: '100%',
-        height: '100%'
+        height: '100%',
+        flex: 1
+    },
+
+    safeArea: {
+        backgroundColor: COLORS.background
     },
 
     header: {
-        backgroundColor : COLORS.background
+        backgroundColor : COLORS.background,
     },
 
     container: {

@@ -1,5 +1,5 @@
 import { SafeAreaView, ScrollView, View, Text } from "react-native";
-import { Stack, useRouter } from "expo-router";
+import { Stack, useRouter, Link } from "expo-router";
 import Trendings from "../components/home/Trendings";
 import BestRated from "../components/home/BestRated";
 import Categories from "../components/home/Categories";
@@ -15,10 +15,11 @@ const Home = () => {
         <SafeAreaView style={commonStyles.safeArea}>
           <Stack.Screen
             options={{
-              headerStyle: commonStyles.header,
-              headerShadowVisible: false,
-              headerTitle: "",
-              headerBackVisible : false
+                animation: 'none',
+                headerStyle: commonStyles.header,
+                headerShadowVisible: false,
+                headerTitle: "",
+                headerBackVisible : false
             }}
           /> 
 

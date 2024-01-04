@@ -13,14 +13,13 @@ const styles = StyleSheet.create({
         paddingBottom: 0,
         paddingLeft: 0.05 * ww,
         paddingRight: 0.05 * ww,
-        display: 'flex',
-        flexWrap: 'wrap',
-        alignContent: 'space-between'
+        flexDirection: 'row',
+        justifyContent: 'space-between',
     },
 
     icon : {
         width: 30,
-        height: 30
+        height: 30,
     }
 });
 

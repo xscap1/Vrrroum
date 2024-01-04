@@ -5,7 +5,7 @@ import styles from "./footerStyles";
 import {icons } from "../../../constants";
 
 const Footer = ({selected}) => {
-    router = useRouter;
+    router = useRouter();
     const [selectedIcon, setSelectedIcon] = useState("Home");
 
     React.useEffect(() => {
@@ -17,22 +17,31 @@ const Footer = ({selected}) => {
     return (
         <View>
             <View style={styles.footer}>
-                <TouchableOpacity>
+                <TouchableOpacity hitSlop={{left: 40, right: 40}} onPress={ () => {
+                    if (selectedIcon != "Home") router.replace(`/home`);
+                }}>
                     <Image
                         style={styles.icon} 
                         source={selectedIcon === "Home" ? icons.home_selected : icons.home}/>
+                    
                 </TouchableOpacity>
 
-                <TouchableOpacity>
+                <TouchableOpacity hitSlop={{left: 40, right: 40}} onPress={ () => {
+                    if (selectedIcon != "Scan") router.replace(`/scan`);
+                }}>
                     <Image
-                            style={styles.icon} 
-                            source={selectedIcon === "Scan" ? icons.barcode_selected : icons.barcode}/>
+                        style={styles.icon} 
+                        source={selectedIcon === "Scan" ? icons.barcode_selected : icons.barcode}/>
+                    
                 </TouchableOpacity>
 
-                <TouchableOpacity>
+                <TouchableOpacity hitSlop={{left: 40, right: 40}} onPress={ () => {
+                    if (selectedIcon != "Profile") router.replace(`/profile`);
+                }}>
                     <Image
-                            style={styles.icon} 
-                            source={selectedIcon === "Profile" ? icons.user_selected : icons.user}/>
+                        style={styles.icon} 
+                        source={selectedIcon === "Profile" ? icons.user_selected : icons.user}/>
+                    
                 </TouchableOpacity>
             </View>
         </View>

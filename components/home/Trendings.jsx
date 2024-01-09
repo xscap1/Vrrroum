@@ -6,8 +6,6 @@ import commonStyles from "../../styles/common";
 import SeeMoreButton from "../common/buttons/SeeMoreButton";
 import {COLORS, SIZES } from "../../constants"
 
-
-
 const Trendings = () => {
     const router = useRouter();
     

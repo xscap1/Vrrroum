@@ -1,0 +1,34 @@
+import React from "react";
+import { useRouter } from "expo-router";
+import { View, Text, FlatList, TouchableOpacity } from "react-native";
+import OfferCard from "../common/cards/offers/OfferCard";
+import TrendingCard from "../common/cards/trendings/TrendingCard";
+import commonStyles from "../../styles/common";
+import {COLORS, SIZES } from "../../constants"
+
+const Offers = () => {
+    const router = useRouter();
+    
+    const data = [1, 2, 3];
+
+    return (
+        <View style={commonStyles.container}>
+            <Text style={commonStyles.heading}>Les offres du jour</Text>
+            <View style={{marginTop: 10}}>
+                <FlatList
+                 data={data}
+                 renderItem={({ item }) => (
+                    <OfferCard
+                    />
+                 )}
+                 keyExtractor={(item) => item}
+                 contentContainerStyle={{ columnGap: SIZES.medium }}
+                 horizontal
+                 showsHorizontalScrollIndicator={false}
+            />
+            </View>
+        </View>
+    );
+};
+
+export default Offers;

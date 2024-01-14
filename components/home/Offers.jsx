@@ -4,12 +4,12 @@ import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import OfferCard from "../common/cards/offers/OfferCard";
 import TrendingCard from "../common/cards/trendings/TrendingCard";
 import commonStyles from "../../styles/common";
-import {COLORS, SIZES } from "../../constants"
+import {COLORS, SIZES, images } from "../../constants"
 
 const Offers = () => {
     const router = useRouter();
     
-    const data = [1, 2, 3];
+    const data = [images.offer1, images.offer2, images.offer3];
 
     return (
         <View style={commonStyles.container}>
@@ -18,7 +18,7 @@ const Offers = () => {
                 <FlatList
                  data={data}
                  renderItem={({ item }) => (
-                    <OfferCard
+                    <OfferCard image={item}
                     />
                  )}
                  keyExtractor={(item) => item}

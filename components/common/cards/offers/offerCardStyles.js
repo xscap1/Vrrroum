@@ -10,12 +10,15 @@ const styles = StyleSheet.create({
     wrapper : {
         backgroundColor : COLORS.darkgray,
         borderRadius: 10,
-        width: 0.70*ww,
-        height: 0.25*wh
+        width: 0.78*ww,
+        height: 0.19*wh
     },
 
     image : {
-        objectFit: 'contain'
+        borderRadius: 10,
+        flex: 1, 
+        height: undefined, 
+        width: undefined
     },
 });
 

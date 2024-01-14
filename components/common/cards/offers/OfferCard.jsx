@@ -7,7 +7,7 @@ import { COLORS, SIZES, icons } from "../../../../constants";
 const OfferCard = ({image}) => {
     return (
         <View style={styles.wrapper}>
-            <Image source={image} style={styles.image} />
+            <Image source={image} style={styles.image} resizeMode="contain"/>
         </View>
     );
 };

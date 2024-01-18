@@ -4,9 +4,9 @@ import commonStyles from "../../../../styles/common";
 import styles from "./listedProductCardStyles";
 import { COLORS, SIZES } from "../../../../constants";
 
-const ListedProductCard = ({image, brand, name, category, isSponso, note}) => {
+const ListedProductCard = ({product}) => {
 
-    const wrapperStyle = isSponso == true ? styles.wrapperSponso : styles.wrapper;
+    const wrapperStyle = product.isSponso == true ? styles.wrapperSponso : styles.wrapper;
 
     const colors = [COLORS.notation1, COLORS.notation2, COLORS.notation3, COLORS.notation4, COLORS.notation5];
 
@@ -30,15 +30,15 @@ const ListedProductCard = ({image, brand, name, category, isSponso, note}) => {
                     />
                 </View>
                 <View style={styles.datasContainer}>
-                    {isSponso==true ? 
+                    {product.isSponso==true ? 
                     <View style={styles.sponsoContainer}>
                         <Text style={styles.sponso}> Sponsorisé </Text>
                     </View> : null}
-                    <Text style={styles.branded}> {brand} | {category} </Text>
-                    <Text style={styles.name}> {name} </Text>
+                    <Text style={styles.branded}> {product.brand} | {product.category} </Text>
+                    <Text style={styles.name}> {product.name} </Text>
                     <View style={styles.noteContainer}>
-                        <View style={{padding: 10, borderRadius: 10, width: 50, backgroundColor: noteToColor(note)}}>
-                            <Text style={styles.noteText}>{note}</Text>
+                        <View style={{padding: 10, borderRadius: 10, width: 50, backgroundColor: noteToColor(product.note)}}>
+                            <Text style={styles.noteText}>{product.note}</Text>
                         </View>
                     </View>
                 </View>

@@ -16,8 +16,8 @@ const ListedProducts = ({products}) => {
             <Text style={commonStyles.heading}>Les mieux notés</Text>
             <Text style={commonStyles.subtext}>Voici notre sélection des meilleurs produits de cette semaine</Text>
             <View style={{marginTop: 10}}>
-                <ListedProductCard brand={products[0].brand} name={products[0].name} category={products[0].category} isSponso={true} note={1}/>
-                <ListedProductCard brand={products[0].brand} name={products[0].name} category={products[0].category} isSponso={false} note={4}/>
+                <ListedProductCard product={products[0]}/>
+                <ListedProductCard product={products[0]}/>
                 {/* <FlatList
                  data={data}
                  renderItem={({ item }) => (

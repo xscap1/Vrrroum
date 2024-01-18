@@ -4,7 +4,13 @@ const COLORS = {
     darkgray : "#0f1213",
     lightgray : "#3e4545",
     lightwhite : "#ecf0ef",
-    subwhite : "#cdd3d2"
+    subwhite : "#cdd3d2",
+    notation1: "#FF0000",
+    notation2: "#FF4000",
+    notation3: "#FFBF00",
+    notation4: "#01DF3A",
+    notation5: "#088A29",
+    invalidNotation : "#3e4545"
 };
 
 const SIZES = {

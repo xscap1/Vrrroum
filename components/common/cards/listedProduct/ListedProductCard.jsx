@@ -37,7 +37,7 @@ const ListedProductCard = ({product}) => {
                     <Text style={styles.branded}> {product.brand} | {product.category} </Text>
                     <Text style={styles.name}> {product.name} </Text>
                     <View style={styles.noteContainer}>
-                        <View style={{padding: 10, borderRadius: 10, width: 50, backgroundColor: noteToColor(product.note)}}>
+                        <View style={{borderRadius: 100, width: 40, height: 40, justifyContent: 'center', backgroundColor: noteToColor(product.note)}}>
                             <Text style={styles.noteText}>{product.note}</Text>
                         </View>
                     </View>

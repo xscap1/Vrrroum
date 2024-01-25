@@ -14,7 +14,7 @@ const Offers = () => {
     return (
         <View style={commonStyles.container}>
             <Text style={commonStyles.heading}>Les offres du jour</Text>
-            <View style={{marginTop: 10}}>
+            <View style={{marginTop: 15}}>
                 <FlatList
                  data={data}
                  renderItem={({ item }) => (

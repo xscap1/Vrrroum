@@ -46,7 +46,7 @@ const Categories = () => {
     return(
         <View style={commonStyles.container}>
             <Text style={commonStyles.heading}>Catégories</Text>
-            <View style={{marginTop: 10}}>
+            <View style={{marginTop: 15}}>
                 {categoriesArr}
             </View>
         </View>

@@ -14,7 +14,7 @@ const Trendings = () => {
     return (
         <View style={commonStyles.container}>
             <Text style={commonStyles.heading}>Les tendances</Text>
-            <View style={{marginTop: 10}}>
+            <View style={{marginTop: 15}}>
                 <FlatList
                  data={data}
                  renderItem={({ item }) => (

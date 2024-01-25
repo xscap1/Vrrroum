@@ -1,10 +1,10 @@
 import { SafeAreaView, ScrollView, View, Text } from "react-native";
 import { Stack, useRouter } from "expo-router";
-import commonStyles from "../styles/common";
-import Footer from "../components/common/footer/Footer"
+import commonStyles from "../../styles/common";
+import Footer from "../../components/common/footer/Footer"
 
 
-const Profile = () => {
+const Scan = () => {
     const router = useRouter()
 
     return (
@@ -19,15 +19,12 @@ const Profile = () => {
                 headerBackVisible : false
             }}
           /> 
-            <ScrollView style={{height:'90%'}}showsVerticalScrollIndicator={false}>
-                <Text style={commonStyles.text}>Profile</Text>
+            <ScrollView showsVerticalScrollIndicator={false}>
+                <Text style={commonStyles.text}>Scan</Text>
             </ScrollView>
-            <View style={{height:'5%'}}>
-                <Footer selected={"Profile"}/>
-            </View>
         </SafeAreaView>
       </View>
     );
   };
   
-  export default Profile;
+  export default Scan;

@@ -21,7 +21,6 @@ const Profile = () => {
         />
         <ScrollView showsVerticalScrollIndicator={false}>
           <Text style={commonStyles.text}>Profile</Text>
-          <Link style={commonStyles.text} href="/home">Go to home</Link>
         </ScrollView>
       </SafeAreaView>
     </View>

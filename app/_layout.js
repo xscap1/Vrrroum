@@ -1,16 +1,17 @@
 import { Stack } from "expo-router";
+import commonStyles from "../styles/common";
 
-export const unstable_settings = {
-  // Ensure any route can link back to `/`
-  initialRouteName: "home",
-};
+// export const unstable_settings = {
+//   // Ensure any route can link back to `/`
+//   initialRouteName: "(tabs)",
+// };
 
-const Layout = () => {
+const StackLayout = () => {
   return (
-    <Stack initialRouteName="home">
-      <Stack.Screen name="home" />
+    <Stack initialRouteName="(tabs)" >
+      <Stack.Screen name="(tabs)" options={{ headerShown: false}}/>
     </Stack>
   )
 };
 
-export default Layout;
+export default StackLayout;

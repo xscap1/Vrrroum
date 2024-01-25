@@ -6,7 +6,7 @@ import { COLORS, SIZES } from "../../../../constants";
 
 const CategoryCard = ({icon, name}) => {
     return (
-        <View style={commonStyles.subcontainer}>
+        <View style={commonStyles.categoryContainer}>
             <View style={styles.wrapper}>
                 <Image source={icon} style={styles.icon} />
                 <View style={styles.nameContainer}>

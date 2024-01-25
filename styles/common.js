@@ -59,6 +59,11 @@ const commonStyles = StyleSheet.create({
         fontSize : SIZES.xLarge,
         color: COLORS.lightwhite,
         fontWeight: 'bold'
+    },
+
+    tabBar : {
+        backgroundColor: COLORS.darkgray,
+        borderBlockColor: COLORS.darkgray
     }
 });
 

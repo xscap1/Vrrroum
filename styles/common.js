@@ -39,6 +39,16 @@ const commonStyles = StyleSheet.create({
         borderRadius: 10
     },
 
+    categoryContainer: {
+        backgroundColor : COLORS.darkgray,
+        marginBottom: 0.05 * ww,
+        paddingTop: 0.05 * ww,
+        paddingBottom: 0.05 * ww,
+        paddingLeft: 0.05 * ww,
+        paddingRight: 0.05 * ww,
+        borderRadius: 10
+    },
+
     text: {
         fontSize : SIZES.large,
         color: COLORS.lightwhite

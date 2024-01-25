@@ -77,10 +77,12 @@ const styles = StyleSheet.create({
     },
 
     noteText: {
-        color: COLORS.lightwhite,
+        textAlign: 'center',
+        fontWeight: '900',
         fontSize: SIZES.medium,
-        fontWeight: 'bold',
-        alignSelf: 'center'
+        marginTop: 0,
+        width: 40,
+        color: COLORS.lightwhite,
     }
 });
 

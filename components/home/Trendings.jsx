@@ -20,7 +20,7 @@ const Trendings = () => {
 
     return (
         <View style={commonStyles.container}>
-            <Text style={commonStyles.heading}>Les mieux notés</Text>
+            <Text style={commonStyles.heading}>Les plus tendances</Text>
             <View style={{ marginTop: 15 }}>
                 {isLoading ? <ActivityIndicator /> : (
                     <FlatList
@@ -30,6 +30,7 @@ const Trendings = () => {
                             <PreviewCard
                                 product={item}
                                 colorNote={utils.noteToColor(item.score)}
+                                scan={true}
                             />
                         )}
                         contentContainerStyle={{ columnGap: SIZES.medium }}

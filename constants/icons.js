@@ -6,8 +6,14 @@ import user  from "../assets/icons/user.png"
 import user_selected  from "../assets/icons/user_selected.png"
 import motoroil from "../assets/icons/motor_oil.png"
 import motoroil_selected from "../assets/icons/motor_oil_selected.png"
+import car from "../assets/icons/car.png"
+import interior from "../assets/icons/interior.png"
+import rim from "../assets/icons/rim.png"
+import shampoo from "../assets/icons/shampoo.png"
+import wax from "../assets/icons/wax.png"
+
 
 export default { motoroil, motoroil_selected,
                  home, home_selected,
                  barcode, barcode_selected,
-                 user, user_selected};
+                 user, user_selected, car, interior, rim, shampoo, wax};

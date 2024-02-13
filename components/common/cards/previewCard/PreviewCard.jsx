@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import commonStyles from "../../../../styles/common";
 import styles from "./previewCardStyles";
-import { COLORS, SIZES } from "../../../../constants"
+import { COLORS, SIZES, icons } from "../../../../constants"
 
 const PreviewCard = ({ product, colorNote, scan }) => {
 
@@ -31,9 +31,19 @@ const PreviewCard = ({ product, colorNote, scan }) => {
                         </View>
 
                         {scan ? (
-                            <View style={styles.scanWrap}>
-                                <Text style={styles.scan}>{product.scans}</Text>
+                            <View style={styles.scanContainer}>
+                                
+                                <View>
+                                    <Text style={styles.scan}>{product.scans}</Text>
+                                </View>
+                                <View>
+                                    <Image
+                                        source={icons.flame}
+                                        style={styles.icon}
+                                    />
+                                </View>
                             </View>
+
                         ) : null}
                     </View>
 

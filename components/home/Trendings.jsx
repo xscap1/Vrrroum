@@ -1,7 +1,7 @@
 import React from "react";
 import { useRouter } from "expo-router";
 import { View, Text, FlatList, TouchableOpacity } from "react-native";
-import TrendingCard from "../common/cards/trendings/TrendingCard";
+import PreviewCard from "../common/cards/previewCard/PreviewCard";
 import commonStyles from "../../styles/common";
 import SeeMoreButton from "../common/buttons/SeeMoreButton";
 import {COLORS, SIZES } from "../../constants"
@@ -18,7 +18,7 @@ const Trendings = () => {
                 <FlatList
                  data={data}
                  renderItem={({ item }) => (
-                    <TrendingCard
+                    <PreviewCard
                         product={item}
                     />
                  )}

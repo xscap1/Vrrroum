@@ -11,9 +11,10 @@ import interior from "../assets/icons/interior.png"
 import rim from "../assets/icons/rim.png"
 import shampoo from "../assets/icons/shampoo.png"
 import wax from "../assets/icons/wax.png"
+import flame from "../assets/icons/flame.png"
 
 
 export default { motoroil, motoroil_selected,
                  home, home_selected,
                  barcode, barcode_selected,
-                 user, user_selected, car, interior, rim, shampoo, wax};
+                 user, user_selected, car, interior, rim, shampoo, wax, flame};

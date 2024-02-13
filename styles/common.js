@@ -74,6 +74,15 @@ const commonStyles = StyleSheet.create({
     tabBar : {
         backgroundColor: COLORS.darkgray,
         borderBlockColor: COLORS.darkgray
+    },
+
+    noteText: {
+        textAlign: 'center',
+        fontWeight: '900',
+        fontSize: SIZES.medium,
+        marginTop: 0,
+        width: 40,
+        color: COLORS.lightwhite
     }
 });
 

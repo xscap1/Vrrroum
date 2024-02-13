@@ -27,7 +27,7 @@ const ListedProductCard = ({product, colorNote}) => {
                     <Text style={styles.name}> {product.name} </Text>
                     <View style={styles.noteContainer}>
                         <View style={{borderRadius: 100, width: 40, height: 40, justifyContent: 'center', backgroundColor: colorNote}}>
-                            <Text style={styles.noteText}>{product.note}</Text>
+                            <Text style={commonStyles.noteText}>{product.note}</Text>
                         </View>
                     </View>
                 </View>

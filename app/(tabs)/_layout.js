@@ -1,6 +1,5 @@
 import { Tabs } from "expo-router";
 import commonStyles from "../../styles/common";
-import Home from "./home";
 import { COLORS, icons } from "../../constants";
 import { Image } from 'react-native';
 

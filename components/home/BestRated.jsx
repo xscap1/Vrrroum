@@ -31,7 +31,7 @@ const BestRated = () => {
                  showsHorizontalScrollIndicator={false}
             />
             </View>
-            <SeeMoreButton handlePress={() => {router.push(`/bestRated/bestRated`)}}/>
+            <SeeMoreButton handlePress={() => {router.push(`/home/bestRated`)}}/>
         </View>
     );
 };

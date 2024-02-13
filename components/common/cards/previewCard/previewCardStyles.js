@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     },
     
     brand: {
-        fontSize: SIZES.small,
+        fontSize: SIZES.medium,
         color: COLORS.lightwhite,
         alignSelf: "flex-start",
     },

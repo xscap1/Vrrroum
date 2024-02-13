@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     },
 
     icon : {
-        height: '100%',
+        height: '105%',
         width: 0.12*ww,
         alignSelf: 'center'
     },

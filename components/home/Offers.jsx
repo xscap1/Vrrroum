@@ -2,7 +2,6 @@ import React from "react";
 import { useRouter } from "expo-router";
 import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import OfferCard from "../common/cards/offers/OfferCard";
-import TrendingCard from "../common/cards/trendings/TrendingCard";
 import commonStyles from "../../styles/common";
 import {COLORS, SIZES, images } from "../../constants"
 

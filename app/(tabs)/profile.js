@@ -1,8 +1,6 @@
 import { SafeAreaView, ScrollView, View, Text } from "react-native";
 import { Stack, useRouter, Link } from "expo-router";
 import commonStyles from "../../styles/common";
-import Footer from "../../components/common/footer/Footer"
-
 
 const Profile = () => {
   const router = useRouter()

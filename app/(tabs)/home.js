@@ -6,7 +6,6 @@ import BestRated from "../../components/home/BestRated";
 import Categories from "../../components/home/Categories";
 import Offers from "../../components/home/Offers";
 import commonStyles from "../../styles/common";
-import Footer from "../../components/common/footer/Footer";
 import ListedProducts from "../../components/home/ListedProducts";
 import { SearchBar } from '@rneui/themed';
 import { COLORS } from "../../constants";
@@ -51,7 +50,7 @@ const Home = () => {
                   inputStyle={{backgroundColor: COLORS.darkgray, color: COLORS.lightwhite}}
               />
             </View>
-            {/* <ListedProducts products={[product1, product2]}/> */}
+            <ListedProducts products={[product1, product2]}/>
             <Offers />
             <Trendings />
             <BestRated />

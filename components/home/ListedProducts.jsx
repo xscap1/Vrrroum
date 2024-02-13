@@ -11,13 +11,15 @@ const ListedProducts = ({products}) => {
     
     const data = [1, 2, 3];
 
+    const utils = require('../../constants/utils');
+
     return (
         <View style={commonStyles.container}>
             <Text style={commonStyles.heading}>Les mieux notés</Text>
             <Text style={commonStyles.subtext}>Voici notre sélection des meilleurs produits de cette semaine</Text>
             <View style={{marginTop: 10}}>
-                <ListedProductCard product={products[0]}/>
-                <ListedProductCard product={products[1]}/>
+                <ListedProductCard product={products[0]} colorNote={utils.noteToColor(products[0].note)}/>
+                <ListedProductCard product={products[1]} colorNote={utils.noteToColor(products[1].note)}/>
                 {/* <FlatList
                  data={data}
                  renderItem={({ item }) => (

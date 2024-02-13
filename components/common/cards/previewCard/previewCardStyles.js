@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     img: {
         borderRadius: 10,
         width : '100%',
-        height: '90%'
+        height: '100%'
     },
 
     brandWrap: {
@@ -39,9 +39,24 @@ const styles = StyleSheet.create({
         alignSelf: "flex-start",
     },
 
+    nameWrap: {
+        paddingVertical: 5,
+        paddingHorizontal: 8,
+        alignSelf: "flex-start",
+        width: '70%'
+    },
+    
+    noteWrap: {
+        paddingVertical: 5,
+        paddingHorizontal: 8,
+        alignSelf: "flex-start",
+        width: '30%'
+    },
+
     name: {
         fontSize: SIZES.medium,
         color: COLORS.lightwhite,
+        alignSelf: 'center'
     },
     
     brand: {
@@ -57,7 +72,8 @@ const styles = StyleSheet.create({
 
     categoryBrandWrapper : {
         flexDirection: "row",
-        justifyContent: "center"
+        justifyContent: "center",
+        marginTop: 12
     },
 
     flexchild: {

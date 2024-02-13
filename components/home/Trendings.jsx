@@ -31,7 +31,7 @@ const Trendings = () => {
                  showsHorizontalScrollIndicator={false}
             />
             </View>
-            <SeeMoreButton handlePress={() => {router.push(`/trends/trends`)}}/>
+            <SeeMoreButton handlePress={() => {router.push(`/home/trends`)}}/>
         </View>
     );
 };

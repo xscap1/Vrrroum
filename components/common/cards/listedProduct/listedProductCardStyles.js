@@ -10,13 +10,13 @@ const styles = StyleSheet.create({
     wrapper : {
         flex: 1,
         flexDirection : "row",
-        height: 0.09*wh,
+        height: 0.12*wh,
     },
 
     wrapperSponso : {
         flex: 1,
         flexDirection : "row",
-        height: 0.12*wh,
+        height: 0.15*wh,
     },
 
     imgContiner: {
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     name: {
         fontSize: SIZES.medium,
         color: COLORS.subwhite,
-        marginTop: 3
+        marginTop: 5
     },
 
     sponsoContainer: {
@@ -69,6 +69,7 @@ const styles = StyleSheet.create({
     noteContainer: {
         alignItems: 'flex-end',
         paddingRight: 10,
+        marginTop: 15
     },
 
 });

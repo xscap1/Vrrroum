@@ -2,36 +2,29 @@ import React from "react";
 import { useRouter } from "expo-router";
 import { View, Text, FlatList } from "react-native";
 import ListedProductCard from "../common/cards/listedProduct/ListedProductCard";
-import commonStyles from "../../styles/common";
-import SeeMoreButton from "../common/buttons/SeeMoreButton";
-import {COLORS, SIZES } from "../../constants"
+import { COLORS, SIZES } from "../../constants"
 
-const ListedProducts = ({products}) => {
+const ListedProducts = ({ products }) => {
     const router = useRouter();
-    
-    const data = [1, 2, 3];
 
     const utils = require('../../constants/utils');
 
     return (
-        <View style={commonStyles.container}>
-            <Text style={commonStyles.heading}>Les mieux notés</Text>
-            <Text style={commonStyles.subtext}>Voici notre sélection des meilleurs produits de cette semaine</Text>
-            <View style={{marginTop: 10}}>
-                <ListedProductCard product={products[0]} colorNote={utils.noteToColor(products[0].note)}/>
-                <ListedProductCard product={products[1]} colorNote={utils.noteToColor(products[1].note)}/>
-                {/* <FlatList
-                 data={data}
-                 renderItem={({ item }) => (
-                    <BestRatedCard
-                        product={item}
-                    />
-                 )}
-                 keyExtractor={(item) => item}
-                 contentContainerStyle={{ columnGap: SIZES.medium }}
-                 horizontal
-                 showsHorizontalScrollIndicator={false}
-            /> */}
+        <View style={{ flex: 1 }}>
+            <View style={{ marginTop: 15, flex: 1 }}>
+                <FlatList
+                    style={{ flex: 1 }}
+                    data={products}
+                    keyExtractor={({ id }) => id}
+                    renderItem={({ item }) => (
+                        <ListedProductCard
+                            product={item}
+                            colorNote={utils.noteToColor(item.score)}
+                        />
+                    )}
+                    contentContainerStyle={{ columnGap: SIZES.medium }}
+                    showsVerticalScrollIndicator={false}
+                />
             </View>
         </View>
     );

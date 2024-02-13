@@ -25,6 +25,17 @@ const styles = StyleSheet.create({
         paddingHorizontal: 8,
         alignSelf: "flex-start",
     },
+
+    scanWrap: {
+        backgroundColor: COLORS.background,
+        borderColor: COLORS.lightgreen,
+        borderWidth: 1,
+        borderRadius: 100,
+        paddingVertical: 5,
+        paddingHorizontal: 8,
+        justifyContent: "center",
+        alignSelf: "flex-start",
+    },
     
     img: {
         borderRadius: 10,
@@ -43,14 +54,14 @@ const styles = StyleSheet.create({
         paddingVertical: 5,
         paddingHorizontal: 8,
         alignSelf: "flex-start",
-        width: '70%'
+        width: '75%'
     },
     
     noteWrap: {
         paddingVertical: 5,
         paddingHorizontal: 8,
         alignSelf: "flex-start",
-        width: '30%'
+        width: '25%'
     },
 
     name: {
@@ -65,6 +76,18 @@ const styles = StyleSheet.create({
         alignSelf: "flex-start",
     },
 
+    category: {
+        fontSize: SIZES.medium,
+        color: COLORS.lightwhite,
+        alignSelf: "flex-start",
+    },
+
+    scan: {
+        fontSize: SIZES.medium,
+        color: COLORS.lightgreen,
+        alignSelf: "flex-start",
+    },
+
     rate: {
         fontSize: SIZES.medium,
         color: COLORS.lightwhite,
@@ -72,8 +95,9 @@ const styles = StyleSheet.create({
 
     categoryBrandWrapper : {
         flexDirection: "row",
-        justifyContent: "center",
-        marginTop: 12
+        marginTop: 12,
+        justifyContent:'space-between',
+        gap: 10
     },
 
     flexchild: {

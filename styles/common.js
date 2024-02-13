@@ -8,7 +8,7 @@ wh = Dimensions.get('window').height;
 
 const commonStyles = StyleSheet.create({
     body: {
-        backgroundColor : COLORS.darkgray,
+        backgroundColor: COLORS.darkgray,
         width: '100%',
         height: '100%',
         flex: 1
@@ -18,8 +18,13 @@ const commonStyles = StyleSheet.create({
         backgroundColor: COLORS.background
     },
 
+    flexSafeArea: {
+        backgroundColor: COLORS.background,
+        flex: 1
+    },
+
     header: {
-        backgroundColor : COLORS.background,
+        backgroundColor: COLORS.background,
     },
 
     container: {
@@ -29,8 +34,15 @@ const commonStyles = StyleSheet.create({
         paddingRight: 0.05 * ww,
     },
 
+    flexContainer: {
+        paddingTop: 0.05 * ww,
+        paddingLeft: 0.05 * ww,
+        paddingRight: 0.05 * ww,
+        flex: 1
+    },
+
     subcontainer: {
-        backgroundColor : COLORS.darkgray,
+        backgroundColor: COLORS.darkgray,
         marginTop: 0.05 * ww,
         paddingTop: 0.05 * ww,
         paddingBottom: 0.05 * ww,
@@ -40,7 +52,7 @@ const commonStyles = StyleSheet.create({
     },
 
     categoryContainer: {
-        backgroundColor : COLORS.darkgray,
+        backgroundColor: COLORS.darkgray,
         marginBottom: 0.05 * ww,
         paddingTop: 0.05 * ww,
         paddingBottom: 0.05 * ww,
@@ -50,28 +62,28 @@ const commonStyles = StyleSheet.create({
     },
 
     text: {
-        fontSize : SIZES.large,
+        fontSize: SIZES.large,
         color: COLORS.lightwhite
     },
 
     textBold: {
-        fontSize : SIZES.large,
+        fontSize: SIZES.large,
         color: COLORS.lightwhite,
         fontWeight: 'bold'
     },
 
-    subtext : {
-        fontsize : SIZES.medium,
-        color : COLORS.subwhite
+    subtext: {
+        fontsize: SIZES.medium,
+        color: COLORS.subwhite
     },
 
     heading: {
-        fontSize : SIZES.xLarge,
+        fontSize: SIZES.xLarge,
         color: COLORS.lightwhite,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
     },
 
-    tabBar : {
+    tabBar: {
         backgroundColor: COLORS.darkgray,
         borderBlockColor: COLORS.darkgray
     },
@@ -83,7 +95,21 @@ const commonStyles = StyleSheet.create({
         marginTop: 0,
         width: 40,
         color: COLORS.lightwhite
-    }
+    },
+
+    categoryWrap: {
+        backgroundColor: COLORS.lightgray,
+        borderRadius: 100,
+        paddingVertical: 5,
+        paddingHorizontal: 8,
+        alignSelf: "flex-start",
+    },
+
+    category: {
+        fontSize: SIZES.medium,
+        color: COLORS.lightwhite,
+        alignSelf: "flex-start",
+    },
 });
 
 export default commonStyles;

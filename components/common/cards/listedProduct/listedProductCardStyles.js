@@ -71,19 +71,6 @@ const styles = StyleSheet.create({
         paddingRight: 10,
     },
 
-    note: {
-        padding: 10,
-        borderRadius: 10
-    },
-
-    noteText: {
-        textAlign: 'center',
-        fontWeight: '900',
-        fontSize: SIZES.medium,
-        marginTop: 0,
-        width: 40,
-        color: COLORS.lightwhite,
-    }
 });
 
 export default styles;

@@ -4,7 +4,7 @@ import commonStyles from "../../../../styles/common";
 import styles from "./previewCardStyles";
 import { COLORS, SIZES } from "../../../../constants"
 
-const PreviewCard = ({ product, colorNote }) => {
+const PreviewCard = ({ product, colorNote, scan }) => {
 
     return (
         <View style={styles.wrapper}>
@@ -27,8 +27,14 @@ const PreviewCard = ({ product, colorNote }) => {
                         </View>
 
                         <View style={styles.categoryWrap}>
-                            <Text style={styles.brand}>{product.category}</Text>
+                            <Text style={styles.category}>{product.category}</Text>
                         </View>
+
+                        {scan ? (
+                            <View style={styles.scanWrap}>
+                                <Text style={styles.scan}>{product.scans}</Text>
+                            </View>
+                        ) : null}
                     </View>
 
                     <View style={styles.categoryBrandWrapper}>
@@ -39,8 +45,15 @@ const PreviewCard = ({ product, colorNote }) => {
                         </View>
 
                         <View style={styles.noteWrap}>
-                            <View style={{ borderRadius: 100, width: 40, height: 40, justifyContent: 'center', backgroundColor: colorNote }}>
-                                <Text style={commonStyles.noteText}>{product.score}</Text>
+                            <View style={{ borderRadius: 100, width: 40, height: 40, justifyContent: 'center', backgroundColor: COLORS.background, borderWidth: '1', borderStyle: 'solid', borderColor: colorNote }}>
+                                <Text style={{
+                                    textAlign: 'center',
+                                    fontWeight: '500',
+                                    fontSize: SIZES.medium,
+                                    marginTop: 0,
+                                    width: 40,
+                                    color: colorNote
+                                }}>{product.score}</Text>
                             </View>
                         </View>
                     </View>

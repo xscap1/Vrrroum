@@ -20,22 +20,29 @@ const PreviewCard = ({product}) => {
                 <View style={styles.categoryBrandWrapper}>
 
                 <View style={styles.flexchild}>
-                    <View style={styles.categoryWrap}>
-                        <Text style={styles.brand}>Catégorie</Text>
-                    </View>
-                </View>
-
-                <View style={styles.flexchild}>
                     <View style={styles.brandWrap}>
                         <Text style={styles.brand}>Marque</Text>
                     </View>
                 </View>
 
+                <View style={styles.flexchild}>
+                    <View style={styles.categoryWrap}>
+                        <Text style={styles.brand}>Catégorie</Text>
+                    </View>
                 </View>
 
-                <View style={{alignSelf: "center", marginTop: 10}}>
-                <Text style={styles.name}>Nom</Text>
-                <Text style={styles.rate}>8/10</Text>
+                </View>
+
+                <View style={{marginTop: 10}}>
+                    <View style={styles.categoryBrandWrapper}>
+                        <View style={styles.brandWrap}>
+                            <Text style={styles.name}>Nom</Text>
+                        </View>
+
+                        <View  style={styles.brandWrap}>
+                            <Text style={styles.rate}>8/10</Text>
+                        </View>
+                    </View>
                 </View>
             </View>
 

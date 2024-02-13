@@ -1,7 +1,7 @@
 import React from "react";
 import { useRouter } from "expo-router";
 import { View, Text, FlatList } from "react-native";
-import BestRatedCard from "../common/cards/bestRated/BestRatedCard";
+import PreviewCard from "../common/cards/previewCard/PreviewCard";
 import commonStyles from "../../styles/common";
 import SeeMoreButton from "../common/buttons/SeeMoreButton";
 import {COLORS, SIZES } from "../../constants"
@@ -18,7 +18,7 @@ const BestRated = () => {
                 <FlatList
                  data={data}
                  renderItem={({ item }) => (
-                    <BestRatedCard
+                    <PreviewCard
                         product={item}
                     />
                  )}

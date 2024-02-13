@@ -17,7 +17,7 @@ const ListedProducts = ({products}) => {
             <Text style={commonStyles.subtext}>Voici notre sélection des meilleurs produits de cette semaine</Text>
             <View style={{marginTop: 10}}>
                 <ListedProductCard product={products[0]}/>
-                <ListedProductCard product={products[0]}/>
+                <ListedProductCard product={products[1]}/>
                 {/* <FlatList
                  data={data}
                  renderItem={({ item }) => (

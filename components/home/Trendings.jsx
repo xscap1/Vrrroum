@@ -11,6 +11,8 @@ const Trendings = () => {
     
     const data = [1, 2, 3];
 
+    const utils = require('../../constants/utils');
+
     return (
         <View style={commonStyles.container}>
             <Text style={commonStyles.heading}>Les tendances</Text>
@@ -20,6 +22,7 @@ const Trendings = () => {
                  renderItem={({ item }) => (
                     <PreviewCard
                         product={item}
+                        colorNote={utils.noteToColor(item)}
                     />
                  )}
                  keyExtractor={(item) => item}

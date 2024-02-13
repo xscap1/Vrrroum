@@ -11,6 +11,8 @@ const BestRated = () => {
     
     const data = [1, 2, 3];
 
+    const utils = require('../../constants/utils');
+
     return (
         <View style={commonStyles.container}>
             <Text style={commonStyles.heading}>Les mieux notés</Text>
@@ -20,6 +22,7 @@ const BestRated = () => {
                  renderItem={({ item }) => (
                     <PreviewCard
                         product={item}
+                        colorNote={utils.noteToColor(item)}
                     />
                  )}
                  keyExtractor={(item) => item}

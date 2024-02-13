@@ -2,21 +2,10 @@ import React from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import commonStyles from "../../../../styles/common";
 import styles from "./listedProductCardStyles";
-import { COLORS, SIZES } from "../../../../constants";
 
-const ListedProductCard = ({product}) => {
+const ListedProductCard = ({product, colorNote}) => {
 
     const wrapperStyle = product.isSponso == true ? styles.wrapperSponso : styles.wrapper;
-
-    const colors = [COLORS.notation1, COLORS.notation2, COLORS.notation3, COLORS.notation4, COLORS.notation5];
-
-    const noteToColor = (note) => {
-        const tranche = Math.floor(note / 2) + 1;
-
-        if (tranche > 0 && tranche <= colors.length)
-            return colors[tranche-1];
-        return COLORS.invalidNotation;
-    };
 
     return (
         <View style={commonStyles.subcontainer}>
@@ -37,7 +26,7 @@ const ListedProductCard = ({product}) => {
                     <Text style={styles.branded}> {product.brand} | {product.category} </Text>
                     <Text style={styles.name}> {product.name} </Text>
                     <View style={styles.noteContainer}>
-                        <View style={{borderRadius: 100, width: 40, height: 40, justifyContent: 'center', backgroundColor: noteToColor(product.note)}}>
+                        <View style={{borderRadius: 100, width: 40, height: 40, justifyContent: 'center', backgroundColor: colorNote}}>
                             <Text style={styles.noteText}>{product.note}</Text>
                         </View>
                     </View>

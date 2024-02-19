@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
         paddingRight: 0.05 * ww,
         borderRadius: 10,
         width: 0.7*ww,
-        height: 0.4*wh
+        height: 0.42*wh
     },
 
     categoryWrap: {
@@ -35,7 +35,6 @@ const styles = StyleSheet.create({
         paddingVertical: 5,
         paddingHorizontal: 8,
         justifyContent: "center",
-        alignSelf: "flex-start",
     },
 
     scanWrap: {
@@ -52,7 +51,8 @@ const styles = StyleSheet.create({
     img: {
         borderRadius: 10,
         width : '100%',
-        height: '100%'
+        height: '100%',
+        resizeMode: 'contain'
     },
 
     icon: {

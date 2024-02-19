@@ -46,16 +46,30 @@ const getTrendsFromApi = async (setData, setLoading) => {
     }
 };
 
-const geCategoryFromApi = async (category, setData, setLoading) => {
+const geCategoryBatchFromApi = async (category, cursor, setData, setLoading, setCursor) => {
     try {
-        await fetch('http://192.168.0.145:8383/api/categories/'+category)
+        let q = 'http://192.168.0.145:8383/api/categoriesBatch/' + category;
+        if (cursor != null) {
+            q = 'http://192.168.0.145:8383/api/categoriesBatch/' + category + '?cursor=' + cursor;
+        }
+
+        await fetch(q)
             .then((response) => response.json())
-            .then((json) => setData(json))
+            .then((json) => {
+                if (cursor == null) {
+                    setData(json.data);
+                }
+                else {
+                    setData(prevData => [...prevData, ...json.data]);
+                }
+                setCursor(json.nextCursor);
+            })
             .catch((error) => console.error(error))
-            .finally(() => setLoading(false));
+            .finally(() => { setLoading(false); });
     } catch (error) {
         console.error(error);
     }
 };
 
-export { getBestRatedFromApi, getBestRatedPreviewFromApi, getTrendsFromApi, getTrendsPreviewFromApi }
+
+export { getBestRatedFromApi, getBestRatedPreviewFromApi, getTrendsFromApi, getTrendsPreviewFromApi, geCategoryBatchFromApi }

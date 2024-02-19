@@ -31,7 +31,7 @@ const Trends = () => {
           <Text style={commonStyles.subtext}>Voici notre sélection des produits les plus scannés de cette semaine</Text>
 
           {isLoading ? <ActivityIndicator /> : (
-            <ListedProducts products={data} />
+            <ListedProducts products={data} scan={true} />
           )}
         </View>
 

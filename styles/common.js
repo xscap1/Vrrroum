@@ -110,6 +110,23 @@ const commonStyles = StyleSheet.create({
         color: COLORS.lightwhite,
         alignSelf: "flex-start",
     },
+
+    scanContainer: {
+        flexDirection: "row",
+        backgroundColor: COLORS.background,
+        borderColor: COLORS.lightgreen,
+        borderWidth: 1,
+        borderRadius: 100,
+        paddingVertical: 5,
+        paddingHorizontal: 8,
+        justifyContent: "center",
+    },
+
+    scan: {
+        fontSize: SIZES.medium,
+        color: COLORS.lightgreen,
+        alignSelf: "flex-start",
+    },
 });
 
 export default commonStyles;

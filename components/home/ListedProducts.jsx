@@ -4,7 +4,7 @@ import { View, Text, FlatList } from "react-native";
 import ListedProductCard from "../common/cards/listedProduct/ListedProductCard";
 import { COLORS, SIZES } from "../../constants"
 
-const ListedProducts = ({ products }) => {
+const ListedProducts = ({ products, scan, onEndOnPress }) => {
     const router = useRouter();
 
     const utils = require('../../constants/utils');
@@ -20,10 +20,13 @@ const ListedProducts = ({ products }) => {
                         <ListedProductCard
                             product={item}
                             colorNote={utils.noteToColor(item.score)}
+                            scan = {scan}
                         />
                     )}
                     contentContainerStyle={{ columnGap: SIZES.medium }}
                     showsVerticalScrollIndicator={false}
+                    onEndReached={() => { if (onEndOnPress != null) onEndOnPress(); }}
+                    onEndReachedThreshold={0.2}
                 />
             </View>
         </View>

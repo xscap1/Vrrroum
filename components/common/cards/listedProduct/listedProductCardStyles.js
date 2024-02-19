@@ -21,19 +21,22 @@ const styles = StyleSheet.create({
 
     imgContiner: {
         width: '20%',
-        // backgroundColor: 'red'
+        backgroundColor: 'white',
+        borderRadius: 10
     },
 
     img: {
         width: '100%',
         height: '100%',
-        borderRadius: 10
+        borderRadius: 10,
+        resizeMode: 'contain'
     },
 
     datasContainer: {
         width: '80%',
         // backgroundColor: 'blue',
-        marginLeft: 10
+        paddingLeft: 10,
+        paddingRight: 5,
     },
 
     nameContainer: {
@@ -54,9 +57,7 @@ const styles = StyleSheet.create({
     },
 
     sponsoContainer: {
-        // backgroundColor: COLORS.lightgray,
-        borderRadius: 100,
-        alignSelf: 'flex-start',
+        backgroundColor: 'red',
         // padding: 1,
         marginBottom: 5
     },
@@ -70,6 +71,12 @@ const styles = StyleSheet.create({
         alignItems: 'flex-end',
         paddingRight: 10,
         marginTop: 15
+    },
+
+    icon: {
+        width: 15,
+        height: 15,
+        margin: 1
     },
 
 });

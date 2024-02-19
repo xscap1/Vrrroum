@@ -31,7 +31,7 @@ const BestRated = () => {
           <Text style={commonStyles.subtext}>Voici notre sélection des meilleurs produits de cette semaine</Text>
 
           {isLoading ? <ActivityIndicator /> : (
-            <ListedProducts products={data} />
+            <ListedProducts products={data}/>
           )}
         </View>
 

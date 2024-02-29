@@ -7,7 +7,6 @@ import { Link } from "expo-router";
 
 const Details = ({ product }) => {
 
-
     const [show, setShow] = useState(false);
 
     const Information = ({ label, text, border }) => {

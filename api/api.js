@@ -71,5 +71,22 @@ const geCategoryBatchFromApi = async (category, cursor, setData, setLoading, set
     }
 };
 
+const getRecommendationsFromApi = async (id, category, score, setData, setLoading) => {
+    let q = 'http://192.168.0.145:8383/api/recommendations/'+id+'?category=' + category + '&score=' + score;
 
-export { getBestRatedFromApi, getBestRatedPreviewFromApi, getTrendsFromApi, getTrendsPreviewFromApi, geCategoryBatchFromApi }
+    try {
+        await fetch(q)
+            .then((response) => response.json())
+            .then((json) => {
+                console.log(json.data);
+                setData(json.data);
+            })
+            .catch((error) => console.error(error))
+            .finally(() => { setLoading(false); });
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+
+export { getBestRatedFromApi, getBestRatedPreviewFromApi, getTrendsFromApi, getTrendsPreviewFromApi, geCategoryBatchFromApi, getRecommendationsFromApi }

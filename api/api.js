@@ -78,8 +78,7 @@ const getRecommendationsFromApi = async (id, category, score, setData, setLoadin
         await fetch(q)
             .then((response) => response.json())
             .then((json) => {
-                console.log(json.data);
-                setData(json.data);
+                setData(json);
             })
             .catch((error) => console.error(error))
             .finally(() => { setLoading(false); });

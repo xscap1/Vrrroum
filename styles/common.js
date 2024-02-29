@@ -127,6 +127,36 @@ const commonStyles = StyleSheet.create({
         color: COLORS.lightgreen,
         alignSelf: "flex-start",
     },
+
+    dataActiveButton: {
+        borderColor: COLORS.yellow,
+        borderWidth: 1,
+        borderRadius: 10,
+        alignSelf: 'center',
+        width: '100%',
+        padding: 5,
+        alignItems: 'center'
+    },
+
+    dataInactiveButton: {
+        borderColor: COLORS.lightwhite,
+        borderWidth: 1,
+        borderRadius: 10,
+        alignSelf: 'center',
+        width: '100%',
+        padding: 5,
+        alignItems: 'center'
+    },
+
+    activeText: {
+        fontSize: SIZES.medium,
+        color: COLORS.yellow,
+    },
+
+    inactiveText: {
+        fontSize: SIZES.medium,
+        color: COLORS.lightwhite
+    }
 });
 
 export default commonStyles;

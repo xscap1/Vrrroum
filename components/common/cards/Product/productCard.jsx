@@ -5,21 +5,23 @@ import styles from "./productCardStyles";
 import { COLORS, SIZES, icons } from "../../../../constants"
 import Details from "../../products/details/details";
 import ListedProducts from '../../../home/ListedProducts';
+import Recommendations from '../../products/recommendations/recommendations';
 
 const ProductCard = ({ product, colorNote, scan }) => {
 
     const wrapperStyle = product.isSponso == true ? styles.wrapperSponso : styles.wrapper;
 
     const [show, setShow] = useState(true);
-    const [isLoading, setLoading] = useState(true);
-    const [recommendations, setRecommendations] = useState();
+    // const [isLoading, setLoading] = useState(true);
+    // const [recommendations, setRecommendations] = useState();
 
-    const api = require("../../../../api/api");
+    // const api = require("../../../../api/api");
 
-    useEffect(() => {
-        api.getRecommendationsFromApi(product.id, product.category, product.score, setRecommendations, setLoading);
-        // api.getRecommendationsFromApi('70382800598', 'interior_plastic_cleaner', 7.2, setRecommendations, setLoading);
-    }, []);
+    // useEffect(() => {
+    //     console.log("Je passe ici");
+    //     api.getRecommendationsFromApi(product.id, product.category, product.score, setRecommendations, setLoading);
+    //     // api.getRecommendationsFromApi('70382800598', 'interior_plastic_cleaner', 7.2, setRecommendations, setLoading);
+    // }, []);
 
     return (
         <View style={commonStyles.flexContainer}>
@@ -129,8 +131,7 @@ const ProductCard = ({ product, colorNote, scan }) => {
                 </View>
 
                 <View style={{ marginTop: 20 }}>
-                    <Text style={commonStyles.heading}>Recommendations</Text>
-                    {isLoading ? <ActivityIndicator /> : <ListedProducts products={recommendations} flatlist={false} />}
+                    <Recommendations product={product}/>
                 </View>
             </ScrollView>
         </View>

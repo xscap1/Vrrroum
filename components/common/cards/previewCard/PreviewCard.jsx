@@ -1,10 +1,9 @@
 import React from "react";
-import { View, Text, Image, Pressable } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import commonStyles from "../../../../styles/common";
 import styles from "./previewCardStyles";
 import { COLORS, SIZES, icons } from "../../../../constants"
-import { Link, useNavigation, useRouter } from "expo-router";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { useNavigation } from "expo-router";
 
 const PreviewCard = ({ product, colorNote, scan }) => {
 

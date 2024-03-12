@@ -4,7 +4,6 @@ import commonStyles from "../../../../styles/common";
 import styles from "./productCardStyles";
 import { COLORS, SIZES, icons } from "../../../../constants"
 import Details from "../../products/details/details";
-import ListedProducts from '../../../home/ListedProducts';
 import Recommendations from '../../products/recommendations/recommendations';
 
 const ProductCard = ({ product, colorNote, scan }) => {

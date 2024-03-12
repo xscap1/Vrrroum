@@ -39,7 +39,7 @@ const Trendings = () => {
                     />
                 )}
             </View>
-            <SeeMoreButton handlePress={() => { router.push(`/home/trends`) }} />
+            <SeeMoreButton text={"Découvrir"} handlePress={() => { router.push(`/home/trends`) }} />
         </View>
     );
 };

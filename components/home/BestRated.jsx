@@ -38,7 +38,7 @@ const BestRated = () => {
                     />
                 )}
             </View>
-            <SeeMoreButton handlePress={() => { router.push(`/home/bestRated`) }} />
+            <SeeMoreButton text={"Découvrir"} handlePress={() => { router.push(`/home/bestRated`) }} />
         </View>
     );
 };

@@ -73,8 +73,14 @@ const commonStyles = StyleSheet.create({
     },
 
     subtext: {
-        fontsize: SIZES.medium,
+        fontSize: SIZES.medium,
         color: COLORS.subwhite
+    },
+
+    subtextCenter: {
+        fontSize: SIZES.medium,
+        color: COLORS.subwhite,
+        textAlign: 'center'
     },
 
     heading: {

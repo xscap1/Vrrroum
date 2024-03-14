@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { SafeAreaView, ScrollView, View, Text } from "react-native";
+import { SafeAreaView, ScrollView, View, Text, Platform } from "react-native";
 import { Stack, useRouter, Link } from "expo-router";
 import Trendings from "../../../components/home/Trendings";
 import BestRated from "../../../components/home/BestRated";
@@ -44,10 +44,12 @@ const Home = () => {
                   placeholder="Rechercher un produit"
                   onChangeText={updateSearch}
                   value={search}
-                  platform="ios"
+                  platform={Platform.OS}
+                  searchIcon={null}
                   containerStyle={{backgroundColor: COLORS.background}}
-                  inputContainerStyle={{backgroundColor: COLORS.darkgray}}
-                  inputStyle={{backgroundColor: COLORS.darkgray, color: COLORS.lightwhite}}
+                  inputContainerStyle={{backgroundColor: COLORS.darkgray, borderRadius: 10}}
+                  inputStyle={{backgroundColor: COLORS.darkgray, color: COLORS.lightwhite, paddingLeft: 10}}
+                  onFocus={() => {}}
               />
             </View>
             {/* <ListedProducts products={[product1, product2]}/> */}

@@ -9,6 +9,7 @@ import commonStyles from "../styles/common";
 const StackLayout = () => {
   return (
     <Stack initialRouteName="(tabs)" >
+      <Stack.Screen name="index" options={{ headerShown: false}}/>
       <Stack.Screen name="(tabs)" options={{ headerShown: false}}/>
     </Stack>
   )

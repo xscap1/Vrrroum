@@ -1,15 +1,24 @@
 import { SafeAreaView, View } from "react-native";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
+import React, {useState, useEffect} from 'react';
 import commonStyles from "../../../styles/common";
-import React from 'react';
 import ProductCard from "../../../components/common/cards/Product/productCard";
-
+import { getProductInCache } from "../../../utils";
 
 const Product = () => {
 
-    const router = useRouter();
-    const { product } = useLocalSearchParams();
+    // const { product } = getProductInCache();
+    const [product, setProduct] = useState();
     const utils = require('../../../constants/utils');
+
+    useEffect(() => {
+        const getProduct = async () => {
+            const p = await getProductInCache();
+            setProduct(p);
+        };
+
+        getProduct();
+      }, []);
 
     return (
         <View style={commonStyles.body}>
@@ -21,7 +30,7 @@ const Product = () => {
                         headerTitle: "",
                     }}
                 />
-                <ProductCard product={product} colorNote={utils.noteToColor(product.score)} />
+                {product ? <ProductCard product={product} colorNote={utils.noteToColor(product.score)} /> : null}
             </SafeAreaView>
         </View>
     );

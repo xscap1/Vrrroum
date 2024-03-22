@@ -4,6 +4,7 @@ import commonStyles from "../../../../styles/common";
 import styles from "./listedProductCardStyles";
 import { COLORS, SIZES, icons } from "../../../../constants"
 import { useNavigation } from "expo-router";
+import { storeProductInCache } from "../../../../utils";
 
 const ListedProductCard = ({ product, colorNote, scan }) => {
 
@@ -12,9 +13,8 @@ const ListedProductCard = ({ product, colorNote, scan }) => {
 
     return (
         <TouchableOpacity onPress={() => {
-            navigation.push('product', {
-                product: product
-            })
+            storeProductInCache(product);
+            navigation.push('product');
         }}>
             <View>
                 <View style={commonStyles.subcontainer}>

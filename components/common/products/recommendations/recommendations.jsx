@@ -8,12 +8,14 @@ const Recommendations = ({ product }) => {
     const [isLoading, setLoading] = useState(true);
     const [recommendations, setRecommendations] = useState();
 
+    console.log("looking for recommendations of");
+
     const api = require('../../../../api/api');
 
     useEffect(() => {
         console.log("Je passe ici");
-        api.getRecommendationsFromApi(product.id, product.category, product.score, setRecommendations, setLoading);
-        // api.getRecommendationsFromApi('70382800598', 'interior_plastic_cleaner', 7.2, setRecommendations, setLoading);
+        if (product.score >= 0)
+         api.getRecommendationsFromApi(product.id, product.category, product.score, setRecommendations, setLoading);
     }, []);
 
     return (

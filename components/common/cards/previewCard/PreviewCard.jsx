@@ -4,6 +4,7 @@ import commonStyles from "../../../../styles/common";
 import styles from "./previewCardStyles";
 import { COLORS, SIZES, icons } from "../../../../constants"
 import { useNavigation } from "expo-router";
+import { storeProductInCache } from "../../../../utils";
 
 const PreviewCard = ({ product, colorNote, scan }) => {
 
@@ -11,9 +12,8 @@ const PreviewCard = ({ product, colorNote, scan }) => {
 
     return (
         <TouchableOpacity onPress={() => {
-            navigation.navigate('product', {
-                product: product
-            })
+            storeProductInCache(product);
+            navigation.navigate('product');
         }}>
             <View style={styles.wrapper}>
                 {product ? (

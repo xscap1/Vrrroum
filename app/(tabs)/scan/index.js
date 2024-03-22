@@ -1,9 +1,10 @@
 import { Camera, CameraType } from 'expo-camera';
 import { useState, useEffect, useCallback, React } from 'react';
-import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Button, StyleSheet, Text, TouchableOpacity, View, Platform } from 'react-native';
 import * as BarCodeScanner from "expo-barcode-scanner";
-import { useNavigation, useFocusEffect } from "expo-router";
+import { useNavigation, useFocusEffect, useRouter } from "expo-router";
 import { COLORS } from '../../../constants';
+
 const Scan = () => {
 
   const [type, setType] = useState(CameraType.back);
@@ -11,6 +12,7 @@ const Scan = () => {
   const [code, setCode] = useState();
   const [permission, requestPermission] = Camera.useCameraPermissions();
   const navigation = useNavigation();
+  const router = useRouter();
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
@@ -43,20 +45,29 @@ const Scan = () => {
 
   const onCodeScanned = ({ type, data }) => {
     setScanned(true);
-    let newCode = { type: type, data: data };
+    const newCode = { type: type, data: data };
     console.log("barcode scanned !");
     console.log(newCode);
-    setCode(newCode);
-    navigation.push('product', {
-      code: newCode
-    });
+    // navigation.push('product', {
+    //   code: newCode
+    // });
+
+    navigation.navigate('product', { code: newCode.data });
+
+    // router.push({ pathname: `/scan/product/${newCode.data}`, params: newCode });
+
+    // navigation.push({pathname : '/product', params : {code : newCode}});
+
+    // navigation.push('product', {
+    //   params: { code: newCode },
+    // });
   };
 
   return (
     <View style={styles.container}>
       <Camera style={styles.camera} type={type}
         onBarCodeScanned={scanned ? null : onCodeScanned}
-
+        // zoom={Platform.OS === 'ios' ? 0.015 : 0}
         barCodeScannerSettings={{
           barCodeTypes: [BarCodeScanner.Constants.BarCodeType.ean13, BarCodeScanner.Constants.BarCodeType.ean8, BarCodeScanner.Constants.BarCodeType.upc_ean, BarCodeScanner.Constants.BarCodeType.qr],
           barCodeSize: { height: 10, width: 10 }

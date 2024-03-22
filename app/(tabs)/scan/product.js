@@ -8,14 +8,15 @@ import ProductNotFoundCard from "../../../components/common/cards/Product/produc
 
 const Product = () => {
 
-    const { code } = useLocalSearchParams();
+    const local = useLocalSearchParams();
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState();
     const api = require('../../../api/api');
     const utils = require('../../../constants/utils');
 
     useEffect(() => {
-        api.getProductFromApi(code.data, setData, setLoading);
+        console.log(local.code);
+        api.getProductFromApi(local.code, setData, setLoading);
     }, []);
 
     return (

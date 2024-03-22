@@ -1,6 +1,9 @@
+const serverip = 'http://192.168.0.145:8383/api';
+// const serverip = 'http://192.168.1.23:8383/api';
+
 const getBestRatedPreviewFromApi = async (setData, setLoading) => {
     try {
-        await fetch('http://192.168.0.145:8383/api/bestRatedPreview')
+        await fetch(serverip + '/bestRatedPreview')
             .then((response) => response.json())
             .then((json) => setData(json))
             .catch((error) => console.error(error))
@@ -12,7 +15,7 @@ const getBestRatedPreviewFromApi = async (setData, setLoading) => {
 
 const getBestRatedFromApi = async (setData, setLoading) => {
     try {
-        await fetch('http://192.168.0.145:8383/api/bestRated')
+        await fetch(serverip + '/bestRated')
             .then((response) => response.json())
             .then((json) => setData(json))
             .catch((error) => console.error(error))
@@ -24,7 +27,7 @@ const getBestRatedFromApi = async (setData, setLoading) => {
 
 const getTrendsPreviewFromApi = async (setData, setLoading) => {
     try {
-        await fetch('http://192.168.0.145:8383/api/trendsPreview')
+        await fetch(serverip + '/trendsPreview')
             .then((response) => response.json())
             .then((json) => setData(json))
             .catch((error) => console.error(error))
@@ -36,7 +39,7 @@ const getTrendsPreviewFromApi = async (setData, setLoading) => {
 
 const getTrendsFromApi = async (setData, setLoading) => {
     try {
-        await fetch('http://192.168.0.145:8383/api/trends')
+        await fetch(serverip + '/trends')
             .then((response) => response.json())
             .then((json) => setData(json))
             .catch((error) => console.error(error))
@@ -48,9 +51,9 @@ const getTrendsFromApi = async (setData, setLoading) => {
 
 const geCategoryBatchFromApi = async (category, cursor, setData, setLoading, setCursor) => {
     try {
-        let q = 'http://192.168.0.145:8383/api/categoriesBatch/' + category;
+        let q = serverip + '/categoriesBatch/' + category;
         if (cursor != null) {
-            q = 'http://192.168.0.145:8383/api/categoriesBatch/' + category + '?cursor=' + cursor;
+            q = serverip + '/categoriesBatch/' + category + '?cursor=' + cursor;
         }
 
         await fetch(q)
@@ -72,7 +75,7 @@ const geCategoryBatchFromApi = async (category, cursor, setData, setLoading, set
 };
 
 const getRecommendationsFromApi = async (id, category, score, setData, setLoading) => {
-    let q = 'http://192.168.0.145:8383/api/recommendations/' + id + '?category=' + category + '&score=' + score;
+    let q = serverip + '/recommendations/' + id + '?category=' + category + '&score=' + score;
 
     try {
         await fetch(q)
@@ -88,8 +91,9 @@ const getRecommendationsFromApi = async (id, category, score, setData, setLoadin
 }
 
 const getProductFromApi = async (id, setData, setLoading) => {
-    let q = "http://192.168.0.145:8383/api/products/" + id;
-
+    let q = serverip + "/products/" + id;
+    console.log(q);
+    console.log(id);
     try {
         await fetch(q)
             .then((response) => response.json())
@@ -105,4 +109,27 @@ const getProductFromApi = async (id, setData, setLoading) => {
 }
 
 
-export { getBestRatedFromApi, getBestRatedPreviewFromApi, getTrendsFromApi, getTrendsPreviewFromApi, geCategoryBatchFromApi, getRecommendationsFromApi, getProductFromApi }
+const PostUserLoginFromApi = async (data) => {
+    try {
+        await fetch(serverip+'/users/login', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: data
+        })
+        .then(response => response.json())
+        .then((json) => {
+            if (json.hasOwnProperty("logged"))
+                return json;
+        });
+    }
+
+    catch(e) {
+        console.error(e); 
+    }
+}
+
+
+export { getBestRatedFromApi, getBestRatedPreviewFromApi, getTrendsFromApi, getTrendsPreviewFromApi, geCategoryBatchFromApi, getRecommendationsFromApi, getProductFromApi, PostUserLoginFromApi }

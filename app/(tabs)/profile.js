@@ -3,6 +3,7 @@ import { SafeAreaView, ScrollView, View, Text, TouchableOpacity, Platform, Activ
 import { Stack, useRouter, Link } from "expo-router";
 import * as SecureStore from 'expo-secure-store';
 import commonStyles from "../../styles/common";
+import ProfileData from '../../components/profile/ProfileData';
 
 let AppleAuthentication;
 
@@ -120,9 +121,9 @@ const Profile = () => {
           }}
         />
         {isLoading ?
-        <View style={{flex: 1, alignItems: 'center'}}>
-          <ActivityIndicator/>
-        </View>
+          <View style={{ flex: 1, alignItems: 'center' }}>
+            <ActivityIndicator />
+          </View>
           :
           <View style={commonStyles.flexContainer}>
             {loggedIn ?
@@ -130,49 +131,59 @@ const Profile = () => {
                 <TouchableOpacity onPress={async () => {
                   await LogOut();
                 }}>
-                  <Text style={commonStyles.subtext}>Se déconneccter</Text>
+                  <Text style={commonStyles.subtext}>Se déconnecter</Text>
                 </TouchableOpacity>
               </View> :
-              <View style={{ alignSelf: 'center', marginTop: 40 }}>
-                {jwt ? null :
-                  Platform.OS == "ios" ? <AppleAuthentication.AppleAuthenticationButton
-                    buttonType={AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN}
-                    buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.BLACK}
-                    cornerRadius={5}
-                    style={{
-                      width: 200,
-                      height: 44,
-                    }}
-                    onPress={async () => {
-                      try {
-                        const credential = await AppleAuthentication.signInAsync({
-                          requestedScopes: [
-                            AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
-                            AppleAuthentication.AppleAuthenticationScope.EMAIL,
-                          ],
-                        });
-                        // signed in
 
-                        const user = {
-                          id : credential.user,
-                          email : credential.email,
-                          fullName: credential.fullName,
-                          loginsys: "Apple",
-                        }
+              <View>
+                <View style={{alignItems: 'center', marginTop: 20}}>
+                  <Text style={commonStyles.subtextCenter}>Connectez-vous pour profiter de toutes les fonctionnalités de Vrrroum.</Text>
+                </View>
+                <View style={{ alignSelf: 'center', marginTop: 40 }}>
+                  {jwt ? null :
+                    Platform.OS == "ios" ? <AppleAuthentication.AppleAuthenticationButton
+                      buttonType={AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN}
+                      buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.BLACK}
+                      cornerRadius={5}
+                      style={{
+                        width: 200,
+                        height: 44,
+                      }}
+                      onPress={async () => {
+                        try {
+                          const credential = await AppleAuthentication.signInAsync({
+                            requestedScopes: [
+                              AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
+                              AppleAuthentication.AppleAuthenticationScope.EMAIL,
+                            ],
+                          });
+                          // signed in
 
-                        LogIn(credential.identityToken, user);
-                      } catch (e) {
-                        if (e.code === 'ERR_REQUEST_CANCELED') {
-                          // handle that the user canceled the sign-in flow
-                        } else {
-                          // handle other errors
+                          const user = {
+                            id: credential.user,
+                            email: credential.email,
+                            fullName: credential.fullName,
+                            loginsys: "Apple",
+                          }
+
+                          LogIn(credential.identityToken, user);
+                        } catch (e) {
+                          if (e.code === 'ERR_REQUEST_CANCELED') {
+                            // handle that the user canceled the sign-in flow
+                          } else {
+                            // handle other errors
+                          }
                         }
-                      }
-                    }}
-                  /> : null
-                }
+                      }}
+                    /> : null
+                  }
+                </View>
               </View>
+              // Bouton de connexion
+
             }
+
+            <ProfileData logged={loggedIn} />
           </View>}
 
       </SafeAreaView>

@@ -17,7 +17,6 @@ export const getProductInCache = async () => {
     return JSON.parse(p);
 }
 
-
 export const storeFavoritesInCache = async (id) => {
     var f = await SecureStore.getItemAsync('favorites');
     if (f) {
@@ -34,7 +33,6 @@ export const getFavoritesInCache = async () => {
     const f = await SecureStore.getItemAsync('favorites');
     return f;
 }
-
 
 export const storeHistoryInCache = async (id) => {
     var h = await SecureStore.getItemAsync('history');

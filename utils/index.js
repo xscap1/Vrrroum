@@ -16,3 +16,39 @@ export const getProductInCache = async () => {
     const p = await SecureStore.getItemAsync('product');
     return JSON.parse(p);
 }
+
+
+export const storeFavoritesInCache = async (id) => {
+    var f = await SecureStore.getItemAsync('favorites');
+    if (f) {
+        f.push(id);
+        await SecureStore.setItemAsync('favorites', f);
+    }
+    else {
+        const favorites = [id];
+        await SecureStore.setItemAsync('favorites', favorites);
+    }
+}
+
+export const getFavoritesInCache = async () => {
+    const f = await SecureStore.getItemAsync('favorites');
+    return f;
+}
+
+
+export const storeHistoryInCache = async (id) => {
+    var h = await SecureStore.getItemAsync('history');
+    if (h) {
+        h.push(id);
+        await SecureStore.setItemAsync('history', h);
+    }
+    else {
+        const history = [id];
+        await SecureStore.setItemAsync('history', history);
+    }
+}
+
+export const getHistoryInCache = async () => {
+    const h = await SecureStore.getItemAsync('history');
+    return h;
+}

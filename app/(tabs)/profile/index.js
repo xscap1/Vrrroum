@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { SafeAreaView, ScrollView, View, Text, TouchableOpacity, Platform, ActivityIndicator } from "react-native";
 import { Stack, useRouter, Link } from "expo-router";
 import * as SecureStore from 'expo-secure-store';
-import commonStyles from "../../styles/common";
-import ProfileData from '../../components/profile/ProfileData';
+import commonStyles from '../../../styles/common';
+import ProfileData from '../../../components/profile/ProfileData';
 
 let AppleAuthentication;
 
@@ -20,7 +20,7 @@ const Profile = () => {
   const [jwtExpiration, setJwtExpiration] = useState();
   const [isLoading, setLoading] = useState(true);
 
-  const api = require('../../api/api');
+  const api = require('../../../api/api');
 
   const storeJwt = async (token, expirationDate) => {
     try {
@@ -179,8 +179,6 @@ const Profile = () => {
                   }
                 </View>
               </View>
-              // Bouton de connexion
-
             }
 
             <ProfileData logged={loggedIn} />

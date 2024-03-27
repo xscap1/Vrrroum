@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity, Alert } from "react-native";
 import styles from "./seemoreButtonsStyles";
 import { COLORS, SIZES } from "../../../constants";
-import { StyleSheet } from "react-native-web";
+import { StyleSheet } from "react-native";
 
 const ListedButton = ({ text, handlePress, disabled }) => {
 

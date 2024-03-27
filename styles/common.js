@@ -41,6 +41,10 @@ const commonStyles = StyleSheet.create({
         flex: 1
     },
 
+    flexContainerWoPadding: {
+        flex: 1
+    },
+
     subcontainer: {
         backgroundColor: COLORS.darkgray,
         marginTop: 0.05 * ww,

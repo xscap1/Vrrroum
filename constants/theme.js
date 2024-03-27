@@ -11,7 +11,9 @@ const COLORS = {
     notation4: "#01DF3A",
     notation5: "#088A29",
     invalidNotation : "#3e4545",
-    lightgreen: "#35C262"
+    lightgreen: "#35C262",
+    whitesmoke : "#f2f2f2",
+    gainsbora : "#e6e6e6",
 };
 
 const SIZES = {

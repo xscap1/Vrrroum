@@ -5,15 +5,17 @@ import { COLORS, SIZES, images } from "../../constants"
 import { Icon } from "@rneui/base";
 import ListedButton from "../common/buttons/ListedButton";
 import ScreenHeaderBtn from "../common/buttons/SeeMoreButton";
-
+import { useNavigation } from "expo-router";
 const ProfileData = ({logged}) => {
+
+    const navigation = useNavigation();
 
     return (
         <View style={commonStyles.flexContainer}>
-            <ScreenHeaderBtn text={'S\'abonner à Vrrroum'}/>
+            <ScreenHeaderBtn text={'S\'abonner à Vrrroum'} handlePress={() => {navigation.push('pricing');}}/>
             <View style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', justifyContent: 'space-between', gap: 15, marginTop: 50 }}>
-                <ListedButton disabled={!logged} text={'Favoris'}/>
-                <ListedButton disabled={!logged} text={'Historique de scans'}/>
+                <ListedButton disabled={!logged} text={'Favoris'} handlePress={() => {navigation.push('favs');}}/>
+                <ListedButton disabled={!logged} text={'Historique de scans'} handlePress={() => {navigation.push('history');}}/>
             </View>
         </View>
     );

@@ -1,5 +1,10 @@
+import { deleteHistory, storeHistoryInCache } from "../utils";
+
 const serverip = 'http://192.168.0.145:8383/api';
+//Vincent
 // const serverip = 'http://192.168.1.23:8383/api';
+//Sahra
+// const serverip = 'http://192.168.1.145:8383/api';
 
 const getBestRatedPreviewFromApi = async (setData, setLoading) => {
     try {
@@ -92,17 +97,21 @@ const getRecommendationsFromApi = async (id, category, score, setData, setLoadin
 
 const getProductFromApi = async (id, setData, setLoading) => {
     let q = serverip + "/products/" + id;
-    console.log(q);
-    console.log(id);
     try {
         await fetch(q)
             .then((response) => response.json())
             .then((json) => {
-                if (!json.hasOwnProperty("message"))
+                if (!json.hasOwnProperty("message")) {
                     setData(json);
+                    // deleteHistory();
+                    storeHistoryInCache(json.id);
+                }
+
             })
             .catch((error) => console.error(error))
-            .finally(() => { setLoading(false); });
+            .finally(() => {
+                setLoading(false);
+            });
     } catch (error) {
         console.error(error);
     }
@@ -111,7 +120,7 @@ const getProductFromApi = async (id, setData, setLoading) => {
 
 const PostUserLoginFromApi = async (data) => {
     try {
-        await fetch(serverip+'/users/login', {
+        await fetch(serverip + '/users/login', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -119,17 +128,60 @@ const PostUserLoginFromApi = async (data) => {
             },
             body: data
         })
-        .then(response => response.json())
-        .then((json) => {
-            if (json.hasOwnProperty("logged"))
-                return json;
-        });
+            .then(response => response.json())
+            .then((json) => {
+                if (json.hasOwnProperty("logged"))
+                    return json;
+            });
     }
 
-    catch(e) {
-        console.error(e); 
+    catch (e) {
+        console.error(e);
     }
 }
 
+const PostIdsFromApi = async (data, setData, setLoading) => {
+    try {
+        await fetch(serverip + '/products/list', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: data
+        }).then((response) => response.json())
+            .then((json) => {
+                setData(json);
+            })
+            .catch((error) => console.error(error))
+            .finally(() => { setLoading(false); });
+    }
 
-export { getBestRatedFromApi, getBestRatedPreviewFromApi, getTrendsFromApi, getTrendsPreviewFromApi, geCategoryBatchFromApi, getRecommendationsFromApi, getProductFromApi, PostUserLoginFromApi }
+    catch (e) {
+        console.error(e);
+    }
+}
+
+const PostSearchKeywordsToApi = async (data, setData, setLoading) => {
+    try {
+        await fetch(serverip + '/products/search', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: data
+        }).then((response) => response.json())
+            .then((json) => {
+                setData(json);
+            })
+            .catch((error) => console.error(error))
+            .finally(() => { setLoading(false); });
+    }
+
+    catch (e) {
+        console.error(e);
+    }
+}
+
+export { getBestRatedFromApi, getBestRatedPreviewFromApi, getTrendsFromApi, getTrendsPreviewFromApi, geCategoryBatchFromApi, getRecommendationsFromApi, getProductFromApi, PostUserLoginFromApi, PostIdsFromApi, PostSearchKeywordsToApi }

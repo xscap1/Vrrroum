@@ -17,7 +17,9 @@ const FocusPricingCard = ({ card }) => {
             backgroundColor: COLORS.darkgray,
             height: '80%',
             padding: 15,
-            width: 0.8 * ww
+            width: 0.8 * ww,
+            borderWidth: 2,
+            borderColor: COLORS.yellow
         },
 
         planName: {

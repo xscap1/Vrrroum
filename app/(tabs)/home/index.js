@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { SafeAreaView, ScrollView, View, Text, Platform } from "react-native";
+import { SafeAreaView, ScrollView, View, Text, Platform, ActivityIndicator, TouchableOpacity, Keyboard } from "react-native";
 import { Stack, useRouter, Link } from "expo-router";
 import Trendings from "../../../components/home/Trendings";
 import BestRated from "../../../components/home/BestRated";
@@ -7,40 +7,97 @@ import Categories from "../../../components/home/Categories";
 import Offers from "../../../components/home/Offers";
 import commonStyles from "../../../styles/common";
 import ListedProducts from "../../../components/home/ListedProducts";
-import { SearchBar } from '@rneui/themed';
+import { Icon, SearchBar } from '@rneui/themed';
 import { COLORS } from "../../../constants";
 
 const Home = () => {
 
   const [search, setSearch] = useState("");
+  const [isSearching, setSearching] = useState(false);
+  const [searchData, setSearchData] = useState();
+  const [isLoading, setLoading] = useState(true);
+
+  const api = require('../../../api/api');
+
   const updateSearch = (search) => {
     setSearch(search);
   };
 
+  const clearIcon = () => {
+    return (
+      <Icon name="cancel" type="material" onPress={() => { setSearching(false); setSearch(""); setSearchData(undefined); setLoading(false); }} />
+    );
+  };
+
+  const resetSearchBar = () => {
+    setSearching(false);
+    setSearch("");
+    setSearchData(undefined);
+    setLoading(true);
+    if (Keyboard.isVisible) {
+      Keyboard.dismiss();
+    }
+  }
+
+  const postKeywordsToApi = async () => {
+    // api.PostSearchKeywordsToApi(JSON.stringify(search));
+    const data = [search];
+    await api.PostSearchKeywordsToApi(JSON.stringify(data), setSearchData, setLoading);
+  }
+
   return (
-      <View style={commonStyles.body}>
-        <SafeAreaView style={commonStyles.safeArea}>
-          <ScrollView showsVerticalScrollIndicator={false}>
-            <View style={{ paddingLeft: 0.02 * ww, paddingRight: 0.02 * ww, }}>
-              <SearchBar
-                placeholder="Rechercher un produit"
-                onChangeText={updateSearch}
-                value={search}
-                platform={Platform.OS}
-                searchIcon={null}
-                containerStyle={{ backgroundColor: COLORS.background }}
-                inputContainerStyle={{ backgroundColor: COLORS.darkgray, borderRadius: 10 }}
-                inputStyle={{ backgroundColor: COLORS.darkgray, color: COLORS.lightwhite, paddingLeft: 10 }}
-                onFocus={() => { }}
-              />
-            </View>
-            <Offers />
+    <View style={commonStyles.body}>
+      <SafeAreaView style={commonStyles.safeArea}>
+        {/* scrollEnabled={!isSearching} */}
+        <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={"always"}>
+          <View style={{ paddingLeft: 0.02 * ww, paddingRight: 0.02 * ww, display: 'flex', flexDirection: 'row' }}>
+            {isSearching ?
+              <TouchableOpacity onPressIn={() => { resetSearchBar(); }} style={{ padding: 10, alignSelf: 'center' }}>
+                <Icon name="arrow-back" type="material" color={COLORS.yellow} size={30} />
+              </TouchableOpacity>
+              : null}
+            <SearchBar
+              placeholder="Rechercher un produit"
+              onChangeText={updateSearch}
+              value={search}
+              platform={Platform.OS}
+              searchIcon={null}
+              containerStyle={{ backgroundColor: COLORS.background, width: isSearching ? '85%' : 'auto' }}
+              inputContainerStyle={{ backgroundColor: COLORS.darkgray, borderRadius: 10 }}
+              inputStyle={{ backgroundColor: COLORS.darkgray, color: COLORS.lightwhite, paddingLeft: 10 }}
+              onFocus={() => {
+                setSearching(true);
+              }}
+              // onBlur={() => {
+              //   console.log("onblur");
+              //   if (!isSearching)
+              //     resetSearchBar();
+              // }}
+              // onCancel={() => {
+              //   console.log("oncancel");
+              //   resetSearchBar();
+              // }}
+              cancelButtonTitle={""}
+              clearIcon={search != "" ? clearIcon : null}
+              onSubmitEditing={() => { postKeywordsToApi(); console.log(isSearching); }}
+            />
+          </View>
+          {isSearching ? <View style={commonStyles.flexFullScreenContainer}>
+            {isLoading ? <ActivityIndicator /> : <ListedProducts products={searchData} flatlist={false} />}
+          </View> : null}
+
+          {!searchData ? (<View><Offers />
             <Trendings />
             <BestRated />
-            <Categories />
-          </ScrollView>
-        </SafeAreaView>
-      </View>
+            <Categories /></View>) : null}
+
+          {/* // <Offers />
+          // <Trendings />
+          // <BestRated />
+          // <Categories /> */}
+        </ScrollView>
+      </SafeAreaView>
+    </View>
   );
 };
 

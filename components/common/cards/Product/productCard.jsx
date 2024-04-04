@@ -7,6 +7,7 @@ import Details from "../../products/details/details";
 import Recommendations from '../../products/recommendations/recommendations';
 import { Icon } from '@rneui/themed';
 import { storeFavoritesInCache } from '../../../../utils';
+import DisplayTextInformations from '../DisplayTextInformations';
 
 
 const ProductCard = ({ product, colorNote, scan }) => {
@@ -138,14 +139,7 @@ const ProductCard = ({ product, colorNote, scan }) => {
                     </View>
                     : null}
 
-
-                <View style={{ marginTop: 20 }}>
-                    <Text style={commonStyles.heading}>Comparateur de prix</Text>
-                    <View style={commonStyles.subcontainer}>
-                        <Text style={{ color: COLORS.subwhite, alignSelf: 'center', textAlign: 'center' }}>Cette fonctionnalité sera bientôt disponible !
-                            L'équipe Vrrroum travaille dur pour vous offrir la solution d'achat en ligne la plus économique.</Text>
-                    </View>
-                </View>
+                <DisplayTextInformations title={"Comparateur de prix"} text={"Cette fonctionnalité sera bientôt disponible \! L\'équipe Vrrroum travaille dur pour vous offrir la solution d'achat en ligne la plus économique."} />
 
                 <View style={{ marginTop: 20 }}>
                     <Recommendations product={product} />

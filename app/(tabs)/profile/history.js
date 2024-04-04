@@ -4,6 +4,7 @@ import commonStyles from "../../../styles/common";
 import React, { useEffect, useState } from 'react';
 import ListedProducts from "../../../components/home/ListedProducts";
 import { deleteHistory, getHistoryInCache, storeHistoryInCache } from "../../../utils";
+import DisplayTextInformations from "../../../components/common/cards/DisplayTextInformations";
 
 const History = () => {
 
@@ -11,12 +12,17 @@ const History = () => {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState();
 
+  const missingHistoryText = "Vous n'avez scanné aucun produits récemment. Utiliser le scanner afin d'obtenir des informations sur un produit. Ensuite retrouver tous vos produits scannés ici !"
+
   useEffect(() => {
     const getHistory = async () => {
       // await deleteHistory();
       const h = await getHistoryInCache();
       if (h != null && h.length > 0)
         api.PostIdsFromApi(JSON.stringify(h), setData, setLoading);
+
+      else if (h.length == 0)
+        setLoading(false);
 
     }
 
@@ -35,7 +41,7 @@ const History = () => {
         />
         <View style={commonStyles.flexContainer}>
           <Text style={commonStyles.heading}>Historique</Text>
-          {isLoading ? <ActivityIndicator /> : (
+          {isLoading ? <ActivityIndicator /> : (data ? <DisplayTextInformations text={missingHistoryText}/> :
             <ListedProducts products={data} />
           )}
         </View>

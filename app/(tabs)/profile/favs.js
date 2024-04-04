@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { deleteFavorites, getFavoritesInCache } from '../../../utils';
 import ListedProducts from "../../../components/home/ListedProducts";
 import Favorites from "../../../components/profile/favs/Favorites";
+import DisplayTextInformations from "../../../components/common/cards/DisplayTextInformations";
 
 const Favs = () => {
 
@@ -12,12 +13,16 @@ const Favs = () => {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState();
 
+  const missingFavoritesText = "Vous n'avez aucun produits favoris. Scanner ou rechercher un produit pour l'ajouter à vos favoris !"
+
   useEffect(() => {
     const getFavorites = async () => {
       const f = await getFavoritesInCache();
       if (f != null && f.length > 0)
         api.PostIdsFromApi(JSON.stringify(f), setData, setLoading);
-      // await deleteFavorites();
+      else {
+        setLoading(false);
+      }
     }
 
     getFavorites();
@@ -36,8 +41,9 @@ const Favs = () => {
         <View style={commonStyles.flexContainer}>
           <Text style={commonStyles.heading}>Favoris</Text>
 
-          {isLoading ? <ActivityIndicator /> : (
-            <Favorites products={data} />
+          {isLoading ? <ActivityIndicator /> : 
+          (data ? <Favorites products={data} onEmptyFavorites={() => {setData(undefined);}}/> :
+            <DisplayTextInformations text={missingFavoritesText}/>
           )}
         </View>
       </SafeAreaView>

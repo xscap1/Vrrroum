@@ -44,6 +44,17 @@ export const storeFavoritesInCache = async (id) => {
     }
 }
 
+export const CheckPresentInFavorite = async (id) => {
+    var f = await SecureStore.getItemAsync('favorites');
+    if (f) {
+        f = new Set(JSON.parse(f));
+        if (f.has(id))
+            return true;
+    }
+
+    return false;
+}
+
 export const removeFavoriteByIdInCache = async (id) => {
     let f = await SecureStore.getItemAsync('favorites');
     if (f) {

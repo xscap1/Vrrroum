@@ -40,7 +40,7 @@ const Profile = () => {
   const checkJwtExpiration = async () => {
     const expirationDateString = await SecureStore.getItemAsync('jwtExpiration');
     if (expirationDateString) {
-      const expirationDate = new Date(parseInt(expirationDateString));
+      const expirationDate = new Date((expirationDateString));
       if (expirationDate < new Date()) {
         // Token expiré, se déconnecter
         LogOut();

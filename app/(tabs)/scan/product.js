@@ -5,6 +5,7 @@ import React from 'react';
 import { useState, useEffect } from "react";
 import ProductCard from "../../../components/common/cards/Product/productCard";
 import ProductNotFoundCard from "../../../components/common/cards/Product/productNotFoundCard";
+import { storeHistoryInCache } from "../../../utils";
 
 const Product = () => {
 
@@ -15,7 +16,6 @@ const Product = () => {
     const utils = require('../../../constants/utils');
 
     useEffect(() => {
-        console.log(local.code);
         api.getProductFromApi(local.code, setData, setLoading);
     }, []);
 
@@ -29,7 +29,7 @@ const Product = () => {
                         headerTitle: "",
                     }}
                 />
-                {isLoading ? <ActivityIndicator /> : (data ? <ProductCard product={data} colorNote={utils.noteToColor(data.score)} /> : <ProductNotFoundCard/>)}
+                {isLoading ? <ActivityIndicator /> : (data ? <ProductCard product={data} colorNote={utils.noteToColor(data.score)} /> : <ProductNotFoundCard />)}
             </SafeAreaView>
         </View>
     );

@@ -15,7 +15,7 @@ const Favs = () => {
   useEffect(() => {
     const getFavorites = async () => {
       const f = await getFavoritesInCache();
-      if (f != null && f.size > 0)
+      if (f != null && f.length > 0)
         api.PostIdsFromApi(JSON.stringify(f), setData, setLoading);
       // await deleteFavorites();
     }

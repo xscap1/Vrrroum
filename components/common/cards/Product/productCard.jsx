@@ -5,12 +5,23 @@ import styles from "./productCardStyles";
 import { COLORS, SIZES, icons } from "../../../../constants"
 import Details from "../../products/details/details";
 import Recommendations from '../../products/recommendations/recommendations';
+import { Icon } from '@rneui/themed';
+import { storeFavoritesInCache } from '../../../../utils';
+
 
 const ProductCard = ({ product, colorNote, scan }) => {
 
     const wrapperStyle = product.isSponso == true ? styles.wrapperSponso : styles.wrapper;
 
     const [show, setShow] = useState(true);
+
+    async function addProductToFavorites() {
+        const res = await storeFavoritesInCache(product.id);
+        if (res == -1)
+            alert("Le produit est déjà dans vos favoris");
+        if (res == -2)
+            alert("Votre liste des favoris est pleine");
+    }
     // const [isLoading, setLoading] = useState(true);
     // const [recommendations, setRecommendations] = useState();
 
@@ -91,6 +102,11 @@ const ProductCard = ({ product, colorNote, scan }) => {
                     ) : null}
                 </View>
 
+                <TouchableOpacity style={{ display: "flex", flexDirection: "row", gap: 5, marginTop: 20, justifyContent: 'flex-end' }} onPress={() => { addProductToFavorites(); }}>
+                    <Text style={commonStyles.subtext}>Ajouter aux favoris</Text>
+                    <Icon name='favorite-border' color={COLORS.yellow} />
+                </TouchableOpacity>
+
                 <View style={{ flexDirection: 'row', marginTop: '10%' }}>
                     <View style={{ width: '50%' }}>
                         <TouchableOpacity style={{ alignSelf: 'center', width: '80%' }} disabled={show} onPress={() => setShow(!show)}>
@@ -107,6 +123,8 @@ const ProductCard = ({ product, colorNote, scan }) => {
                         </TouchableOpacity>
                     </View>
                 </View>
+
+
 
                 {show ?
                     <View>
@@ -130,7 +148,7 @@ const ProductCard = ({ product, colorNote, scan }) => {
                 </View>
 
                 <View style={{ marginTop: 20 }}>
-                    <Recommendations product={product}/>
+                    <Recommendations product={product} />
                 </View>
             </ScrollView>
         </View>

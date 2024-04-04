@@ -45,6 +45,15 @@ const commonStyles = StyleSheet.create({
         flex: 1
     },
 
+    flexFullScreenContainer : {
+        paddingTop: 0.05 * ww,
+        paddingBottom: 0.05 * ww,
+        paddingLeft: 0.05 * ww,
+        paddingRight: 0.05 * ww,
+        width: '100%',
+        height: '100%'
+    },
+
     subcontainer: {
         backgroundColor: COLORS.darkgray,
         marginTop: 0.05 * ww,

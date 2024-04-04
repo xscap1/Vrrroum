@@ -6,7 +6,7 @@ import { COLORS, SIZES, icons } from "../../../../constants"
 import Details from "../../products/details/details";
 import Recommendations from '../../products/recommendations/recommendations';
 import { Icon } from '@rneui/themed';
-import { storeFavoritesInCache } from '../../../../utils';
+import { CheckPresentInFavorite, removeFavoriteByIdInCache, storeFavoritesInCache } from '../../../../utils';
 import DisplayTextInformations from '../DisplayTextInformations';
 
 
@@ -15,24 +15,32 @@ const ProductCard = ({ product, colorNote, scan }) => {
     const wrapperStyle = product.isSponso == true ? styles.wrapperSponso : styles.wrapper;
 
     const [show, setShow] = useState(true);
+    const [switchIcon, setSwitchIcon] = useState(false);
 
     async function addProductToFavorites() {
         const res = await storeFavoritesInCache(product.id);
-        if (res == -1)
-            alert("Le produit est déjà dans vos favoris");
+        if (res == -1) {
+            const removed = await removeFavoriteByIdInCache(product.id);
+            if (removed >= 0)
+                setSwitchIcon(false);
+        }
         if (res == -2)
             alert("Votre liste des favoris est pleine");
+        return res;
     }
-    // const [isLoading, setLoading] = useState(true);
-    // const [recommendations, setRecommendations] = useState();
 
-    // const api = require("../../../../api/api");
+    useEffect(() => {
 
-    // useEffect(() => {
-    //     console.log("Je passe ici");
-    //     api.getRecommendationsFromApi(product.id, product.category, product.score, setRecommendations, setLoading);
-    //     // api.getRecommendationsFromApi('70382800598', 'interior_plastic_cleaner', 7.2, setRecommendations, setLoading);
-    // }, []);
+        async function check() {
+            const res = await CheckPresentInFavorite(product.id);
+            console.log("present ? :" + res);
+            if (res)
+                setSwitchIcon(true);
+        }
+
+        check();
+
+    }, [switchIcon]);
 
     return (
         <View style={commonStyles.flexContainer}>
@@ -103,9 +111,9 @@ const ProductCard = ({ product, colorNote, scan }) => {
                     ) : null}
                 </View>
 
-                <TouchableOpacity style={{ display: "flex", flexDirection: "row", gap: 5, marginTop: 20, justifyContent: 'flex-end' }} onPress={() => { addProductToFavorites(); }}>
-                    <Text style={commonStyles.subtext}>Ajouter aux favoris</Text>
-                    <Icon name='favorite-border' color={COLORS.yellow} />
+                <TouchableOpacity style={{ display: "flex", flexDirection: "row", gap: 5, marginTop: 20, justifyContent: 'flex-end' }} onPress={async () => { const res = await addProductToFavorites(); if (res == 0) setSwitchIcon(true); }}>
+                    <Text style={commonStyles.subtext}>{switchIcon ? "Ajouté" : "Ajouter aux favoris"}</Text>
+                    <Icon name={switchIcon ? 'favorite' : 'favorite-border'} type='material' color={COLORS.yellow} />
                 </TouchableOpacity>
 
                 <View style={{ flexDirection: 'row', marginTop: '10%' }}>

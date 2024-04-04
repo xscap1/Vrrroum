@@ -7,7 +7,7 @@ import { Icon } from "@rneui/themed";
 import commonStyles from "../../../styles/common";
 import { removeFavoriteByIdInCache } from "../../../utils";
 
-const Favorites = ({ products, scan, onEndOnPress, flatlist = true }) => {
+const Favorites = ({ products, scan, onEndOnPress, onEmptyFavorites, flatlist = true }) => {
     const router = useRouter();
 
     const utils = require('../../../constants/utils');
@@ -18,7 +18,10 @@ const Favorites = ({ products, scan, onEndOnPress, flatlist = true }) => {
         console.log(id);
         const filteredData = data.filter((item) => item.id !== id);
         setData(filteredData);
-        await removeFavoriteByIdInCache(id);
+        const size = await removeFavoriteByIdInCache(id);
+        if (size == 0) {
+            onEmptyFavorites();
+        }
     }
 
     return (

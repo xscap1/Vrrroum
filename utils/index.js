@@ -51,7 +51,7 @@ export const removeFavoriteByIdInCache = async (id) => {
         if (f.has(id)) {
             f.delete(id);
             await SecureStore.setItemAsync('favorites', JSON.stringify([...f]));
-            return 0;
+            return f.size;
         }
     }
 

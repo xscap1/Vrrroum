@@ -17,7 +17,7 @@ const Recommendations = ({ product }) => {
 
     return (
         <View>
-            <Text style={commonStyles.heading}>Recommendations</Text>
+            <Text style={commonStyles.heading}>Recommandations</Text>
             {isLoading ? <ActivityIndicator /> : <ListedProducts products={recommendations} flatlist={false} />}
         </View>
     );

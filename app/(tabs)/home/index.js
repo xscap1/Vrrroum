@@ -68,15 +68,8 @@ const Home = () => {
               onFocus={() => {
                 setSearching(true);
               }}
-              // onBlur={() => {
-              //   console.log("onblur");
-              //   if (!isSearching)
-              //     resetSearchBar();
-              // }}
-              // onCancel={() => {
-              //   console.log("oncancel");
-              //   resetSearchBar();
-              // }}
+              returnKeyType={"search"}
+              enablesReturnKeyAutomatically={true}
               cancelButtonTitle={""}
               clearIcon={search != "" ? clearIcon : null}
               onSubmitEditing={() => { postKeywordsToApi(); console.log(isSearching); }}

@@ -41,9 +41,7 @@ const History = () => {
         />
         <View style={commonStyles.flexContainer}>
           <Text style={commonStyles.heading}>Historique</Text>
-          {isLoading ? <ActivityIndicator /> : (data ? <DisplayTextInformations text={missingHistoryText}/> :
-            <ListedProducts products={data} />
-          )}
+          {isLoading ? <ActivityIndicator /> : (data ? <ListedProducts products={data} /> : <DisplayTextInformations text={missingHistoryText} />)}
         </View>
       </SafeAreaView>
     </View>

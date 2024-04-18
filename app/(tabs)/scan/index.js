@@ -1,18 +1,22 @@
-import { Camera, CameraType } from 'expo-camera';
-import { useState, useEffect, useCallback, React } from 'react';
+import { Camera, CameraType, AutoFocus } from 'expo-camera';
+import { useState, useEffect, useCallback, React, useRef } from 'react';
 import { Button, StyleSheet, Text, TouchableOpacity, View, Platform } from 'react-native';
 import * as BarCodeScanner from "expo-barcode-scanner";
 import { useNavigation, useFocusEffect, useRouter } from "expo-router";
+import { Icon } from '@rneui/themed';
 import { COLORS } from '../../../constants';
 
 const Scan = () => {
 
   const [type, setType] = useState(CameraType.back);
   const [scanned, setScanned] = useState(false);
-  const [code, setCode] = useState();
   const [permission, requestPermission] = Camera.useCameraPermissions();
   const navigation = useNavigation();
-  const router = useRouter();
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [focusSquare, setFocusSquare] = useState({ visible: false, x: 0, y: 0 });
+  const [prevFocusDistance, setPrevFocusDistance] = useState(null);
+  const cameraRef = useRef();
+  const [timeoutId, setTimeoutId] = useState();
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
@@ -23,6 +27,17 @@ const Scan = () => {
     // Nettoyer l'écouteur lors du démontage de l'écran
     return unsubscribe;
   }, [navigation]);
+
+  useEffect(() => {
+    if (isRefreshing) {
+      setIsRefreshing(false);
+    }
+  }, [isRefreshing]);
+
+  // useEffect(() => {
+  //   const id = setTimeout(() => {setIsRefreshing(true);}, 1000); // Répéter toutes les 1 seconde
+  //   setTimeoutId(id);
+  // }, [isRefreshing]);
 
   if (!permission) {
     // Camera permissions are still loading
@@ -48,40 +63,44 @@ const Scan = () => {
     const newCode = { type: type, data: data };
     console.log("barcode scanned !");
     console.log(newCode);
-    // navigation.push('product', {
-    //   code: newCode
-    // });
-
     navigation.navigate('product', { code: newCode.data });
+  };
 
-    // router.push({ pathname: `/scan/product/${newCode.data}`, params: newCode });
+  // Function to handle touch events
+  const handleTouch = (event) => {
+    const { locationX, locationY } = event.nativeEvent;
+    setFocusSquare({ visible: true, x: locationX, y: locationY });
 
-    // navigation.push({pathname : '/product', params : {code : newCode}});
+    // Hide the square after 1 second
+    setTimeout(() => {
+      setFocusSquare((prevState) => ({ ...prevState, visible: false }));
+    }, 1000);
 
-    // navigation.push('product', {
-    //   params: { code: newCode },
-    // });
+    setIsRefreshing(true);
   };
 
   return (
     <View style={styles.container}>
       <Camera style={styles.camera} type={type}
+        ref={cameraRef}
         onBarCodeScanned={scanned ? null : onCodeScanned}
-        // zoom={Platform.OS === 'ios' ? 0.015 : 0}
+        autoFocus={!isRefreshing ? AutoFocus.on : AutoFocus.off}
+        onTouchEnd={handleTouch} // Handle touch to set focus point
         barCodeScannerSettings={{
           barCodeTypes: [BarCodeScanner.Constants.BarCodeType.ean13, BarCodeScanner.Constants.BarCodeType.ean8, BarCodeScanner.Constants.BarCodeType.upc_ean, BarCodeScanner.Constants.BarCodeType.qr],
           barCodeSize: { height: 10, width: 10 }
         }}>
         <View style={styles.rectangleContainer}>
+          <Text style={styles.focus}>Cliquer pour effectuer un focus</Text>
           <View style={styles.rectangle} />
           <Text style={styles.vrrroum}>Vrrroum Scan</Text>
         </View>
-        {/* <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button} onPress={toggleCameraType}>
-            <Text style={styles.text}>Tourner Camera</Text>
-          </TouchableOpacity>
-        </View> */}
+
+        <TouchableOpacity style={{padding: 10, backgroundColor: COLORS.darkgray, alignSelf: 'center', marginBottom: 30, borderRadius: 15}} onPress={toggleCameraType}>
+          <Icon name='cameraswitch' type='material' color={COLORS.yellow} size={30}/>
+        </TouchableOpacity>
       </Camera>
+
     </View >
   );
 };
@@ -129,6 +148,22 @@ const styles = StyleSheet.create({
     color: COLORS.lightwhite,
     alignItems: 'center',
     fontSize: 16,
+  },
+
+  focus: {
+    marginBottom: 10,
+    color: COLORS.lightwhite,
+    alignItems: 'center',
+    fontSize: 16,
+  },
+
+  focusSquare: {
+    position: 'absolute',
+    width: 50,
+    height: 50,
+    borderWidth: 2,
+    borderColor: 'white',
+    backgroundColor: 'transparent',
   },
 });
 

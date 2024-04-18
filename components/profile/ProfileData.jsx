@@ -16,6 +16,7 @@ const ProfileData = ({logged}) => {
             <View style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', justifyContent: 'space-between', gap: 15, marginTop: 50 }}>
                 <ListedButton disabled={!logged} text={'Favoris'} handlePress={() => {navigation.push('favs');}}/>
                 <ListedButton disabled={!logged} text={'Historique de scans'} handlePress={() => {navigation.push('history');}}/>
+                <ListedButton disabled={false} text={'Aide'} handlePress={() => {navigation.push('help');}}/>
             </View>
         </View>
     );

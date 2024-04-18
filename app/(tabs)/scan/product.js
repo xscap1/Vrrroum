@@ -29,7 +29,7 @@ const Product = () => {
                         headerTitle: "",
                     }}
                 />
-                {isLoading ? <ActivityIndicator /> : (data ? <ProductCard product={data} colorNote={utils.noteToColor(data.score)} /> : <ProductNotFoundCard />)}
+                {isLoading ? <ActivityIndicator /> : (data ? <ProductCard product={data} colorNote={utils.noteToColor(data.score)} /> : <ProductNotFoundCard code={local.code}/>)}
             </SafeAreaView>
         </View>
     );

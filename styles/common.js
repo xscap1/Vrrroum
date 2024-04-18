@@ -3,8 +3,8 @@ import { COLORS, SIZES } from "../constants";
 
 import { Dimensions } from "react-native";
 
-ww = Dimensions.get('window').width;
-wh = Dimensions.get('window').height;
+export const ww = Dimensions.get('window').width;
+export const wh = Dimensions.get('window').height;
 
 const commonStyles = StyleSheet.create({
     body: {
@@ -51,7 +51,7 @@ const commonStyles = StyleSheet.create({
         paddingLeft: 0.05 * ww,
         paddingRight: 0.05 * ww,
         width: '100%',
-        height: '100%'
+        height: '100%',
     },
 
     subcontainer: {
@@ -98,6 +98,12 @@ const commonStyles = StyleSheet.create({
 
     heading: {
         fontSize: SIZES.xLarge,
+        color: COLORS.lightwhite,
+        fontWeight: 'bold',
+    },
+
+    subHeading : {
+        fontSize: SIZES.large,
         color: COLORS.lightwhite,
         fontWeight: 'bold',
     },

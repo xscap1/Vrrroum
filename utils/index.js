@@ -69,8 +69,13 @@ export const removeFavoriteByIdInCache = async (id) => {
     return -1;
 }
 
+export const removeAllFavorites = async (id) => {
+    await SecureStore.deleteItemAsync('favorites');
+}
+
 export const getFavoritesInCache = async () => {
     const f = await SecureStore.getItemAsync('favorites');
+    console.log("favorites : " + JSON.parse(f));
     return JSON.parse(f);
 }
 

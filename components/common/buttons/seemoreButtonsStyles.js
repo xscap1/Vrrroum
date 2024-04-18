@@ -14,9 +14,24 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10
     },
 
+    disabledButton: {
+        marginTop: 20,
+        backgroundColor: COLORS.darkgray,
+        display: 'inline-block',
+        alignItems: 'center',
+        justifyContent: 'center',
+        elevation: 3,
+        borderRadius: 5,
+        paddingVertical: 10,
+        paddingHorizontal: 10
+    },
+
     text : {
         color: 'black',
-        fontSize: SIZES.medium,
+    },
+
+    disabledText : {
+        color: 'gray',
     }
 });
 

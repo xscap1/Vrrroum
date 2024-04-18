@@ -2,7 +2,7 @@ import { SafeAreaView, ScrollView, View, Text, ActivityIndicator } from "react-n
 import { Stack, useRouter } from "expo-router";
 import commonStyles from "../../../styles/common";
 import React, { useEffect, useState } from 'react';
-import { deleteFavorites, getFavoritesInCache } from '../../../utils';
+import { deleteFavorites, getFavoritesInCache, removeAllFavorites, removeFavoriteByIdInCache } from '../../../utils';
 import ListedProducts from "../../../components/home/ListedProducts";
 import Favorites from "../../../components/profile/favs/Favorites";
 import DisplayTextInformations from "../../../components/common/cards/DisplayTextInformations";
@@ -13,9 +13,13 @@ const Favs = () => {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState();
 
-  const missingFavoritesText = "Vous n'avez aucun produits favoris. Scanner ou rechercher un produit pour l'ajouter à vos favoris !"
+  const missingFavoritesText = "Vous n'avez aucun produit favoris. Scanner ou rechercher un produit pour l'ajouter à vos favoris !"
 
   useEffect(() => {
+    const deleteFavs = async () => {
+      await deleteFavorites();
+    }
+
     const getFavorites = async () => {
       const f = await getFavoritesInCache();
       if (f != null && f.length > 0)
@@ -23,8 +27,10 @@ const Favs = () => {
       else {
         setLoading(false);
       }
+      return f;
     }
 
+    // deleteFavs();
     getFavorites();
   }, []);
 

@@ -10,10 +10,21 @@ const StackLayout = () => {
   return (
     <Stack>
       <Stack.Screen name="index" options={{ headerShown: false }} />
-      <Stack.Screen name="product" options={{
-        headerStyle: commonStyles.header,
+      <Stack.Screen name="bestRated" options={{
         headerShadowVisible: false,
-        headerTitle: "",
+        headerBackTitleVisible: false
+      }} />
+      <Stack.Screen name="trends" options={{
+        headerShadowVisible: false,
+        headerBackTitleVisible: false
+      }} />
+      <Stack.Screen name="category" options={{
+        headerShadowVisible: false,
+        headerBackTitleVisible: false
+      }} />
+      <Stack.Screen name="product" options={{
+        headerShadowVisible: false,
+        headerBackTitleVisible: false
       }} />
     </Stack>
   )

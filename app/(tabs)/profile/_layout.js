@@ -8,10 +8,27 @@ import { Stack } from "expo-router";
 const StackLayout = () => {
   return (
     <Stack initialRouteName="index">
-      <Stack.Screen name="index" options={{ headerShown: false}}/>
-      <Stack.Screen name="pricing"/>
-      <Stack.Screen name="favs"/>
-      <Stack.Screen name="history"/>
+      <Stack.Screen name="index" options={{ headerShown: false }} />
+      <Stack.Screen name="pricing" options={{
+        headerShadowVisible: false,
+        headerBackTitleVisible: false
+      }} />
+      <Stack.Screen name="favs" options={{
+        headerShadowVisible: false,
+        headerBackTitleVisible: false
+      }} />
+      <Stack.Screen name="history" options={{
+        headerShadowVisible: false,
+        headerBackTitleVisible: false
+      }} />
+      <Stack.Screen name="help" options={{
+        headerShadowVisible: false,
+        headerBackTitleVisible: false
+      }} />
+      <Stack.Screen name="bugReport" options={{
+        headerShadowVisible: false,
+        headerBackTitleVisible: false
+      }} />
     </Stack>
   )
 };

@@ -8,8 +8,11 @@ import { Stack } from "expo-router";
 const StackLayout = () => {
   return (
     <Stack initialRouteName="index">
-      <Stack.Screen name="index" options={{ headerShown: false}}/>
-      <Stack.Screen name="product" options={{ headerShown: false}}/>
+      <Stack.Screen name="index" options={{ headerShown: false }} />
+      <Stack.Screen name="product" options={{
+        headerShadowVisible: false,
+        headerBackTitleVisible: false
+      }} />
     </Stack>
   )
 };

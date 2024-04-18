@@ -17,6 +17,9 @@ const ProductCard = ({ product, colorNote, scan }) => {
     const [show, setShow] = useState(true);
     const [switchIcon, setSwitchIcon] = useState(false);
 
+    const priceCompareText = "Cette fonctionnalité sera bientôt disponible \! L\'équipe Vrrroum travaille dur pour vous offrir la solution d'achat en ligne la plus économique.";
+    const envText = "Cette fonctionnalité sera bientôt disponible \! L\'équipe Vrrroum travaille dur pour vous donner la possibilité d'analyser l'impact environnemental d'un produit.";
+
     async function addProductToFavorites() {
         const res = await storeFavoritesInCache(product.id);
         if (res == -1) {
@@ -142,12 +145,10 @@ const ProductCard = ({ product, colorNote, scan }) => {
                     : null}
 
                 {!show ?
-                    <View>
-                        <Text style={commonStyles.text}>Env</Text>
-                    </View>
+                    <DisplayTextInformations text={envText}/>
                     : null}
 
-                <DisplayTextInformations title={"Comparateur de prix"} text={"Cette fonctionnalité sera bientôt disponible \! L\'équipe Vrrroum travaille dur pour vous offrir la solution d'achat en ligne la plus économique."} />
+                <DisplayTextInformations title={"Comparateur de prix"} text={priceCompareText} />
 
                 <View style={{ marginTop: 20 }}>
                     <Recommendations product={product} />

@@ -184,4 +184,48 @@ const PostSearchKeywordsToApi = async (data, setData, setLoading) => {
     }
 }
 
-export { getBestRatedFromApi, getBestRatedPreviewFromApi, getTrendsFromApi, getTrendsPreviewFromApi, geCategoryBatchFromApi, getRecommendationsFromApi, getProductFromApi, PostUserLoginFromApi, PostIdsFromApi, PostSearchKeywordsToApi }
+const PostReportBugToApi = async (data, setData) => {
+    console.log(data);
+    try {
+        await fetch(serverip + '/report', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: data
+        }).then((response) => response.json())
+            .then((json) => {
+                setData(json);
+            })
+            .catch((error) => console.error(error))
+    }
+
+    catch (e) {
+        console.error(e);
+    }
+}
+
+const PostReportMissingProductToApi = async (data, setData) => {
+    console.log(data);
+    try {
+        await fetch(serverip + '/report/product', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: data
+        }).then((response) => response.json())
+            .then((json) => {
+                setData(json);
+            })
+            .catch((error) => console.error(error))
+    }
+
+    catch (e) {
+        console.error(e);
+    }
+}
+
+export { getBestRatedFromApi, getBestRatedPreviewFromApi, getTrendsFromApi, getTrendsPreviewFromApi, geCategoryBatchFromApi, getRecommendationsFromApi, getProductFromApi, PostUserLoginFromApi, PostIdsFromApi, PostSearchKeywordsToApi, PostReportBugToApi, PostReportMissingProductToApi }

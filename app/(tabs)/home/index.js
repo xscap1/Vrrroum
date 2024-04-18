@@ -9,6 +9,8 @@ import commonStyles from "../../../styles/common";
 import ListedProducts from "../../../components/home/ListedProducts";
 import { Icon, SearchBar } from '@rneui/themed';
 import { COLORS } from "../../../constants";
+import DisplayTextInformations from "../../../components/common/cards/DisplayTextInformations";
+import { wh } from "../../../styles/common";
 
 const Home = () => {
 
@@ -16,6 +18,8 @@ const Home = () => {
   const [isSearching, setSearching] = useState(false);
   const [searchData, setSearchData] = useState();
   const [isLoading, setLoading] = useState(true);
+
+  const missingSearchDataText = "Aucuns résultats trouvés pour votre recherche.";
 
   const api = require('../../../api/api');
 
@@ -25,7 +29,7 @@ const Home = () => {
 
   const clearIcon = () => {
     return (
-      <Icon name="cancel" type="material" onPress={() => { setSearching(false); setSearch(""); setSearchData(undefined); setLoading(false); }} />
+      <Icon name="cancel" type="material" onPress={resetSearchBar} />
     );
   };
 
@@ -40,7 +44,6 @@ const Home = () => {
   }
 
   const postKeywordsToApi = async () => {
-    // api.PostSearchKeywordsToApi(JSON.stringify(search));
     const data = [search];
     await api.PostSearchKeywordsToApi(JSON.stringify(data), setSearchData, setLoading);
   }
@@ -75,20 +78,20 @@ const Home = () => {
               onSubmitEditing={() => { postKeywordsToApi(); console.log(isSearching); }}
             />
           </View>
-          {isSearching ? <View style={commonStyles.flexFullScreenContainer}>
-            {isLoading ? <ActivityIndicator /> : <ListedProducts products={searchData} flatlist={false} />}
-          </View> : null}
-
-          {!searchData ? (<View><Offers />
-            <Trendings />
-            <BestRated />
-            <Categories /></View>) : null}
-
-          {/* // <Offers />
-          // <Trendings />
-          // <BestRated />
-          // <Categories /> */}
-        </ScrollView>
+          {isSearching ? (
+            <View style={commonStyles.flexFullScreenContainer}>
+              {isLoading ? (
+                <ActivityIndicator />
+              ) : (
+                searchData.length == 0 ? <View style={{ height: wh }}><DisplayTextInformations text={missingSearchDataText} /></View> : <ListedProducts products={searchData} flatlist={false} />
+              )}
+                </View>
+          ) : null}
+              {!searchData ? (<View><Offers />
+                <Trendings />
+                <BestRated />
+                <Categories /></View>) : null}
+            </ScrollView>
       </SafeAreaView>
     </View>
   );

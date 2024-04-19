@@ -120,19 +120,22 @@ const getProductFromApi = async (id, setData, setLoading) => {
 
 const PostUserLoginFromApi = async (data) => {
     try {
-        await fetch(serverip + '/users/login', {
+        const res = await fetch(serverip + '/users/login', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
             body: data
-        })
-            .then(response => response.json())
-            .then((json) => {
-                if (json.hasOwnProperty("logged"))
-                    return json;
-            });
+        });
+        //     .then(response => response.json())
+        //     .then((json) => {
+        //         // console.log(json.data);
+        //         return json;
+        //     });
+
+        // console.log(res.status.json);
+        return res.json();
     }
 
     catch (e) {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, ScrollView, View, Text, TouchableOpacity, Platform, ActivityIndicator } from "react-native";
+import { SafeAreaView, ScrollView, View, Text, TouchableOpacity, Platform, ActivityIndicator, Alert } from "react-native";
 import { Stack, useRouter, Link } from "expo-router";
 import * as SecureStore from 'expo-secure-store';
 import commonStyles from '../../../styles/common';
@@ -17,18 +17,21 @@ const Profile = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [appleCred, setAppleCred] = useState(undefined);
   const [jwt, setJwt] = useState();
+  const [user, setUser] = useState(undefined);
   const [jwtExpiration, setJwtExpiration] = useState();
   const [isLoading, setLoading] = useState(true);
 
   const api = require('../../../api/api');
 
-  const storeJwt = async (token, expirationDate) => {
+  const storeJwt = async (token, expirationDate, user) => {
     try {
-      const t = await SecureStore.setItemAsync('jwt', token);
-      const d = await SecureStore.setItemAsync('jwtExpiration', expirationDate.toString());
-      setJwt(t);
-      setJwtExpiration(d);
+      await SecureStore.setItemAsync('jwt', token);
+      await SecureStore.setItemAsync('jwtExpiration', expirationDate.toString());
+      await SecureStore.setItemAsync('user', JSON.stringify(user));
+      
       console.log("success secureStore");
+      setLoggedIn(true);
+      console.log("Logged in");
       return 0;
     }
     catch (error) {
@@ -55,10 +58,10 @@ const Profile = () => {
     setLoading(false);
   };
 
-  const secureStoreJwt = async (token) => {
+  const secureStoreJwt = async (token, user) => {
     const expirationDate = new Date();
     expirationDate.setHours(expirationDate.getHours() + 1); // Ajoutez une heure à la date actuelle
-    const res = await storeJwt(token, expirationDate);
+    const res = await storeJwt(token, expirationDate, user);
     return res;
   };
 
@@ -66,6 +69,7 @@ const Profile = () => {
     try {
       await SecureStore.deleteItemAsync('jwt');
       await SecureStore.deleteItemAsync('jwtExpiration');
+      await SecureStore.deleteItemAsync('user');
       return 0;
     }
 
@@ -79,8 +83,6 @@ const Profile = () => {
     const res = await secureDeleteJwt();
     if (res == 0) {
       setLoggedIn(false);
-      setJwt(undefined);
-      setJwtExpiration(undefined);
       console.log("Logged out");
       return 0;
     }
@@ -89,15 +91,15 @@ const Profile = () => {
   };
 
   const LogIn = async (token, user) => {
-    api.PostUserLoginFromApi(JSON.stringify(user));
-    const res = await secureStoreJwt(token);
-    if (res == 0) {
-      setLoggedIn(true);
-      console.log("Logged in");
-      return 0;
+    const data = await api.PostUserLoginFromApi(JSON.stringify(user));
+    if (data.logged == true) {
+      setUser(data.data);
+      await secureStoreJwt(token, data.data);
     }
 
-    return -1;
+    else {
+      Alert.alert('Connexion', 'Erreur lors de la connexion');
+    }
   }
 
   useEffect(() => {
@@ -137,7 +139,7 @@ const Profile = () => {
 
               <View>
                 <View style={{alignItems: 'center', marginTop: 20}}>
-                  <Text style={commonStyles.subtextCenter}>Connectez-vous pour profiter de toutes les fonctionnalités de Vrrroum.</Text>
+                  <Text style={commonStyles.subtextCenter}>Devenez membre de Vrrroum pour profiter de toutes les fonctionnalités de Vrrroum.</Text>
                 </View>
                 <View style={{ alignSelf: 'center', marginTop: 40 }}>
                   {jwt ? null :
@@ -166,7 +168,7 @@ const Profile = () => {
                             loginsys: "Apple",
                           }
 
-                          LogIn(credential.identityToken, user);
+                          await LogIn(credential.identityToken, user);
                         } catch (e) {
                           if (e.code === 'ERR_REQUEST_CANCELED') {
                             // handle that the user canceled the sign-in flow

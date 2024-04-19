@@ -1,5 +1,5 @@
-import React from "react";
-import { View, Text, FlatList, TouchableOpacity } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Text, FlatList, TouchableOpacity, Alert } from "react-native";
 import commonStyles from "../../../styles/common";
 import { COLORS, SIZES, images } from "../../../constants"
 import { StyleSheet } from "react-native";
@@ -30,6 +30,12 @@ const PricingCard = ({ card }) => {
             color: COLORS.background,
             fontSize: 24,
             fontWeight: 'bold',
+            marginTop: 2
+        },
+
+        annualPriceTag: {
+            color: 'gray',
+            fontSize: 16,
             marginTop: 2
         },
 
@@ -79,8 +85,9 @@ const PricingCard = ({ card }) => {
             <View style={styles.cardContainer}>
                 <Text style={styles.planName}>{card.planName}</Text>
                 <Text style={styles.priceTag}>{card.priceTag}/mois</Text>
+                <Text style={styles.annualPriceTag}>ou {card.annualPriceTag}/an soit {card.annualDiscount} de moins</Text>
 
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity style={styles.button} onPress={()=>{}}>
                     <Text>S'abonner</Text>
                 </TouchableOpacity>
 
@@ -98,6 +105,7 @@ const PricingCard = ({ card }) => {
             </View>
         </View>
     );
+
 };
 
 export default PricingCard;

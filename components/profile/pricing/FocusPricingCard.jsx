@@ -34,6 +34,13 @@ const FocusPricingCard = ({ card }) => {
             marginTop: 2
         },
 
+        annualPriceTag: {
+            color: COLORS.yellow,
+            fontSize: 16,
+            fontWeight: 'bold',
+            marginTop: 2
+        },
+
         descriptionText: {
             color: COLORS.subwhite,
             marginTop: 30,
@@ -81,6 +88,7 @@ const FocusPricingCard = ({ card }) => {
             <View style={styles.cardContainer}>
                 <Text style={styles.planName}>{card.planName}</Text>
                 <Text style={styles.priceTag}>{card.priceTag}/mois</Text>
+                <Text style={styles.annualPriceTag}>ou {card.annualPriceTag}/an soit {card.annualDiscount} de moins</Text>
 
                 <TouchableOpacity style={styles.button}>
                     <Text>S'abonner</Text>

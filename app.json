@@ -1,6 +1,6 @@
 {
   "expo": {
-    "scheme": "acme",
+    "scheme": "myapp",
     "web": {
       "bundler": "metro"
     },
@@ -38,7 +38,7 @@
       }
     },
     "ios": {
-      "bundleIdentifier": "com.miraixscap.Vrrroum",
+      "bundleIdentifier": "miraixscapVrrroum-fe4ed6bbb700fffdfd597217fde624ba---com.miraixscap.Vrrroum",
       "usesAppleSignIn": true,
       "config": {
         "usesNonExemptEncryption": false

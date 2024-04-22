@@ -13,6 +13,10 @@ const StackLayout = () => {
         headerShadowVisible: false,
         headerBackTitleVisible: false
       }} />
+      <Stack.Screen name="subscriptionManager" options={{
+        headerShadowVisible: false,
+        headerBackTitleVisible: false
+      }} />
       <Stack.Screen name="favs" options={{
         headerShadowVisible: false,
         headerBackTitleVisible: false

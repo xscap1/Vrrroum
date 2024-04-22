@@ -5,8 +5,9 @@ import { COLORS, SIZES, images } from "../../../constants"
 import { StyleSheet } from "react-native";
 import { Icon } from "@rneui/themed";
 import { Dimensions } from "react-native";
+import RevenueCatUI, { PAYWALL_RESULT } from "react-native-purchases-ui";
 
-const FocusPricingCard = ({ card }) => {
+const FocusPricingCard = ({ card, offer }) => {
 
     ww = Dimensions.get('window').width;
     wh = Dimensions.get('window').height;
@@ -83,6 +84,24 @@ const FocusPricingCard = ({ card }) => {
         </View>);
     }
 
+    async function presentPaywall() {
+        const paywallResult = await RevenueCatUI.presentPaywall({
+            offering: offer // Optional Offering object obtained through getOfferings
+        });
+
+        switch (paywallResult) {
+            case PAYWALL_RESULT.NOT_PRESENTED:
+            case PAYWALL_RESULT.ERROR:
+            case PAYWALL_RESULT.CANCELLED:
+                return false;
+            case PAYWALL_RESULT.PURCHASED:
+            case PAYWALL_RESULT.RESTORED:
+                return true;
+            default:
+                return false;
+        }
+    }
+
     return (
         <View style={commonStyles.flexContainer}>
             <View style={styles.cardContainer}>
@@ -90,7 +109,7 @@ const FocusPricingCard = ({ card }) => {
                 <Text style={styles.priceTag}>{card.priceTag}/mois</Text>
                 <Text style={styles.annualPriceTag}>ou {card.annualPriceTag}/an soit {card.annualDiscount} de moins</Text>
 
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity style={styles.button} onPress={()=>{presentPaywall()}}>
                     <Text>S'abonner</Text>
                 </TouchableOpacity>
 

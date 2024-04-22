@@ -5,8 +5,10 @@ import { COLORS, SIZES, images } from "../../../constants"
 import { StyleSheet } from "react-native";
 import { Icon } from "@rneui/themed";
 import { Dimensions } from "react-native";
+import RevenueCatUI, { PAYWALL_RESULT } from "react-native-purchases-ui";
+import * as SecureStore from 'expo-secure-store';
 
-const PricingCard = ({ card }) => {
+const PricingCard = ({ card, offer }) => {
 
     ww = Dimensions.get('window').width;
     wh = Dimensions.get('window').height;
@@ -80,6 +82,37 @@ const PricingCard = ({ card }) => {
         </View>);
     }
 
+    const [user, setUser] = useState();
+
+    useEffect(()=>{
+
+        const set = async () => {
+            const res = await SecureStore.getItemAsync('user');
+            setUser(res);
+        }
+
+        set();
+    }, []);
+
+    async function presentPaywall() {
+
+        const paywallResult = await RevenueCatUI.presentPaywall({
+            offering: offer // Optional Offering object obtained through getOfferings
+        });
+
+        switch (paywallResult) {
+            case PAYWALL_RESULT.NOT_PRESENTED:
+            case PAYWALL_RESULT.ERROR:
+            case PAYWALL_RESULT.CANCELLED:
+                return false;
+            case PAYWALL_RESULT.PURCHASED:
+                return true;
+            default:
+                return false;
+            // case PAYWALL_RESULT.RESTORED:
+        }
+    }
+
     return (
         <View style={commonStyles.flexContainer}>
             <View style={styles.cardContainer}>
@@ -87,7 +120,14 @@ const PricingCard = ({ card }) => {
                 <Text style={styles.priceTag}>{card.priceTag}/mois</Text>
                 <Text style={styles.annualPriceTag}>ou {card.annualPriceTag}/an soit {card.annualDiscount} de moins</Text>
 
-                <TouchableOpacity style={styles.button} onPress={()=>{}}>
+                <TouchableOpacity style={styles.button} onPress={()=>{
+                    if (user != null && user != undefined) {
+                        presentPaywall();
+                    }
+                    else {
+                        Alert.alert('Connexion', 'Vous devez être connecté pour souscrire à un abonnement.')
+                    }
+                }}>
                     <Text>S'abonner</Text>
                 </TouchableOpacity>
 

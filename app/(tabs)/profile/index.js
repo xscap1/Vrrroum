@@ -4,7 +4,7 @@ import { Stack, useRouter, Link } from "expo-router";
 import * as SecureStore from 'expo-secure-store';
 import commonStyles from '../../../styles/common';
 import ProfileData from '../../../components/profile/ProfileData';
-
+import { configureRCProvider, logOutCustomerFromRCProvider } from '../../../utils/rcprovider';
 let AppleAuthentication;
 
 if (Platform.OS == "ios") {
@@ -28,8 +28,9 @@ const Profile = () => {
       await SecureStore.setItemAsync('jwt', token);
       await SecureStore.setItemAsync('jwtExpiration', expirationDate.toString());
       await SecureStore.setItemAsync('user', JSON.stringify(user));
-      
+
       console.log("success secureStore");
+      await configureRCProvider();
       setLoggedIn(true);
       console.log("Logged in");
       return 0;
@@ -50,6 +51,7 @@ const Profile = () => {
       } else {
         // Token valide, récupérer le JWT
         const token = await SecureStore.getItemAsync('jwt');
+        await configureRCProvider();
         setLoggedIn(true);
         setJwt(token);
         setJwtExpiration(expirationDate);
@@ -70,6 +72,7 @@ const Profile = () => {
       await SecureStore.deleteItemAsync('jwt');
       await SecureStore.deleteItemAsync('jwtExpiration');
       await SecureStore.deleteItemAsync('user');
+      await logOutCustomerFromRCProvider();
       return 0;
     }
 
@@ -138,7 +141,7 @@ const Profile = () => {
               </View> :
 
               <View>
-                <View style={{alignItems: 'center', marginTop: 20}}>
+                <View style={{ alignItems: 'center', marginTop: 20 }}>
                   <Text style={commonStyles.subtextCenter}>Devenez membre de Vrrroum pour profiter de toutes les fonctionnalités de Vrrroum.</Text>
                 </View>
                 <View style={{ alignSelf: 'center', marginTop: 40 }}>

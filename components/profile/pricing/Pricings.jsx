@@ -1,17 +1,25 @@
-import React from "react";
-import { View, Text, FlatList, TouchableOpacity, ScrollView } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Text, FlatList, TouchableOpacity, ScrollView, Platform, ActivityIndicator, Alert } from "react-native";
 import commonStyles from "../../../styles/common";
 import { COLORS, SIZES, images } from "../../../constants"
 import PricingCard from "./PricingCard";
 import FocusPricingCard from "./FocusPricingCard";
+import Purchases, { PurchasesOffering } from "react-native-purchases";
+import * as SecureStore from 'expo-secure-store';
+import { getOfferingsFromRCProvider } from "../../../utils/rcprovider";
+
+const APIKeys = {
+    apple: "appl_TSXyjYXVGQMQOMWTXPTyyTAvwtc",
+    google: "your_revenuecat_google_api_key",
+};
 
 const Pricings = () => {
 
     const card1 = {
         planName: "Vrrroum Lite",
         priceTag: "2,99€",
-        annualPriceTag: "29,99€",
-        annualDiscount: "5,89€",
+        annualPriceTag: "19,99€",
+        annualDiscount: "15,89€",
         descriptionText: "Je suis la description",
         features: [
             {
@@ -50,8 +58,8 @@ const Pricings = () => {
     const card2 = {
         planName: "Vrrroum +",
         priceTag: "4,99€",
-        annualPriceTag: "49,99€",
-        annualDiscount: "9,89€",
+        annualPriceTag: "39,99€",
+        annualDiscount: "19,89€",
         descriptionText: "Je suis la description",
         features: [
             {
@@ -90,8 +98,8 @@ const Pricings = () => {
     const card3 = {
         planName: "Vrrroum Pro",
         priceTag: "9.99€",
-        annualPriceTag: "99,99€",
-        annualDiscount: "19,89€",
+        annualPriceTag: "89,99€",
+        annualDiscount: "29,89€",
         descriptionText: "Je suis la description",
         features: [
             {
@@ -127,8 +135,22 @@ const Pricings = () => {
         ]
     }
 
+    const [offerings, setOfferings] = useState();
+    const [activeSubscription, setActiveSubscription] = useState();
+
+    useEffect(() => {
+        const setupOfferings = async () => {
+            const offerings = await getOfferingsFromRCProvider();
+            if (offerings.all != null && offerings.all != undefined) {
+                setOfferings(offerings.all);
+            }
+        };
+        setupOfferings().catch(console.log);
+    }, []);
+
     return (
         <View style={{ flex: 1 }}>
+            {offerings ?
                 <ScrollView
                     horizontal={true}
                     showsHorizontalScrollIndicator={true}
@@ -138,10 +160,10 @@ const Pricings = () => {
                     decelerationRate="fast"
                     contentContainerStyle={{ columnGap: -25 }}
                 >
-                    <PricingCard card={card1} />
-                    <FocusPricingCard card={card2} />
-                    <PricingCard card={card3} />
-                </ScrollView>
+                    <PricingCard card={card1} offer={offerings.lite_offering} />
+                    <FocusPricingCard card={card2} offer={offerings.plus_offering} />
+                    <PricingCard card={card3} offer={offerings.pro_offering} />
+                </ScrollView> : <ActivityIndicator style={{ flex: 1, alignSelf: 'center' }} />}
         </View >
     );
 };

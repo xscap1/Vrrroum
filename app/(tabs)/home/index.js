@@ -27,9 +27,11 @@ const Home = () => {
     setSearch(search);
   };
 
+  // <Icon name="cancel" type="material" onPress={resetSearchBar} />
+
   const clearIcon = () => {
     return (
-      <Icon name="cancel" type="material" onPress={resetSearchBar} />
+      <Icon name="cancel" type="material" onPress={() => {setSearch("");}} />
     );
   };
 
@@ -50,10 +52,10 @@ const Home = () => {
 
   return (
     <View style={commonStyles.body}>
-      <SafeAreaView style={commonStyles.safeArea}>
+      <SafeAreaView style={commonStyles.flexSafeArea}>
         {/* scrollEnabled={!isSearching} */}
         <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={"always"}>
-          <View style={{ paddingLeft: 0.02 * ww, paddingRight: 0.02 * ww, display: 'flex', flexDirection: 'row' }}>
+          <View style={{ paddingLeft: 0.02 * ww, paddingRight: 0.02 * ww, display: isSearching ? 'flex' : null, flexDirection: isSearching ? 'row' : null }}>
             {isSearching ?
               <TouchableOpacity onPressIn={() => { resetSearchBar(); }} style={{ padding: 10, alignSelf: 'center' }}>
                 <Icon name="arrow-back" type="material" color={COLORS.yellow} size={30} />
@@ -63,7 +65,7 @@ const Home = () => {
               placeholder="Rechercher un produit"
               onChangeText={updateSearch}
               value={search}
-              platform={Platform.OS}
+              platform={"ios"}
               searchIcon={null}
               containerStyle={{ backgroundColor: COLORS.background, width: isSearching ? '85%' : 'auto' }}
               inputContainerStyle={{ backgroundColor: COLORS.darkgray, borderRadius: 10 }}

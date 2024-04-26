@@ -4,8 +4,6 @@ import commonStyles from "../../../styles/common";
 import { COLORS, SIZES, images } from "../../../constants"
 import PricingCard from "./PricingCard";
 import FocusPricingCard from "./FocusPricingCard";
-import Purchases, { PurchasesOffering } from "react-native-purchases";
-import * as SecureStore from 'expo-secure-store';
 import { getOfferingsFromRCProvider } from "../../../utils/rcprovider";
 
 const APIKeys = {

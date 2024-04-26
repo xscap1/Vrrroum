@@ -65,7 +65,7 @@ const ListedProductCard = ({ product, colorNote, scan }) => {
                                             </View>) : null}
 
                                         <View style={{ marginLeft: 20 }}>
-                                            <View style={{ borderRadius: 100, width: 40, height: 40, justifyContent: 'center', backgroundColor: COLORS.background, borderWidth: '1', borderStyle: 'solid', borderColor: colorNote }}>
+                                            <View style={{ borderRadius: 100, width: 40, height: 40, justifyContent: 'center', backgroundColor: COLORS.background, borderWidth: 1, borderStyle: 'solid', borderColor: colorNote }}>
                                                 <Text style={{
                                                     textAlign: 'center',
                                                     fontWeight: '500',

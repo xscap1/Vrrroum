@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Platform, StatusBar } from "react-native";
 import { COLORS, SIZES } from "../constants";
 
 import { Dimensions } from "react-native";
@@ -15,10 +15,17 @@ const commonStyles = StyleSheet.create({
     },
 
     safeArea: {
-        backgroundColor: COLORS.background
+        backgroundColor: COLORS.background,
+        paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
     },
 
     flexSafeArea: {
+        backgroundColor: COLORS.background,
+        paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+        flex: 1
+    },
+
+    androidFlexSafeArea: {
         backgroundColor: COLORS.background,
         flex: 1
     },

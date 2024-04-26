@@ -1,10 +1,11 @@
 import { Camera, CameraType, AutoFocus } from 'expo-camera';
 import { useState, useEffect, useCallback, React, useRef } from 'react';
-import { Button, StyleSheet, Text, TouchableOpacity, View, Platform } from 'react-native';
+import { Button, StyleSheet, Text, TouchableOpacity, View, Platform, Dimensions } from 'react-native';
 import * as BarCodeScanner from "expo-barcode-scanner";
 import { useNavigation, useFocusEffect, useRouter } from "expo-router";
 import { Icon } from '@rneui/themed';
 import { COLORS } from '../../../constants';
+import { useIsFocused } from '@react-navigation/native';
 
 const Scan = () => {
 
@@ -16,7 +17,15 @@ const Scan = () => {
   const [focusSquare, setFocusSquare] = useState({ visible: false, x: 0, y: 0 });
   const [prevFocusDistance, setPrevFocusDistance] = useState(null);
   const cameraRef = useRef();
-  const [timeoutId, setTimeoutId] = useState();
+
+  const isFocused = useIsFocused();
+
+  // Screen Ratio and image padding
+  const [imagePadding, setImagePadding] = useState(0);
+  const [ratio, setRatio] = useState('4:3');  // default is 4:3
+  const { height, width } = Dimensions.get('window');
+  const screenRatio = height / width;
+  const [isRatioSet, setIsRatioSet] = useState(false);
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
@@ -34,10 +43,57 @@ const Scan = () => {
     }
   }, [isRefreshing]);
 
-  // useEffect(() => {
-  //   const id = setTimeout(() => {setIsRefreshing(true);}, 1000); // Répéter toutes les 1 seconde
-  //   setTimeoutId(id);
-  // }, [isRefreshing]);
+  // set the camera ratio and padding.
+  // this code assumes a portrait mode screen
+  const prepareRatio = async () => {
+    let desiredRatio = '4:3';  // Start with the system default
+    // This issue only affects Android
+    if (Platform.OS === 'android') {
+      const ratios = await cameraRef.current.getSupportedRatiosAsync();
+
+      // Calculate the width/height of each of the supported camera ratios
+      // These width/height are measured in landscape mode
+      // find the ratio that is closest to the screen ratio without going over
+      let distances = {};
+      let realRatios = {};
+      let minDistance = null;
+      for (const ratio of ratios) {
+        const parts = ratio.split(':');
+        const realRatio = parseInt(parts[0]) / parseInt(parts[1]);
+        realRatios[ratio] = realRatio;
+        // ratio can't be taller than screen, so we don't want an abs()
+        const distance = screenRatio - realRatio;
+        distances[ratio] = distance;
+        if (minDistance == null) {
+          minDistance = ratio;
+        } else {
+          if (distance >= 0 && distance < distances[minDistance]) {
+            minDistance = ratio;
+          }
+        }
+      }
+      // set the best match
+      desiredRatio = minDistance;
+      //  calculate the difference between the camera width and the screen height
+      const remainder = Math.floor(
+        (height - realRatios[desiredRatio] * width) / 2
+      );
+      // set the preview padding and preview ratio
+      setImagePadding(remainder);
+      setRatio(desiredRatio);
+
+      // Set a flag so we don't do this 
+      // calculation each time the screen refreshes
+      setIsRatioSet(true);
+    }
+  };
+
+  // the camera must be loaded in order to access the supported ratios
+  const setCameraReady = async () => {
+    if (!isRatioSet) {
+      await prepareRatio();
+    }
+  };
 
   if (!permission) {
     // Camera permissions are still loading
@@ -61,8 +117,6 @@ const Scan = () => {
   const onCodeScanned = ({ type, data }) => {
     setScanned(true);
     const newCode = { type: type, data: data };
-    console.log("barcode scanned !");
-    console.log(newCode);
     navigation.navigate('product', { code: newCode.data });
   };
 
@@ -81,7 +135,29 @@ const Scan = () => {
 
   return (
     <View style={styles.container}>
-      <Camera style={styles.camera} type={type}
+      {isFocused && Platform.OS === "android" && <Camera style={[styles.camera, {}]} type={type}
+        ref={cameraRef}
+        ratio={ratio}
+        onCameraReady={setCameraReady}
+        onBarCodeScanned={scanned ? null : onCodeScanned}
+        autoFocus={!isRefreshing ? AutoFocus.on : AutoFocus.off}
+        onTouchEnd={handleTouch} // Handle touch to set focus point
+        barCodeScannerSettings={{
+          barCodeTypes: [BarCodeScanner.Constants.BarCodeType.ean13, BarCodeScanner.Constants.BarCodeType.ean8, BarCodeScanner.Constants.BarCodeType.upc_ean, BarCodeScanner.Constants.BarCodeType.qr],
+          barCodeSize: { height: 10, width: 10 }
+        }}>
+        <View style={styles.rectangleContainer}>
+          <Text style={styles.focus}>Cliquer pour effectuer un focus</Text>
+          <View style={styles.rectangle} />
+          <Text style={styles.vrrroum}>Vrrroum Scan</Text>
+        </View>
+
+        <TouchableOpacity style={{ padding: 10, backgroundColor: COLORS.darkgray, alignSelf: 'center', marginBottom: 30, borderRadius: 15 }} onPress={toggleCameraType}>
+          <Icon name='cameraswitch' type='material' color={COLORS.yellow} size={30} />
+        </TouchableOpacity>
+      </Camera>}
+
+      {isFocused && Platform.OS === "ios" && < Camera style={styles.camera} type={type}
         ref={cameraRef}
         onBarCodeScanned={scanned ? null : onCodeScanned}
         autoFocus={!isRefreshing ? AutoFocus.on : AutoFocus.off}
@@ -96,11 +172,10 @@ const Scan = () => {
           <Text style={styles.vrrroum}>Vrrroum Scan</Text>
         </View>
 
-        <TouchableOpacity style={{padding: 10, backgroundColor: COLORS.darkgray, alignSelf: 'center', marginBottom: 30, borderRadius: 15}} onPress={toggleCameraType}>
-          <Icon name='cameraswitch' type='material' color={COLORS.yellow} size={30}/>
+        <TouchableOpacity style={{ padding: 10, backgroundColor: COLORS.darkgray, alignSelf: 'center', marginBottom: 30, borderRadius: 15 }} onPress={toggleCameraType}>
+          <Icon name='cameraswitch' type='material' color={COLORS.yellow} size={30} />
         </TouchableOpacity>
-      </Camera>
-
+      </Camera>}
     </View >
   );
 };

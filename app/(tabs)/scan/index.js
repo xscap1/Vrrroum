@@ -135,7 +135,7 @@ const Scan = () => {
 
   return (
     <View style={styles.container}>
-      {isFocused && Platform.OS === "android" && <Camera style={[styles.camera, {}]} type={type}
+      {isFocused && Platform.OS === "android" && <Camera style={styles.camera} type={type}
         ref={cameraRef}
         ratio={ratio}
         onCameraReady={setCameraReady}
@@ -208,6 +208,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    padding: 0.05 * Dimensions.get('window').width
   },
   rectangle: {
     height: '20%',
@@ -221,8 +222,8 @@ const styles = StyleSheet.create({
   vrrroum: {
     marginTop: 10,
     color: COLORS.lightwhite,
-    alignItems: 'center',
     fontSize: 16,
+    alignItems: 'center'
   },
 
   focus: {

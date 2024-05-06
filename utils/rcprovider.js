@@ -4,7 +4,7 @@ import { Platform } from "react-native";
 
 const APIKeys = {
     apple: "appl_TSXyjYXVGQMQOMWTXPTyyTAvwtc",
-    google: "your_revenuecat_google_api_key",
+    google: "goog_uFlEWDvOKFjmInkMbxoEILwzCyB",
 };
 
 export const getActiveSubscriptionFromRCProvider = async () => {

@@ -5,7 +5,15 @@ import * as SecureStore from 'expo-secure-store';
 import commonStyles from '../../../styles/common';
 import ProfileData from '../../../components/profile/ProfileData';
 import { configureRCProvider, logOutCustomerFromRCProvider } from '../../../utils/rcprovider';
+import {
+  GoogleOneTapSignIn,
+  GoogleSigninButton,
+  GoogleSignin,
+  statusCodes,
+  isErrorWithCode
+} from '@react-native-google-signin/google-signin';
 let AppleAuthentication;
+
 
 if (Platform.OS == "ios") {
   AppleAuthentication = require('expo-apple-authentication');
@@ -25,12 +33,16 @@ const Profile = () => {
 
   const storeJwt = async (token, expirationDate, user) => {
     try {
+      console.log(user);
+      console.log(typeof(user));
+      
       await SecureStore.setItemAsync('jwt', token);
       await SecureStore.setItemAsync('jwtExpiration', expirationDate.toString());
       await SecureStore.setItemAsync('user', JSON.stringify(user));
 
       console.log("success secureStore");
-      await configureRCProvider();
+      if (Platform.OS == "ios")
+        await configureRCProvider();
       setLoggedIn(true);
       console.log("Logged in");
       return 0;
@@ -51,7 +63,8 @@ const Profile = () => {
       } else {
         // Token valide, récupérer le JWT
         const token = await SecureStore.getItemAsync('jwt');
-        await configureRCProvider();
+        if (Platform.OS == "ios")
+          await configureRCProvider();
         setLoggedIn(true);
         setJwt(token);
         setJwtExpiration(expirationDate);
@@ -84,7 +97,9 @@ const Profile = () => {
 
   const LogOut = async () => {
     const res = await secureDeleteJwt();
+
     if (res == 0) {
+      GoogleSignOut();
       setLoggedIn(false);
       console.log("Logged out");
       return 0;
@@ -105,8 +120,59 @@ const Profile = () => {
     }
   }
 
+
+  // Somewhere in your code
+  const GoogleSignIn = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const userInfo = await GoogleSignin.signIn();
+      console.log(userInfo);
+      // setState({ userInfo });
+    } catch (error) {
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        // user cancelled the login flow
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        // operation (e.g. sign in) is in progress already
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        // play services not available or outdated
+      } else {
+        // some other error happened
+      }
+    }
+  };
+
+  const GoogleSignOut = async () => {
+    if (Platform.OS === "android") {
+      try {
+        const isSignedIn = await GoogleSignin.isSignedIn();
+        if (isSignedIn) {
+          const res = await GoogleSignin.signOut();
+          console.log("GoogleSignOut");
+          return res;
+        }
+        return null;
+      }
+  
+      catch (error) {
+        console.log(error);
+        return null;
+      }
+    }
+  }
+
+  // useEffect(() => {
+  //   LogOut();
+  // }, []);
+
   useEffect(() => {
     checkJwtExpiration();
+  }, []);
+
+  useEffect(() => {
+    if (Platform.OS == "android") {
+      GoogleSignin.configure();
+      console.log("configured");
+    }
   }, []);
 
   // useEffect(() => {
@@ -180,7 +246,49 @@ const Profile = () => {
                           }
                         }
                       }}
-                    /> : null
+                    /> :
+                      <GoogleSigninButton
+                        size={GoogleSigninButton.Size.Wide}
+                        onPress={async () => {
+                          try {
+                            const isSignedIn = await GoogleSignin.isSignedIn();
+                            console.log(isSignedIn);
+                            await GoogleSignin.hasPlayServices();
+                            const userInfo = await GoogleSignin.signIn({
+                              scopes: ['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile'],
+                              webClientId: '383293001226-jn9mq1in1pvr5uii5eondmf5sa996ef7.apps.googleusercontent.com'
+                            });
+
+                            if (userInfo) 
+                            {
+                              const info = userInfo.user;
+                              const user = {
+                                id : info.id,
+                                email : info.email,
+                                fullName : info.name,
+                                loginsys: "Google"
+                              }
+
+                              await LogIn(info.id, user);
+                            }
+
+                            // setState({ userInfo });
+                          } catch (error) {
+                            if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+                              console.log("SIGN_IN_CANCELLED");
+                              // user cancelled the login flow
+                            } else if (error.code === statusCodes.IN_PROGRESS) {
+                              // operation (e.g. sign in) is in progress already
+                              console.log("IN_PROGRESS");
+                            } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+                              // play services not available or outdated
+                              console.log("PLAY_SERVICES_NOT_AVAILABLE");
+                            } else {
+                              // some other error happened
+                              console.log(error);
+                            }
+                          }
+                        }} />
                   }
                 </View>
               </View>

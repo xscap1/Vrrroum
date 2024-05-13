@@ -19,8 +19,8 @@ const PricingCard = ({ card, offer }) => {
             backgroundColor: COLORS.whitesmoke,
             height: '70%',
             padding: 15,
-            marginTop: 30,
-            width: 0.75 * ww
+            marginTop: 55,
+            width: 0.85 * ww
         },
 
         planName: {
@@ -44,6 +44,7 @@ const PricingCard = ({ card, offer }) => {
         descriptionText: {
             color: COLORS.lightgray,
             marginTop: 30,
+            textAlign: 'justify'
         },
 
         button: {

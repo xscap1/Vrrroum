@@ -16,9 +16,9 @@ const FocusPricingCard = ({ card, offer }) => {
         cardContainer: {
             borderRadius: 15,
             backgroundColor: COLORS.darkgray,
-            height: '80%',
+            height: '90%',
             padding: 15,
-            width: 0.8 * ww,
+            width: 0.85 * ww,
             borderWidth: 2,
             borderColor: COLORS.yellow
         },
@@ -45,6 +45,7 @@ const FocusPricingCard = ({ card, offer }) => {
         descriptionText: {
             color: COLORS.subwhite,
             marginTop: 30,
+            textAlign: 'justify'
         },
 
         button: {
@@ -62,7 +63,7 @@ const FocusPricingCard = ({ card, offer }) => {
 
         disabledFeature: {
             fontSize: 16,
-            color: COLORS.background
+            color: 'gray'
         },
 
         featuresContainer: {
@@ -79,7 +80,7 @@ const FocusPricingCard = ({ card, offer }) => {
 
     const Feature = ({ feature }) => {
         return (<View style={styles.singleFeatureContainer}>
-            <Icon name="check" size={18} color={feature.available ? COLORS.whitesmoke : COLORS.background} />
+            <Icon name="check" size={18} color={feature.available ? COLORS.whitesmoke : 'gray'} />
             <Text style={feature.available ? styles.availableFeature : styles.disabledFeature}>{feature.text}</Text>
         </View>);
     }
@@ -88,6 +89,8 @@ const FocusPricingCard = ({ card, offer }) => {
         const paywallResult = await RevenueCatUI.presentPaywall({
             offering: offer // Optional Offering object obtained through getOfferings
         });
+
+        console.log(paywallResult);
 
         switch (paywallResult) {
             case PAYWALL_RESULT.NOT_PRESENTED:

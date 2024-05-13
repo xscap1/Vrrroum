@@ -14,121 +14,71 @@ const APIKeys = {
 const Pricings = () => {
 
     const card1 = {
-        planName: "Vrrroum Lite",
+        planName: "Vrrroum +",
         priceTag: "2,99€",
         annualPriceTag: "19,99€",
         annualDiscount: "15,89€",
-        descriptionText: "Je suis la description",
+        descriptionText: "Débloquer toutes les fonctionnalités de Vrrroum. L'essentiel de votre assistant automobile.",
         features: [
             {
                 id: 0,
                 available: true,
-                text: "Je suis une feature"
+                text: "Scan illimité"
             },
             {
                 id: 1,
                 available: true,
-                text: "Je suis une feature"
+                text: "Recommendations de produits"
             },
             {
                 id: 2,
-                available: false,
-                text: "Je suis une feature"
+                available: true,
+                text: "Comparateur de prix et produits"
             },
             {
                 id: 3,
-                available: false,
-                text: "Je suis une feature"
+                available: true,
+                text: "Recherche de produits"
             },
             {
                 id: 4,
                 available: true,
-                text: "Je suis une feature"
+                text: "Classement des produits"
             },
             {
                 id: 5,
-                available: true,
-                text: "Je suis une feature"
+                available: false,
+                text: "Accès au club Vrrroum"
+            },
+            {
+                id: 6,
+                available: false,
+                text: "Cummul de points sur vos achats"
             }
         ]
     }
 
     const card2 = {
-        planName: "Vrrroum +",
-        priceTag: "4,99€",
-        annualPriceTag: "39,99€",
-        annualDiscount: "19,89€",
-        descriptionText: "Je suis la description",
-        features: [
-            {
-                id: 0,
-                available: true,
-                text: "Je suis une feature"
-            },
-            {
-                id: 1,
-                available: true,
-                text: "Je suis une feature"
-            },
-            {
-                id: 2,
-                available: false,
-                text: "Je suis une feature"
-            },
-            {
-                id: 3,
-                available: false,
-                text: "Je suis une feature"
-            },
-            {
-                id: 4,
-                available: true,
-                text: "Je suis une feature"
-            },
-            {
-                id: 5,
-                available: true,
-                text: "Je suis une feature"
-            }
-        ]
-    }
-
-    const card3 = {
         planName: "Vrrroum Pro",
-        priceTag: "9.99€",
-        annualPriceTag: "89,99€",
-        annualDiscount: "29,89€",
-        descriptionText: "Je suis la description",
+        priceTag: "8.99€",
+        annualPriceTag: "74,99€",
+        annualDiscount: "32,89€",
+        descriptionText: "Profiter de tous les avantages du Club Vrrroum. Faîtes des économies et gagner des produits et cadeaux. Pour une aventure automobile à grande vitesse.",
         features: [
             {
                 id: 0,
                 available: true,
-                text: "Je suis une feature"
+                text: "Tous les avantages de Vrrroum +"
             },
             {
                 id: 1,
                 available: true,
-                text: "Je suis une feature"
+                text: "Accès au club Vrrroum"
             },
             {
                 id: 2,
-                available: false,
-                text: "Je suis une feature"
-            },
-            {
-                id: 3,
-                available: false,
-                text: "Je suis une feature"
-            },
-            {
-                id: 4,
                 available: true,
-                text: "Je suis une feature"
-            },
-            {
-                id: 5,
-                available: true,
-                text: "Je suis une feature"
+                text: "Cummul de points sur vos achats"
             }
         ]
     }
@@ -158,9 +108,8 @@ const Pricings = () => {
                     decelerationRate="fast"
                     contentContainerStyle={{ columnGap: -25 }}
                 >
-                    <PricingCard card={card1} offer={offerings.lite_offering} />
-                    <FocusPricingCard card={card2} offer={offerings.plus_offering} />
-                    <PricingCard card={card3} offer={offerings.pro_offering} />
+                    <FocusPricingCard card={card1} offer={offerings.plus_offering} />
+                    <PricingCard card={card2} offer={offerings.pro_offering} />
                 </ScrollView> : <ActivityIndicator style={{ flex: 1, alignSelf: 'center' }} />}
         </View >
     );

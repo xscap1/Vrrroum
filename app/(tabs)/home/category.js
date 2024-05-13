@@ -3,6 +3,8 @@ import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import commonStyles from "../../../styles/common";
 import ListedProducts from "../../../components/home/ListedProducts";
 import React, { useEffect, useState } from 'react';
+import NoAccess from "../../../components/common/noaccess/NoAccess";
+import { isSubscriptionActiveFromRCProvider } from "../../../utils/rcprovider";
 
 const Category = () => {
     const router = useRouter();
@@ -12,10 +14,20 @@ const Category = () => {
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState();
     const [cursor, setCursor] = useState(null);
+    const [isMember, setIsMember] = useState();
 
     const local = useLocalSearchParams();
 
     const category = local.category;
+
+    useEffect(() => {
+        const getSubscriptionInfo = async () => {
+            const active = await isSubscriptionActiveFromRCProvider();
+            setIsMember(active);
+        }
+
+        getSubscriptionInfo();
+    }, []);
 
     useEffect(() => {
         api.geCategoryBatchFromApi(category, null, setData, setLoading, setCursor);
@@ -43,11 +55,14 @@ const Category = () => {
                     }}
                 />
                 <View style={commonStyles.flexContainer}>
-                    <Text style={commonStyles.heading}>{category}</Text>
+                    {!isMember ? <NoAccess /> :
+                        <View style={{ flex: 1 }}>
+                            <Text style={commonStyles.heading}>{category}</Text>
 
-                    {isLoading ? <ActivityIndicator /> : (
-                        <ListedProducts products={data} onEndOnPress={fetchData}/>
-                    )}
+                            {isLoading ? <ActivityIndicator /> : (
+                                <ListedProducts products={data} onEndOnPress={fetchData} />
+                            )}
+                        </View>}
                 </View>
 
             </SafeAreaView>

@@ -3,6 +3,8 @@ import { Stack, useRouter } from "expo-router";
 import commonStyles from "../../../styles/common";
 import ListedProducts from "../../../components/home/ListedProducts";
 import React, { useEffect, useState } from 'react';
+import NoAccess from "../../../components/common/noaccess/NoAccess";
+import { isSubscriptionActiveFromRCProvider } from "../../../utils/rcprovider";
 
 const Trends = () => {
   const router = useRouter();
@@ -11,6 +13,16 @@ const Trends = () => {
 
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState();
+  const [isMember, setIsMember] = useState();
+
+  useEffect(() => {
+    const getSubscriptionInfo = async () => {
+      const active = await isSubscriptionActiveFromRCProvider();
+      setIsMember(active);
+    }
+
+    getSubscriptionInfo();
+  }, []);
 
   useEffect(() => {
     api.getTrendsFromApi(setData, setLoading);
@@ -27,14 +39,16 @@ const Trends = () => {
           }}
         />
         <View style={commonStyles.flexContainer}>
-          <Text style={commonStyles.heading}>Les plus tendances</Text>
-          <Text style={commonStyles.subtext}>Voici notre sélection des produits les plus scannés de cette semaine</Text>
+          {!isMember ? <NoAccess /> :
+            <View style={{ flex: 1 }}>
+              <Text style={commonStyles.heading}>Les plus tendances</Text>
+              <Text style={commonStyles.subtext}>Voici notre sélection des produits les plus scannés de cette semaine</Text>
 
-          {isLoading ? <ActivityIndicator /> : (
-            <ListedProducts products={data} scan={true} />
-          )}
+              {isLoading ? <ActivityIndicator /> : (
+                <ListedProducts products={data} scan={true} />
+              )}
+            </View>}
         </View>
-
       </SafeAreaView>
     </View>
   );

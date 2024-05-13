@@ -11,6 +11,8 @@ import { Icon, SearchBar } from '@rneui/themed';
 import { COLORS } from "../../../constants";
 import DisplayTextInformations from "../../../components/common/cards/DisplayTextInformations";
 import { wh } from "../../../styles/common";
+import NoAccess from "../../../components/common/noaccess/NoAccess";
+import { isSubscriptionActiveFromRCProvider } from "../../../utils/rcprovider";
 
 const Home = () => {
 
@@ -18,6 +20,7 @@ const Home = () => {
   const [isSearching, setSearching] = useState(false);
   const [searchData, setSearchData] = useState();
   const [isLoading, setLoading] = useState(true);
+  const [isMember, setIsMember] = useState();
 
   const missingSearchDataText = "Aucuns résultats trouvés pour votre recherche.";
 
@@ -31,7 +34,7 @@ const Home = () => {
 
   const clearIcon = () => {
     return (
-      <Icon name="cancel" type="material" onPress={() => {setSearch("");}} />
+      <Icon name="cancel" type="material" onPress={() => { setSearch(""); }} />
     );
   };
 
@@ -50,6 +53,15 @@ const Home = () => {
     await api.PostSearchKeywordsToApi(JSON.stringify(data), setSearchData, setLoading);
   }
 
+  useEffect(() => {
+    const getSubscriptionInfo = async () => {
+      const active = await isSubscriptionActiveFromRCProvider();
+      setIsMember(active);
+    }
+
+    getSubscriptionInfo();
+  }, []);
+
   return (
     <View style={commonStyles.body}>
       <SafeAreaView style={commonStyles.flexSafeArea}>
@@ -64,6 +76,7 @@ const Home = () => {
             <SearchBar
               placeholder="Rechercher un produit"
               onChangeText={updateSearch}
+              editable={true}
               value={search}
               platform={"ios"}
               searchIcon={null}
@@ -77,25 +90,27 @@ const Home = () => {
               enablesReturnKeyAutomatically={true}
               cancelButtonTitle={""}
               clearIcon={search != "" ? clearIcon : null}
-              onSubmitEditing={() => { postKeywordsToApi(); console.log(isSearching); }}
+              onSubmitEditing={() => { if (isMember) {postKeywordsToApi();} }}
             />
           </View>
           {isSearching ? (
-            <View style={commonStyles.flexFullScreenContainer}>
-              {isLoading ? (
-                <ActivityIndicator />
-              ) : (
-                searchData.length == 0 ? <View style={{ height: wh }}><DisplayTextInformations text={missingSearchDataText} /></View> : <ListedProducts products={searchData} flatlist={false} />
-              )}
-                </View>
+            !isMember ? <View style={[commonStyles.flexContainer, { height: wh }]}><NoAccess /></View> :
+              <View style={commonStyles.flexFullScreenContainer}>
+                {isLoading ? (
+                  <ActivityIndicator />
+                ) : (
+                  searchData.length === 0 ? <View style={{ height: wh }}><DisplayTextInformations text={missingSearchDataText} /></View> : <ListedProducts products={searchData} flatlist={false} />
+                )}
+              </View>
           ) : null}
-              {!searchData ? (<View><Offers />
-                <Trendings />
-                <BestRated />
-                <Categories /></View>) : null}
-            </ScrollView>
+
+          {!searchData ? (<View><Offers />
+            <Trendings />
+            <BestRated />
+            <Categories /></View>) : null}
+        </ScrollView>
       </SafeAreaView>
-    </View>
+    </View >
   );
 };
 

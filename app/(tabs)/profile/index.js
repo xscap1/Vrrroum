@@ -41,8 +41,7 @@ const Profile = () => {
       await SecureStore.setItemAsync('user', JSON.stringify(user));
 
       console.log("success secureStore");
-      if (Platform.OS == "ios")
-        await configureRCProvider();
+      await configureRCProvider();
       setLoggedIn(true);
       console.log("Logged in");
       return 0;
@@ -63,8 +62,7 @@ const Profile = () => {
       } else {
         // Token valide, récupérer le JWT
         const token = await SecureStore.getItemAsync('jwt');
-        if (Platform.OS == "ios")
-          await configureRCProvider();
+        await configureRCProvider();
         setLoggedIn(true);
         setJwt(token);
         setJwtExpiration(expirationDate);

@@ -3,6 +3,8 @@ import { Stack, useRouter } from "expo-router";
 import commonStyles from "../../../styles/common";
 import ListedProducts from "../../../components/home/ListedProducts";
 import React, { useEffect, useState } from 'react';
+import NoAccess from "../../../components/common/noaccess/NoAccess";
+import { isSubscriptionActiveFromRCProvider } from "../../../utils/rcprovider";
 
 const BestRated = () => {
   const router = useRouter();
@@ -11,6 +13,16 @@ const BestRated = () => {
 
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState();
+  const [isMember, setIsMember] = useState();
+
+  useEffect(() => {
+    const getSubscriptionInfo = async ()=> {
+      const active = await isSubscriptionActiveFromRCProvider();
+      setIsMember(active);
+    }
+
+    getSubscriptionInfo();
+  }, []);
 
   useEffect(() => {
     api.getBestRatedFromApi(setData, setLoading);
@@ -27,16 +39,20 @@ const BestRated = () => {
           }}
         />
         <View style={commonStyles.flexContainer}>
-          <Text style={commonStyles.heading}>Les mieux notés</Text>
-          <Text style={commonStyles.subtext}>Voici notre sélection des meilleurs produits de cette semaine</Text>
 
-          {isLoading ? <ActivityIndicator /> : (
-            <ListedProducts products={data}/>
-          )}
+          {!isMember ? <NoAccess /> :
+            <View style={{flex: 1}}>
+              <Text style={commonStyles.heading}>Les mieux notés</Text>
+              <Text style={commonStyles.subtext}>Voici notre sélection des meilleurs produits de cette semaine</Text>
+
+              {isLoading ? <ActivityIndicator /> : (
+                <ListedProducts products={data} />
+              )}
+            </View>}
         </View>
 
-      </SafeAreaView>
-    </View>
+      </SafeAreaView >
+    </View >
   );
 };
 

@@ -18,17 +18,20 @@ export const getActiveSubscriptionFromRCProvider = async () => {
     }
 }
 
-export const isActiveSubscriptionFromRCProvider = async () => {
+export const isSubscriptionActiveFromRCProvider = async () => {
     let user = await SecureStore.getItemAsync('user');
-    user = JSON.parse(user);
 
     if (user != null && user != undefined) {
+        user = JSON.parse(user);
         const customerInfo = await Purchases.getCustomerInfo();
-        if (customerInfo.activeSubscriptions.length == 0)
-            return false;
-        return true;
+        if (customerInfo.activeSubscriptions.length > 0)
+            return true;
+        return false;
     }
+
+    return false;
 }
+
 
 export const getActiveSubscriptionInfoFromRCProvider = async () => {
     let user = await SecureStore.getItemAsync('user');

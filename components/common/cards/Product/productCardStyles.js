@@ -7,16 +7,16 @@ ww = Dimensions.get('window').width;
 wh = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
-    wrapper : {
+    wrapper: {
         flex: 1,
-        flexDirection : "row",
-        height: 0.12*wh,
+        flexDirection: "row",
+        height: 0.125 * wh,
     },
 
-    wrapperSponso : {
+    wrapperSponso: {
         flex: 1,
-        flexDirection : "row",
-        height: 0.15*wh,
+        flexDirection: "row",
+        height: 0.15 * wh,
     },
 
     imgContiner: {
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     },
 
     nameContainer: {
-        marginLeft: 0.05*ww,
+        marginLeft: 0.05 * ww,
         alignSelf: 'center'
     },
 
@@ -78,6 +78,32 @@ const styles = StyleSheet.create({
         height: 15,
         margin: 1
     },
+
+    notationContainer: {
+        flexDirection: 'row',
+        alignSelf: 'flex-end',
+        alignItems: 'center',
+        gap: 0.025 * ww,
+        marginTop: 0.01 * ww
+    },
+
+    scoreContainer: {
+        borderRadius: 100,
+        width: 0.085 * ww,
+        height: 0.085 * ww,
+        justifyContent: 'center',
+        backgroundColor: COLORS.background,
+        borderWidth: 1,
+        borderStyle: 'solid',
+    },
+
+    scoreText: {
+        textAlign: 'center',
+        fontWeight: '500',
+        fontSize: SIZES.small,
+        marginTop: 0,
+        width: 0.085 * ww,
+    }
 
 });
 

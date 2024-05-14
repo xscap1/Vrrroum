@@ -155,7 +155,7 @@ const commonStyles = StyleSheet.create({
     },
 
     scan: {
-        fontSize: SIZES.medium,
+        fontSize: SIZES.small,
         color: COLORS.lightgreen,
         alignSelf: "flex-start",
     },

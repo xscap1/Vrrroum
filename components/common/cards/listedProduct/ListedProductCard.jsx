@@ -50,7 +50,15 @@ const ListedProductCard = ({ product, colorNote, scan }) => {
                                             <Text style={{ color: COLORS.subwhite }}>{product.category}</Text>
                                         </View>
                                     </View>
-                                    <View style={{ flexDirection: 'row', alignSelf: 'flex-end', alignItems: 'center' }}>
+                                    <View style={styles.notationContainer}>
+                                        <View style={{ marginLeft: 20 }}>
+                                            <View style={[styles.scoreContainer, { borderColor: colorNote }]}>
+                                                <Text style={
+                                                    [styles.scoreText, { color: colorNote }]
+                                                }>{product.score}</Text>
+                                            </View>
+                                        </View>
+
                                         {scan ? (
                                             <View style={commonStyles.scanContainer}>
                                                 <View>
@@ -63,40 +71,8 @@ const ListedProductCard = ({ product, colorNote, scan }) => {
                                                     />
                                                 </View>
                                             </View>) : null}
-
-                                        <View style={{ marginLeft: 20 }}>
-                                            <View style={{ borderRadius: 100, width: 40, height: 40, justifyContent: 'center', backgroundColor: COLORS.background, borderWidth: 1, borderStyle: 'solid', borderColor: colorNote }}>
-                                                <Text style={{
-                                                    textAlign: 'center',
-                                                    fontWeight: '500',
-                                                    fontSize: SIZES.medium,
-                                                    marginTop: 0,
-                                                    width: 40,
-                                                    color: colorNote
-                                                }}>{product.score}</Text>
-                                            </View>
-                                        </View>
                                     </View>
                                 </View>
-                                {/* <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 10, marginBottom: 2 }}>
-                                <View style={{ paddingVertical: 5 }}>
-                                    <Text style={styles.branded}> {product.brand}</Text>
-                                </View>
-                                <View style={commonStyles.categoryWrap}>
-                                    <Text style={commonStyles.category}> {product.category} </Text>
-                                </View>
-                            </View>
-                            <Text numberOfLines={1} style={styles.name}> {product.name} </Text>
-                            <View style={styles.noteContainer}>
-                                <View style={{ borderRadius: 100, width: 40, height: 40, justifyContent: 'center', backgroundColor: COLORS.background, borderWidth: '1', borderStyle: 'solid', borderColor: colorNote }}>
-                                    <Text style={{
-                                        textAlign: 'center',
-                                        fontWeight: '800',
-                                        fontSize: SIZES.small,
-                                        color: colorNote
-                                    }}>{product.score}</Text>
-                                </View>
-                            </View> */}
                             </View>
                         </View>
                     ) : null}

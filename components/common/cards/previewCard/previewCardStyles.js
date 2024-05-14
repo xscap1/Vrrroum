@@ -2,20 +2,21 @@ import { StyleSheet } from "react-native";
 import { COLORS, SIZES } from "../../../../constants";
 
 import { Dimensions } from "react-native";
+// import { ww } from "../../../../styles/common";
 
-ww = Dimensions.get('window').width;
-wh = Dimensions.get('window').height;
+const ww = Dimensions.get('window').width;
+const wh = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
     wrapper: {
-        backgroundColor : COLORS.darkgray,
+        backgroundColor: COLORS.darkgray,
         paddingTop: 0.05 * ww,
         paddingBottom: 0.05 * ww,
         paddingLeft: 0.05 * ww,
         paddingRight: 0.05 * ww,
         borderRadius: 10,
-        width: 0.7*ww,
-        height: 0.42*wh
+        width: 0.7 * ww,
+        height: 0.42 * wh
     },
 
     categoryWrap: {
@@ -37,6 +38,24 @@ const styles = StyleSheet.create({
         justifyContent: "center",
     },
 
+    scoreContainer: {
+        borderRadius: 100, 
+        width: 0.1 * ww, 
+        height: 0.1 * ww, 
+        justifyContent: 'center', 
+        backgroundColor: COLORS.background, 
+        borderWidth: 1, 
+        borderStyle: 'solid',
+    },
+    
+    scoreText : {
+        textAlign: 'center',
+        fontWeight: '500',
+        fontSize: SIZES.small,
+        marginTop: 0,
+        width: 0.1 * ww,
+    },
+
     scanWrap: {
         backgroundColor: COLORS.background,
         borderColor: COLORS.lightgreen,
@@ -47,10 +66,10 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignSelf: "flex-start",
     },
-    
+
     img: {
         borderRadius: 10,
-        width : '100%',
+        width: '100%',
         height: '100%',
         resizeMode: 'contain'
     },
@@ -74,7 +93,7 @@ const styles = StyleSheet.create({
         alignSelf: "flex-start",
         width: '75%'
     },
-    
+
     noteWrap: {
         paddingVertical: 5,
         paddingHorizontal: 8,
@@ -87,7 +106,7 @@ const styles = StyleSheet.create({
         color: COLORS.lightwhite,
         alignSelf: 'center'
     },
-    
+
     brand: {
         fontSize: SIZES.medium,
         color: COLORS.lightwhite,
@@ -111,14 +130,19 @@ const styles = StyleSheet.create({
         color: COLORS.lightwhite,
     },
 
-    categoryBrandWrapper : {
+    categoryBrandWrapper: {
         flexDirection: "row",
         marginTop: 12,
-        justifyContent:'space-between',
+        justifyContent: 'space-between',
         gap: 10
     },
 
-    flexchild: {
+    notationContainer: {
+        flexDirection: 'row',
+        alignSelf: 'flex-end',
+        marginTop: 5,
+        alignItems: 'center',
+        gap: 0.025 * ww
     }
 });
 

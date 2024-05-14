@@ -31,9 +31,15 @@ const PreviewCard = ({ product, colorNote, scan }) => {
                     <View>
 
                         <View style={{ marginTop: 15, height: '35%' }}>
-                            <Text style={{ fontSize: SIZES.medium, color: COLORS.lightwhite }}>{product.name}</Text>
+                            <Text style={{ fontSize: SIZES.xMedium, color: COLORS.lightwhite }}>{product.name}</Text>
                         </View>
-                        <View style={{ flexDirection: 'row', alignSelf: 'flex-end', marginTop: 5, alignItems: 'center' }}>
+                        <View style={styles.notationContainer}>
+                            <View style={{ marginLeft: 20 }}>
+                                <View style={[styles.scoreContainer, { borderColor: colorNote }]}>
+                                    <Text style={[styles.scoreText, {color: colorNote}]}>{product.score}</Text>
+                                </View>
+                            </View>
+
                             {scan ? (
                                 <View style={commonStyles.scanContainer}>
                                     <View>
@@ -47,19 +53,6 @@ const PreviewCard = ({ product, colorNote, scan }) => {
                                     </View>
                                 </View>
                             ) : null}
-
-                            <View style={{ marginLeft: 20 }}>
-                                <View style={{ borderRadius: 100, width: 40, height: 40, justifyContent: 'center', backgroundColor: COLORS.background, borderWidth: 1, borderStyle: 'solid', borderColor: colorNote }}>
-                                    <Text style={{
-                                        textAlign: 'center',
-                                        fontWeight: '500',
-                                        fontSize: SIZES.medium,
-                                        marginTop: 0,
-                                        width: 40,
-                                        color: colorNote
-                                    }}>{product.score}</Text>
-                                </View>
-                            </View>
                         </View>
                     </View>
                 ) : null}

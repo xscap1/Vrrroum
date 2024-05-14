@@ -81,7 +81,7 @@ const ProductCard = ({ product, colorNote, scan }) => {
                                             <Text style={{ color: COLORS.subwhite }}>{product.category}</Text>
                                         </View>
                                     </View>
-                                    <View style={{ flexDirection: 'row', alignSelf: 'flex-end', alignItems: 'center' }}>
+                                    <View style={styles.notationContainer}>
                                         {scan ? (
                                             <View style={commonStyles.scanContainer}>
                                                 <View>
@@ -96,15 +96,10 @@ const ProductCard = ({ product, colorNote, scan }) => {
                                             </View>) : null}
 
                                         <View style={{ marginLeft: 20 }}>
-                                            <View style={{ borderRadius: 100, width: 40, height: 40, justifyContent: 'center', backgroundColor: COLORS.background, borderWidth: 1, borderStyle: 'solid', borderColor: colorNote }}>
-                                                <Text style={{
-                                                    textAlign: 'center',
-                                                    fontWeight: '500',
-                                                    fontSize: SIZES.medium,
-                                                    marginTop: 0,
-                                                    width: 40,
-                                                    color: colorNote
-                                                }}>{product.score}</Text>
+                                            <View style={[styles.scoreContainer, { borderColor: colorNote }]}>
+                                                <Text style={
+                                                    [styles.scoreText, { color: colorNote }]
+                                                }>{product.score}</Text>
                                             </View>
                                         </View>
                                     </View>
@@ -145,7 +140,7 @@ const ProductCard = ({ product, colorNote, scan }) => {
                     : null}
 
                 {!show ?
-                    <DisplayTextInformations text={envText}/>
+                    <DisplayTextInformations text={envText} />
                     : null}
 
                 <DisplayTextInformations title={"Comparateur de prix"} text={priceCompareText} />

@@ -39,7 +39,7 @@ const Trends = () => {
           }}
         />
         <View style={commonStyles.flexContainer}>
-          {isMember ? <NoAccess /> :
+          {!isMember ? <NoAccess /> :
             <View style={{ flex: 1 }}>
               <Text style={commonStyles.heading}>Les plus tendances</Text>
               <Text style={commonStyles.subtext}>Voici notre sélection des produits les plus scannés de cette semaine</Text>

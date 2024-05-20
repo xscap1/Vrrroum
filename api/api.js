@@ -1,6 +1,6 @@
 import { deleteHistory, storeHistoryInCache } from "../utils";
 
-const serverip = 'http://213.130.147.216:8383/api';
+const serverip = 'https://api.vrrroum.com/api';
 //localhost/mac
 // const serverip = 'http://192.168.0.145:8383/api';
 //Vincent

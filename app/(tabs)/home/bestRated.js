@@ -16,7 +16,7 @@ const BestRated = () => {
   const [isMember, setIsMember] = useState();
 
   useEffect(() => {
-    const getSubscriptionInfo = async ()=> {
+    const getSubscriptionInfo = async () => {
       const active = await isSubscriptionActiveFromRCProvider();
       setIsMember(active);
     }
@@ -40,15 +40,14 @@ const BestRated = () => {
         />
         <View style={commonStyles.flexContainer}>
 
-          {!isMember ? <NoAccess /> :
-            <View style={{flex: 1}}>
-              <Text style={commonStyles.heading}>Les mieux notés</Text>
-              <Text style={commonStyles.subtext}>Voici notre sélection des meilleurs produits de cette semaine</Text>
+          <View style={{ flex: 1 }}>
+            <Text style={commonStyles.heading}>Les mieux notés</Text>
+            <Text style={commonStyles.subtext}>Voici notre sélection des meilleurs produits de cette semaine</Text>
 
-              {isLoading ? <ActivityIndicator /> : (
-                <ListedProducts products={data} />
-              )}
-            </View>}
+            {isLoading ? <ActivityIndicator /> : (
+              <ListedProducts products={data} />
+            )}
+          </View>
         </View>
 
       </SafeAreaView >

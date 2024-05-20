@@ -55,14 +55,13 @@ const Category = () => {
                     }}
                 />
                 <View style={commonStyles.flexContainer}>
-                    {!isMember ? <NoAccess /> :
-                        <View style={{ flex: 1 }}>
-                            <Text style={commonStyles.heading}>{category}</Text>
+                    <View style={{ flex: 1 }}>
+                        <Text style={commonStyles.heading}>{category}</Text>
 
-                            {isLoading ? <ActivityIndicator /> : (
-                                <ListedProducts products={data} onEndOnPress={fetchData} />
-                            )}
-                        </View>}
+                        {isLoading ? <ActivityIndicator /> : (
+                            <ListedProducts products={data} onEndOnPress={fetchData} />
+                        )}
+                    </View>
                 </View>
 
             </SafeAreaView>

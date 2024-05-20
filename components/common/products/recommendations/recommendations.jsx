@@ -30,10 +30,9 @@ const Recommendations = ({ product }) => {
     return (
         <View>
             <Text style={commonStyles.heading}>Recommandations</Text>
-            {!isMember ? <NoAccess /> :
-                <View>
-                    {isLoading ? <ActivityIndicator /> : <ListedProducts products={recommendations} flatlist={false} />}
-                </View>}
+            <View>
+                {isLoading ? <ActivityIndicator /> : <ListedProducts products={recommendations} flatlist={false} />}
+            </View>
         </View>
     );
 };

@@ -90,18 +90,17 @@ const Home = () => {
               enablesReturnKeyAutomatically={true}
               cancelButtonTitle={""}
               clearIcon={search != "" ? clearIcon : null}
-              onSubmitEditing={() => { if (isMember) {postKeywordsToApi();} }}
+              onSubmitEditing={() => { postKeywordsToApi(); }}
             />
           </View>
           {isSearching ? (
-            !isMember ? <View style={[commonStyles.flexContainer, { height: wh }]}><NoAccess /></View> :
-              <View style={commonStyles.flexFullScreenContainer}>
-                {isLoading ? (
-                  <ActivityIndicator />
-                ) : (
-                  searchData.length === 0 ? <View style={{ height: wh }}><DisplayTextInformations text={missingSearchDataText} /></View> : <ListedProducts products={searchData} flatlist={false} />
-                )}
-              </View>
+            <View style={commonStyles.flexFullScreenContainer}>
+              {isLoading ? (
+                <ActivityIndicator />
+              ) : (
+                searchData.length === 0 ? <View style={{ height: wh }}><DisplayTextInformations text={missingSearchDataText} /></View> : <ListedProducts products={searchData} flatlist={false} />
+              )}
+            </View>
           ) : null}
 
           {!searchData ? (<View><Offers />

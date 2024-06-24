@@ -26,6 +26,12 @@
         {
           "faceIDPermission": "Autoriser $(PRODUCT_NAME) à accéder à vos données biométriques Face ID."
         }
+      ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Autoriser $(PRODUCT_NAME) à accéder à votre appareil photo."
+        }
       ]
     ],
     "name": "Vrrroum",

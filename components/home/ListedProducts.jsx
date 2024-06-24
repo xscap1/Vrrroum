@@ -25,7 +25,7 @@ const ListedProducts = ({ products, scan, onEndOnPress, flatlist = true }) => {
                                     scan={scan}
                                 />
                             )}
-                            contentContainerStyle={{ columnGap: SIZES.medium }}
+                            contentContainerStyle={{ columnGap: SIZES.medium, gap: 5 }}
                             showsVerticalScrollIndicator={false}
                             onEndReached={() => { if (onEndOnPress != null) onEndOnPress(); }}
                             onEndReachedThreshold={0.2}

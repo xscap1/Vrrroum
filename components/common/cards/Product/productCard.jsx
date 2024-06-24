@@ -8,7 +8,8 @@ import Recommendations from '../../products/recommendations/recommendations';
 import { Icon } from '@rneui/themed';
 import { CheckPresentInFavorite, removeFavoriteByIdInCache, storeFavoritesInCache } from '../../../../utils';
 import DisplayTextInformations from '../DisplayTextInformations';
-
+import Swiper from 'react-native-swiper';
+import Notation from '../../products/notation/notation';
 
 const ProductCard = ({ product, colorNote, scan }) => {
 
@@ -16,6 +17,9 @@ const ProductCard = ({ product, colorNote, scan }) => {
 
     const [show, setShow] = useState(true);
     const [switchIcon, setSwitchIcon] = useState(false);
+    const [activeIndex, setActiveIndex] = useState(0);
+    const [dynamicHeight, setDynamicHeight] = useState([100, 100, 100, 100]);
+    const [height, setHeight] = useState(100);
 
     const priceCompareText = "Cette fonctionnalité sera bientôt disponible \! L\'équipe Vrrroum travaille dur pour vous offrir la solution d'achat en ligne la plus économique.";
     const envText = "Cette fonctionnalité sera bientôt disponible \! L\'équipe Vrrroum travaille dur pour vous donner la possibilité d'analyser l'impact environnemental d'un produit.";
@@ -36,7 +40,6 @@ const ProductCard = ({ product, colorNote, scan }) => {
 
         async function check() {
             const res = await CheckPresentInFavorite(product.id);
-            console.log("present ? :" + res);
             if (res)
                 setSwitchIcon(true);
         }
@@ -45,105 +48,80 @@ const ProductCard = ({ product, colorNote, scan }) => {
 
     }, [switchIcon]);
 
+
+    useEffect(() => {
+        setHeight(dynamicHeight[activeIndex]);
+    }, [activeIndex, dynamicHeight]);
+
+    const onLayoutChange = (index, event) => {
+        const { height } = event.nativeEvent.layout;
+        setDynamicHeight(prevHeights => {
+            const newHeights = [...prevHeights];
+            newHeights[index] = height;
+            return newHeights;
+        });
+    };
+
     return (
         <View style={commonStyles.flexContainer}>
             <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
-                <View style={commonStyles.subcontainer}>
+                <View style={{}}>
                     {product ? (
-                        <View style={wrapperStyle}>
-                            <View style={styles.imgContiner}>
+                        <View>
+                            <View style={{
+                                backgroundColor: 'white',
+                                borderRadius: 15,
+                                padding: 20,
+                                position: 'relative'
+                            }}>
                                 <Image
                                     source={{
                                         uri: product.img == null ? product.imgUrl : product.img
                                     }}
                                     style={styles.img}
                                 />
+                                <TouchableOpacity style={{ position: 'absolute', top: 10, right: 10, borderRadius: 10, padding: 5 }} onPress={async () => { const res = await addProductToFavorites(); if (res == 0) setSwitchIcon(true); }}>
+                                    <Icon name={switchIcon ? 'favorite' : 'favorite-border'} type='material' color={'black'} />
+                                </TouchableOpacity>
                             </View>
-                            <View style={styles.datasContainer}>
-                                {product.isSponso == true ?
-                                    <View>
-                                        <Text style={{
-                                            fontSize: SIZES.small,
-                                            color: COLORS.subwhite,
-                                            marginBottom: 5
-                                        }}>Sponsorisé</Text>
-                                    </View> : null}
-                                <View>
-                                    {/* backgroundColor: COLORS.background, borderRadius: 100, borderWidth: 1, borderColor: COLORS.yellow,  */}
-                                    <View>
-                                        <Text numberOfLines={2} style={{ color: COLORS.lightwhite, fontWeight: '500' }}>{product.name}</Text>
-                                    </View>
-                                    <View style={{ marginTop: 10, flexDirection: 'row' }}>
-                                        <View style={{ alignSelf: 'flex-start' }}>
-                                            <Text style={{ color: COLORS.yellow, padding: 5 }}>{product.brand}</Text>
-                                        </View>
-                                        <View style={{ alignSelf: 'center', marginLeft: 10 }}>
-                                            <Text style={{ color: COLORS.subwhite }}>{product.category}</Text>
-                                        </View>
-                                    </View>
-                                    <View style={styles.notationContainer}>
-                                        {scan ? (
-                                            <View style={commonStyles.scanContainer}>
-                                                <View>
-                                                    <Text style={commonStyles.scan}>{product.scans}</Text>
-                                                </View>
-                                                <View>
-                                                    <Image
-                                                        source={icons.flame}
-                                                        style={styles.icon}
-                                                    />
-                                                </View>
-                                            </View>) : null}
 
-                                        <View style={{ marginLeft: 20 }}>
-                                            <View style={[styles.scoreContainer, { borderColor: colorNote }]}>
-                                                <Text style={
-                                                    [styles.scoreText, { color: colorNote }]
-                                                }>{product.score}</Text>
-                                            </View>
-                                        </View>
-                                    </View>
-                                </View>
+                            <View style={{ marginTop: 20 }}>
+                                <Text style={commonStyles.subtextBold}>{product.name}</Text>
                             </View>
                         </View>
                     ) : null}
                 </View>
 
-                <TouchableOpacity style={{ display: "flex", flexDirection: "row", gap: 5, marginTop: 20, justifyContent: 'flex-end' }} onPress={async () => { const res = await addProductToFavorites(); if (res == 0) setSwitchIcon(true); }}>
-                    <Text style={commonStyles.subtext}>{switchIcon ? "Ajouté" : "Ajouter aux favoris"}</Text>
-                    <Icon name={switchIcon ? 'favorite' : 'favorite-border'} type='material' color={COLORS.yellow} />
-                </TouchableOpacity>
-
-                <View style={{ flexDirection: 'row', marginTop: '10%' }}>
-                    <View style={{ width: '50%' }}>
-                        <TouchableOpacity style={{ alignSelf: 'center', width: '80%' }} disabled={show} onPress={() => setShow(!show)}>
-                            <View style={show ? commonStyles.dataActiveButton : commonStyles.dataInactiveButton}>
-                                <Text style={show ? commonStyles.activeText : commonStyles.inactiveText}>Informations</Text>
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={{ width: '50%' }}>
-                        <TouchableOpacity style={{ alignSelf: 'center', width: '80%' }} disabled={!show} onPress={() => setShow(!show)}>
-                            <View style={!show ? commonStyles.dataActiveButton : commonStyles.dataInactiveButton}>
-                                <Text style={!show ? commonStyles.activeText : commonStyles.inactiveText}>Environnement</Text>
-                            </View>
-                        </TouchableOpacity>
-                    </View>
+                <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', marginTop: 20 }}>
+                    <View style={activeIndex == 0 ? commonStyles.activeSwipeContainer : {}}><Text style={activeIndex == 0 ? commonStyles.activeSwipeSubtext : commonStyles.swipeSubtext}>Note</Text></View>
+                    <View style={activeIndex == 1 ? commonStyles.activeSwipeContainer : {}}><Text style={activeIndex == 1 ? commonStyles.activeSwipeSubtext : commonStyles.swipeSubtext}>Environnement</Text></View>
+                    <View style={activeIndex == 2 ? commonStyles.activeSwipeContainer : {}}><Text style={activeIndex == 2 ? commonStyles.activeSwipeSubtext : commonStyles.swipeSubtext}>Comparateur</Text></View>
+                    <View style={activeIndex == 3 ? commonStyles.activeSwipeContainer : {}}><Text style={activeIndex == 3 ? commonStyles.activeSwipeSubtext : commonStyles.swipeSubtext}>Informations</Text></View>
                 </View>
 
 
-
-                {show ?
-                    <View>
+                <Swiper
+                    activeDotColor="yellow" // Change this to COLORS.yellow if you have a COLORS object
+                    onIndexChanged={(index) => {
+                        setActiveIndex(index);
+                    }}
+                    loadMinimal={true}
+                    showsPagination={false}
+                    height={height}
+                >
+                    <View onLayout={(e) => onLayoutChange(0, e)}>
+                        <Notation note={product.score} colorNote={colorNote} />
+                    </View>
+                    <View onLayout={(e) => onLayoutChange(1, e)}>
+                        <DisplayTextInformations text={envText} />
+                    </View>
+                    <View onLayout={(e) => onLayoutChange(2, e)}>
+                        <DisplayTextInformations text={priceCompareText} />
+                    </View>
+                    <View onLayout={(e) => onLayoutChange(3, e)}>
                         <Details product={product} />
                     </View>
-                    : null}
-
-                {!show ?
-                    <DisplayTextInformations text={envText} />
-                    : null}
-
-                <DisplayTextInformations title={"Comparateur de prix"} text={priceCompareText} />
+                </Swiper>
 
                 <View style={{ marginTop: 20 }}>
                     <Recommendations product={product} />

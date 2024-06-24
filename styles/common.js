@@ -35,14 +35,14 @@ const commonStyles = StyleSheet.create({
     },
 
     container: {
-        paddingTop: 0.05 * ww,
-        paddingBottom: 0.05 * ww,
+        paddingTop: 0.02 * ww,
+        paddingBottom: 0.02 * ww,
         paddingLeft: 0.05 * ww,
         paddingRight: 0.05 * ww,
     },
 
     flexContainer: {
-        paddingTop: 0.05 * ww,
+        paddingTop: 0.02 * ww,
         paddingLeft: 0.05 * ww,
         paddingRight: 0.05 * ww,
         flex: 1
@@ -52,9 +52,9 @@ const commonStyles = StyleSheet.create({
         flex: 1
     },
 
-    flexFullScreenContainer : {
-        paddingTop: 0.05 * ww,
-        paddingBottom: 0.05 * ww,
+    flexFullScreenContainer: {
+        paddingTop: 0.02 * ww,
+        paddingBottom: 0.02 * ww,
         paddingLeft: 0.05 * ww,
         paddingRight: 0.05 * ww,
         width: '100%',
@@ -63,9 +63,18 @@ const commonStyles = StyleSheet.create({
 
     subcontainer: {
         backgroundColor: COLORS.darkgray,
-        marginTop: 0.05 * ww,
-        paddingTop: 0.05 * ww,
-        paddingBottom: 0.05 * ww,
+        marginTop: 0.02 * ww,
+        paddingTop: 0.02 * ww,
+        paddingBottom: 0.02 * ww,
+        paddingLeft: 0.05 * ww,
+        paddingRight: 0.05 * ww,
+        borderRadius: 10
+    },
+
+    subContainerWithoutColor: {
+        marginTop: 0.02 * ww,
+        paddingTop: 0.02 * ww,
+        paddingBottom: 0.02 * ww,
         paddingLeft: 0.05 * ww,
         paddingRight: 0.05 * ww,
         borderRadius: 10
@@ -94,7 +103,46 @@ const commonStyles = StyleSheet.create({
 
     subtext: {
         fontSize: SIZES.medium,
-        color: COLORS.subwhite
+        color: COLORS.subwhite,
+    },
+
+    swipeWrapper: {
+        backgroundColor: 'red',
+        height: 'auto'
+    },
+
+    swipeView: {
+    },
+
+    swipeSubtext: {
+        fontSize: SIZES.xMedium,
+        color: COLORS.subwhite,
+        paddingBottom: 3
+    },
+
+    activeSwipeSubtext: {
+        fontSize: SIZES.xMedium,
+        color: COLORS.yellow,
+        fontWeight: 'bold',
+        paddingBottom: 2
+    },
+
+    activeSwipeContainer: {
+        borderBottomWidth: 2,
+        borderColor: COLORS.yellow
+    },
+
+    swipeContainer: {
+        flex: 1, 
+        justifyContent: 'center', 
+        alignItems: 'center'
+    },
+
+    subtextBold: {
+        fontSize: SIZES.medium,
+        color: COLORS.lightwhite,
+        fontWeight: 'bold',
+        lineHeight: 23
     },
 
     subtextCenter: {
@@ -109,7 +157,7 @@ const commonStyles = StyleSheet.create({
         fontWeight: 'bold',
     },
 
-    subHeading : {
+    subHeading: {
         fontSize: SIZES.large,
         color: COLORS.lightwhite,
         fontWeight: 'bold',

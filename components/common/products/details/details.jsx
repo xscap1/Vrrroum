@@ -23,8 +23,7 @@ const Details = ({ product }) => {
 
     return (
         <View>
-            <TouchableOpacity onPress={() => {setShow(!show)}} style={{width: 100, height: 30, alignSelf: 'flex-end', marginTop: 20, marginBottom: 5}}><Text style={{color: COLORS.subwhite, fontSize: SIZES.medium, alignSelf: 'flex-end', padding: 5 }}>Voir plus</Text></TouchableOpacity>
-            <View style={{ backgroundColor: COLORS.darkgray, padding: 5, borderRadius: 10}}>
+            <View style={{ backgroundColor: COLORS.darkgray, padding: 5, borderRadius: 10, marginTop: 20 }}>
                 <Information label={'Nom'} text={product.name} border={false} />
                 <Information label={'Marque'} text={product.brand} border={true} />
                 {product.ref ?
@@ -34,29 +33,23 @@ const Details = ({ product }) => {
                     <Information label={'Référence'} text={product.reference} border={true} />
                     : null}
                 <Information label={'Catégorie'} text={product.category} border={true} />
-
-                {show ?
-                    <View>
-                        {product.viscosity ?
-                            <Information label={'Viscosité'} text={product.viscosity} border={true} />
-                            : null}
-                        {product.norm_ACEA ?
-                            <Information label={'Norme ACEA'} text={product.norm_ACEA} border={true} />
-                            : null}
-                        {product.norm_API ?
-                            <Information label={'Norme API'} text={product.norm_API} border={true} />
-                            : null}
-                        {product.norm_man ?
-                            <Information label={'Norme constructeur'} text={product.norm_man} border={true} />
-                            : null}
-                        {product.capacity ?
-                            <Information label={'Capacité'} text={product.capacity} border={true} />
-                            : null}
-                        <Information label={'Scans'} text={product.scans} border={true} />
-                        <Information label={'Note'} text={product.score} border={true} />
-                    </View>
+                {product.viscosity ?
+                    <Information label={'Viscosité'} text={product.viscosity} border={true} />
                     : null}
-
+                {product.norm_ACEA ?
+                    <Information label={'Norme ACEA'} text={product.norm_ACEA} border={true} />
+                    : null}
+                {product.norm_API ?
+                    <Information label={'Norme API'} text={product.norm_API} border={true} />
+                    : null}
+                {product.norm_man ?
+                    <Information label={'Norme constructeur'} text={product.norm_man} border={true} />
+                    : null}
+                {product.capacity ?
+                    <Information label={'Capacité'} text={product.capacity} border={true} />
+                    : null}
+                <Information label={'Scans'} text={product.scans} border={true} />
+                <Information label={'Note'} text={product.score} border={true} />
             </View>
         </View>
     );

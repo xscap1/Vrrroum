@@ -1,4 +1,3 @@
-import { Camera, CameraType, AutoFocus } from 'expo-camera';
 import { useState, useEffect, useCallback, React, useRef } from 'react';
 import { Button, StyleSheet, Text, TouchableOpacity, View, Platform, Dimensions } from 'react-native';
 import * as BarCodeScanner from "expo-barcode-scanner";
@@ -6,6 +5,8 @@ import { useNavigation, useFocusEffect, useRouter } from "expo-router";
 import { Icon } from '@rneui/themed';
 import { COLORS } from '../../../constants';
 import { useIsFocused } from '@react-navigation/native';
+import { AutoFocus, Camera, CameraType } from 'expo-camera/legacy';
+// import { Camera, CameraType } from 'expo-camera/legacy';
 
 const Scan = () => {
 

@@ -9,7 +9,7 @@ const CategoryCard = ({ category }) => {
     return (
         <Link href={{
             pathname: `/home/category`,
-            params: { category: category.cat }
+            params: { category: category.cat, name: category.name }
         }} asChild>
             <Pressable>
                 <View style={commonStyles.categoryContainer}>

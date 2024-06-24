@@ -33,6 +33,10 @@ const StackLayout = () => {
         headerShadowVisible: false,
         headerBackTitleVisible: false
       }} />
+      <Stack.Screen name="product" options={{
+        headerShadowVisible: false,
+        headerBackTitleVisible: false
+      }} />
     </Stack>
   )
 };

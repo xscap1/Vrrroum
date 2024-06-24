@@ -10,6 +10,13 @@ const ListedProductCard = ({ product, colorNote, scan }) => {
 
     const wrapperStyle = product.isSponso == true ? styles.wrapperSponso : styles.wrapper;
     const navigation = useNavigation();
+    const categoryLocalization = ({
+        ["rim_cleaner"] : "Nettoyant jantes",
+        ["shampoo"] : "Shampooing",
+        ["interior_plastic_cleaner"] : "Nettoyant intérieur",
+        ["wax"] : "Cire",
+        ["engine_oil"] : "Huile moteur",
+    })
 
     return (
         <TouchableOpacity onPress={() => {
@@ -47,7 +54,7 @@ const ListedProductCard = ({ product, colorNote, scan }) => {
                                             <Text style={{ color: COLORS.yellow, padding: 5 }}>{product.brand}</Text>
                                         </View>
                                         <View style={{ alignSelf: 'center', marginLeft: 10 }}>
-                                            <Text style={{ color: COLORS.subwhite }}>{product.category}</Text>
+                                            <Text style={{ color: COLORS.subwhite }}>{categoryLocalization[product.category]}</Text>
                                         </View>
                                     </View>
                                     <View style={styles.notationContainer}>

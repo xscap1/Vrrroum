@@ -13,6 +13,16 @@ const styles = StyleSheet.create({
         height: 0.125 * wh,
     },
 
+    container: {
+        backgroundColor: COLORS.darkgray,
+        marginTop: 0.02 * ww,
+        paddingTop: 0.02 * ww,
+        paddingBottom: 0.02 * ww,
+        paddingLeft: 0.02 * ww,
+        paddingRight: 0.02 * ww,
+        borderRadius: 10
+    },
+
     wrapperSponso: {
         flex: 1,
         flexDirection: "row",

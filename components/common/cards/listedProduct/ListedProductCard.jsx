@@ -17,7 +17,7 @@ const ListedProductCard = ({ product, colorNote, scan }) => {
             navigation.push('product');
         }}>
             <View>
-                <View style={commonStyles.subcontainer}>
+                <View style={styles.container}>
                     {product ? (
                         <View style={wrapperStyle}>
                             <View style={styles.imgContiner}>

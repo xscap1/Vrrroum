@@ -19,6 +19,7 @@ const Category = () => {
     const local = useLocalSearchParams();
 
     const category = local.category;
+    const name = local.name;
 
     useEffect(() => {
         const getSubscriptionInfo = async () => {
@@ -56,7 +57,7 @@ const Category = () => {
                 />
                 <View style={commonStyles.flexContainer}>
                     <View style={{ flex: 1 }}>
-                        <Text style={commonStyles.heading}>{category}</Text>
+                        <Text style={commonStyles.heading}>{name}</Text>
 
                         {isLoading ? <ActivityIndicator /> : (
                             <ListedProducts products={data} onEndOnPress={fetchData} />

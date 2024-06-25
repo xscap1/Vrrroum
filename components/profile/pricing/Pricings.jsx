@@ -6,11 +6,6 @@ import PricingCard from "./PricingCard";
 import FocusPricingCard from "./FocusPricingCard";
 import { getOfferingsFromRCProvider } from "../../../utils/rcprovider";
 
-const APIKeys = {
-    apple: "appl_TSXyjYXVGQMQOMWTXPTyyTAvwtc",
-    google: "your_revenuecat_google_api_key",
-};
-
 const Pricings = () => {
 
     const card1 = {

@@ -256,6 +256,10 @@ const Profile = () => {
                               scopes: ['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile'],
                               webClientId: '383293001226-jn9mq1in1pvr5uii5eondmf5sa996ef7.apps.googleusercontent.com'
                             });
+                            // const userInfo = await GoogleSignin.signIn({
+                            //   scopes: ['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile'],
+                            //   webClientId: '383293001226-u0ap71at1pt6racjlqmaj2sbekere1na.apps.googleusercontent.com'
+                            // });
 
                             if (userInfo) 
                             {

@@ -1,4 +1,4 @@
-{
+export default {
   "expo": {
     "scheme": "myapp",
     "web": {
@@ -59,7 +59,7 @@
         "INTERNET"
       ],
       "package": "com.miraixscap.Vrrroum",
-      "googleServicesFile": "./android/app/google-services.json"
+      "googleServicesFile": process.env.EXPO_PUBLIC_GOOGLE_SERVICES_JSON
     }
   }
 }

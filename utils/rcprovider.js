@@ -81,10 +81,10 @@ export const configureRCProvider = async () => {
         await Purchases.configure({ apiKey: APIKeys.apple });
     }
 
-    const { customerInfo } = await logInCustomerToRCProvider();
-    if (customerInfo != null && customerInfo != undefined)
-        return true;
-    return false;
+    // const { customerInfo } = await logInCustomerToRCProvider();
+    // if (customerInfo != null && customerInfo != undefined)
+    //     return true;
+    // return false;
 }
 
 export const getOfferingsFromRCProvider = async () => {

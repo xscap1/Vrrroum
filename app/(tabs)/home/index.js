@@ -31,21 +31,19 @@ const Home = () => {
     setSearch(search);
   };
 
-  // <Icon name="cancel" type="material" onPress={resetSearchBar} />
-
   const clearIcon = () => {
     return (
       <Icon name="cancel" type="material" onPress={() => { setSearch(""); }} />
     );
   };
 
-  // useEffect(() => {
-  //   const configure = async () => {
-  //     configureRCProvider();
-  //   }
+  useEffect(() => {
+    const configure = async () => {
+      configureRCProvider();
+    }
 
-  //   configure();
-  // }, []);
+    configure();
+  }, []);
 
   const resetSearchBar = () => {
     setSearching(false);

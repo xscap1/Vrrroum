@@ -4,7 +4,7 @@ import { Stack, useRouter, Link } from "expo-router";
 import * as SecureStore from 'expo-secure-store';
 import commonStyles from '../../../styles/common';
 import ProfileData from '../../../components/profile/ProfileData';
-import { configureRCProvider, logOutCustomerFromRCProvider } from '../../../utils/rcprovider';
+import { configureRCProvider, logInCustomerToRCProvider, logOutCustomerFromRCProvider } from '../../../utils/rcprovider';
 import {
   GoogleOneTapSignIn,
   GoogleSigninButton,
@@ -41,7 +41,8 @@ const Profile = () => {
       await SecureStore.setItemAsync('user', JSON.stringify(user));
 
       console.log("success secureStore");
-      await configureRCProvider();
+      // await configureRCProvider();
+      await logInCustomerToRCProvider();
       setLoggedIn(true);
       console.log("Logged in");
       return 0;
@@ -62,7 +63,8 @@ const Profile = () => {
       } else {
         // Token valide, récupérer le JWT
         const token = await SecureStore.getItemAsync('jwt');
-        await configureRCProvider();
+        // await configureRCProvider();
+        await logInCustomerToRCProvider();
         setLoggedIn(true);
         setJwt(token);
         setJwtExpiration(expirationDate);
@@ -252,15 +254,14 @@ const Profile = () => {
                             const isSignedIn = await GoogleSignin.isSignedIn();
                             console.log(isSignedIn);
                             await GoogleSignin.hasPlayServices();
-                            const userInfo = await GoogleSignin.signIn({
-                              scopes: ['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile'],
-                              webClientId: '383293001226-jn9mq1in1pvr5uii5eondmf5sa996ef7.apps.googleusercontent.com'
-                            });
                             // const userInfo = await GoogleSignin.signIn({
                             //   scopes: ['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile'],
-                            //   webClientId: '383293001226-u0ap71at1pt6racjlqmaj2sbekere1na.apps.googleusercontent.com'
+                            //   webClientId: '383293001226-jn9mq1in1pvr5uii5eondmf5sa996ef7.apps.googleusercontent.com'
                             // });
-
+                            const userInfo = await GoogleSignin.signIn({
+                              scopes: ['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile'],
+                              webClientId: '383293001226-u0ap71at1pt6racjlqmaj2sbekere1na.apps.googleusercontent.com'
+                            });
                             if (userInfo) 
                             {
                               const info = userInfo.user;
@@ -271,6 +272,7 @@ const Profile = () => {
                                 loginsys: "Google"
                               }
 
+                              console.log(userInfo);
                               await LogIn(info.id, user);
                             }
 

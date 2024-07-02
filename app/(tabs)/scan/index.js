@@ -5,7 +5,7 @@ import { useNavigation, useFocusEffect, useRouter } from "expo-router";
 import { Icon } from '@rneui/themed';
 import { COLORS } from '../../../constants';
 import { useIsFocused } from '@react-navigation/native';
-import { AutoFocus, Camera, CameraType } from 'expo-camera/legacy';
+import { AutoFocus, Camera, CameraType } from 'expo-camera';
 // import { Camera, CameraType } from 'expo-camera/legacy';
 
 const Scan = () => {

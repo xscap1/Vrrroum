@@ -170,8 +170,15 @@ const Profile = () => {
 
   useEffect(() => {
     if (Platform.OS == "android") {
-      GoogleSignin.configure();
-      console.log("configured");
+      // GoogleSignin.configure({
+      //   webClientId: '383293001226-jcdunuvur0hp833rj9i0nu034mfuob1g.apps.googleusercontent.com', // client ID of type WEB for your server. Required to get the `idToken` on the user object, and for offline access.
+      //   scopes: ['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile'], // what API you want to access on behalf of the user, default is email and profile
+      // });
+      GoogleSignin.configure({
+        webClientId: '383293001226-jcdunuvur0hp833rj9i0nu034mfuob1g.apps.googleusercontent.com', // client ID of type WEB for your server. Required to get the `idToken` on the user object, and for offline access.
+      });
+      
+      console.log("GoogleSignIn configured");
     }
   }, []);
 
@@ -251,17 +258,12 @@ const Profile = () => {
                         size={GoogleSigninButton.Size.Wide}
                         onPress={async () => {
                           try {
-                            const isSignedIn = await GoogleSignin.isSignedIn();
-                            console.log(isSignedIn);
-                            await GoogleSignin.hasPlayServices();
-                            // const userInfo = await GoogleSignin.signIn({
-                            //   scopes: ['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile'],
-                            //   webClientId: '383293001226-jn9mq1in1pvr5uii5eondmf5sa996ef7.apps.googleusercontent.com'
-                            // });
-                            const userInfo = await GoogleSignin.signIn({
-                              scopes: ['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile'],
-                              webClientId: '383293001226-u0ap71at1pt6racjlqmaj2sbekere1na.apps.googleusercontent.com'
-                            });
+                            // const isSignedIn = await GoogleSignin.isSignedIn();
+                            // console.log(isSignedIn);
+                            await GoogleSignin.hasPlayServices({showPlayServicesUpdateDialog: true});
+                            const userInfo = await GoogleSignin.signIn();
+                            console.log(userInfo);
+                            console.log("After SignIn");
                             if (userInfo) 
                             {
                               const info = userInfo.user;

@@ -59,7 +59,6 @@ export default {
         "INTERNET"
       ],
       "package": "com.miraixscap.Vrrroum",
-      "googleServicesFile": process.env.EXPO_PUBLIC_GOOGLE_SERVICES_JSON
     }
   }
 }

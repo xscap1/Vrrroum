@@ -13,8 +13,8 @@ credentials.json
 ios/
 android/
 eas.json
-android/app/google-services.json
 .env
 .env.local
 # macOS
 .DS_Store
+google-services.json

@@ -133,8 +133,8 @@ const commonStyles = StyleSheet.create({
     },
 
     swipeContainer: {
-        flex: 1, 
-        justifyContent: 'center', 
+        flex: 1,
+        justifyContent: 'center',
         alignItems: 'center'
     },
 
@@ -143,6 +143,12 @@ const commonStyles = StyleSheet.create({
         color: COLORS.lightwhite,
         fontWeight: 'bold',
         lineHeight: 23
+    },
+
+    textCenter: {
+        fontSize: SIZES.large,
+        color: COLORS.subwhite,
+        textAlign: 'center'
     },
 
     subtextCenter: {
@@ -157,10 +163,33 @@ const commonStyles = StyleSheet.create({
         fontWeight: 'bold',
     },
 
+    headingCenter: {
+        fontSize: SIZES.xLarge,
+        color: COLORS.lightwhite,
+        fontWeight: 'bold',
+        textAlign: 'center'
+    },
+
     subHeading: {
         fontSize: SIZES.large,
         color: COLORS.lightwhite,
         fontWeight: 'bold',
+    },
+
+    subHeadingCenter: {
+        fontSize: SIZES.large,
+        color: COLORS.lightwhite,
+        fontWeight: 'bold',
+        textAlign: 'center'
+    },
+
+    link: {
+        color: COLORS.hyperlink,
+    },
+
+    linkCenter: {
+        color: COLORS.hyperlink,
+        textAlign: 'center'
     },
 
     tabBar: {
@@ -236,7 +265,52 @@ const commonStyles = StyleSheet.create({
     inactiveText: {
         fontSize: SIZES.medium,
         color: COLORS.lightwhite
-    }
+    },
+
+    input: {
+        height: 40,
+        borderRadius: 10,
+        marginBottom: 16,
+        paddingHorizontal: 8,
+        backgroundColor: COLORS.darkgray,
+        color: COLORS.lightwhite
+    },
+
+    buttonGray: {
+        width: 200,
+        borderRadius: 10,
+        padding: 10,
+        color: COLORS.lightwhite,
+        backgroundColor: COLORS.darkgray
+    },
+
+    buttonYellow: {
+        width: 200,
+        borderRadius: 10,
+        padding: 10,
+        color: 'black',
+        backgroundColor: COLORS.yellow,
+        alignItems: 'center'
+    },
+
+    buttonGrayCenter: {
+        width: 200,
+        borderRadius: 10,
+        padding: 10,
+        color: COLORS.lightwhite,
+        backgroundColor: COLORS.darkgray,
+        justifyContent: 'center'
+    }, 
+
+    buttonYellowCenter: {
+        width: 200,
+        borderRadius: 10,
+        padding: 10,
+        color: 'black',
+        backgroundColor: COLORS.yellow,
+        alignSelf: 'center'
+    },
+    
 });
 
 export default commonStyles;

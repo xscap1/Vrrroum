@@ -5,6 +5,7 @@ import React from 'react';
 import { useState, useEffect } from "react";
 import ListedButton from "../../../components/common/buttons/ListedButton";
 import { useNavigation } from "expo-router";
+import { icons } from "../../../constants";
 
 const Help = () => {
     
@@ -26,14 +27,14 @@ const Help = () => {
                     <View style={{ marginTop: 20 }}>
                         <Text style={commonStyles.subHeading}>Bug rencontrés</Text>
                         <View style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', justifyContent: 'space-between', gap: 15, marginTop: 20 }}>
-                            <ListedButton text={'Rapporter un problème sur l\'application'} handlePress={() => {navigation.push('bugReport');}}/>
+                            <ListedButton text={'Rapporter un bug'} icon={icons.bug} handlePress={() => {navigation.push('bugReport');}}/>
                         </View>
                     </View>
 
                     <View style={{ marginTop: 20 }}>
                         <Text style={commonStyles.subHeading}>À propos de Vrrroum</Text>
                         <View style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', justifyContent: 'space-between', gap: 15, marginTop: 20 }}>
-                            <ListedButton text={'Qui sommes-nous ?'} handlePress={() => {Linking.openURL('https://vrrroum.webflow.io')}}/>
+                            <ListedButton text={'Qui sommes-nous ?'} icon={icons.info} handlePress={() => {Linking.openURL('https://www.vrrroum.com')}}/>
                         </View>
                     </View>
 

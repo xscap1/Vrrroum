@@ -1,6 +1,11 @@
 export default {
   "expo": {
-    "scheme": "myapp",
+    "scheme": "vrrroum",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
     "web": {
       "bundler": "metro"
     },

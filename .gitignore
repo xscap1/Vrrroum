@@ -18,3 +18,7 @@ eas.json
 # macOS
 .DS_Store
 google-services.json
+# Expo
+.expo
+dist/
+web-build/

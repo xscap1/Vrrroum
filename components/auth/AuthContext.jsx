@@ -1,16 +1,20 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect, useContext } from 'react';
 import { auth } from '../../firebaseConfig';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
+import SubscriptionContext from '../sub/SubcriptionContext';
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    const { fetchSubscription, handleSubscriptionLogOut } = useContext(SubscriptionContext);
 
     const handleLogOut = () => {
         signOut(auth).then(() => {
             setUser(null);
+            fetchSubscription(null);
+            handleSubscriptionLogOut();
         }).catch((error) => {
             console.error("Error signing out: ", error);
         });
@@ -24,6 +28,7 @@ export const AuthProvider = ({ children }) => {
             else
                 console.log('[AuthProvider] State changed: Logged out');
             setUser(user);
+            fetchSubscription(user);
             setLoading(false);
         });
 

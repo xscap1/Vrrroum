@@ -7,11 +7,13 @@ import ListedButton from "../common/buttons/ListedButton";
 import ScreenHeaderBtn from "../common/buttons/SeeMoreButton";
 import { useNavigation } from "expo-router";
 import AuthContext from "../auth/AuthContext";
+import SubscriptionContext from "../sub/SubcriptionContext";
 
 const ProfileData = ({ logged }) => {
 
     const navigation = useNavigation();
     const { user, loading, handleLogOut } = useContext(AuthContext);
+    const { subscription } = useContext(SubscriptionContext);
 
     const handleLogInOnPress = () => {
         if (user)
@@ -28,7 +30,17 @@ const ProfileData = ({ logged }) => {
                 <ListedButton text={'Historique de scans'} icon={icons.search} handlePress={() => { navigation.push('history'); }} />
                 <ListedButton text={'Aide'} icon={icons.help} handlePress={() => { navigation.push('help'); }} />
                 <ListedButton text={'S\'abonner à Vrrroum'} icon={icons.unlock} handlePress={() => { navigation.push('pricing'); }} />
+
+                {user ?
+                    <ListedButton text={'Gérer mon compte'} icon={icons.edit_account} handlePress={() => { }} />
+                    : null}
+
+                {subscription ?
+                    <ListedButton text={'Gérer mon abonnement'} icon={icons.edit_sub} handlePress={() => { navigation.push('subscriptionManager'); }} />
+                    : null}
+
                 <ListedButton text={user ? 'Déconnexion' : 'Connexion'} icon={user ? icons.logout : icons.login} handlePress={() => { handleLogInOnPress(); }} />
+
             </View>
         </View>
     );

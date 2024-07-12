@@ -23,6 +23,7 @@ const Pricing = () => {
                     paddingTop: 0.05 * ww,
                     paddingLeft: 0.05 * ww,
                     paddingRight: 0.05 * ww,
+                    marginBottom: 20
                 }}>
                     <Text style={commonStyles.heading}>Abonnements</Text>
                 </View>

@@ -45,7 +45,7 @@ const Favs = () => {
           }}
         />
         <View style={commonStyles.flexContainer}>
-          <Text style={commonStyles.heading}>Favoris</Text>
+          <Text style={commonStyles.heading}>Mon coffre</Text>
 
           {isLoading ? <ActivityIndicator /> : 
           (data ? <Favorites products={data} onEmptyFavorites={() => {setData(undefined);}}/> :

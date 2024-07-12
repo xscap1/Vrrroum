@@ -13,7 +13,6 @@ import DisplayTextInformations from "../../../components/common/cards/DisplayTex
 import { wh } from "../../../styles/common";
 import NoAccess from "../../../components/common/noaccess/NoAccess";
 import { isSubscriptionActiveFromRCProvider } from "../../../utils/rcprovider";
-import { configureRCProvider, logOutCustomerFromRCProvider } from '../../../utils/rcprovider';
 
 const Home = () => {
 
@@ -36,14 +35,6 @@ const Home = () => {
       <Icon name="cancel" type="material" onPress={() => { setSearch(""); }} />
     );
   };
-
-  useEffect(() => {
-    const configure = async () => {
-      configureRCProvider();
-    }
-
-    configure();
-  }, []);
 
   const resetSearchBar = () => {
     setSearching(false);

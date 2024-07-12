@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { View, Text, FlatList, TouchableOpacity, ScrollView, Platform, ActivityIndicator, Alert } from "react-native";
 import commonStyles from "../../../styles/common";
 import { COLORS, SIZES, images } from "../../../constants"
 import PricingCard from "./PricingCard";
 import FocusPricingCard from "./FocusPricingCard";
 import { getOfferingsFromRCProvider } from "../../../utils/rcprovider";
+import SubscriptionContext from "../../sub/SubcriptionContext";
 
 const Pricings = () => {
 
@@ -80,6 +81,7 @@ const Pricings = () => {
 
     const [offerings, setOfferings] = useState();
     const [activeSubscription, setActiveSubscription] = useState();
+    const { subscription } = useContext(SubscriptionContext);
 
     useEffect(() => {
         const setupOfferings = async () => {
@@ -88,6 +90,7 @@ const Pricings = () => {
                 setOfferings(offerings.all);
             }
         };
+
         setupOfferings().catch(console.log);
     }, []);
 
@@ -103,8 +106,8 @@ const Pricings = () => {
                     decelerationRate="fast"
                     contentContainerStyle={{ columnGap: -25 }}
                 >
-                    <FocusPricingCard card={card1} offer={offerings.plus_offering} />
-                    <PricingCard card={card2} offer={offerings.pro_offering} />
+                    <FocusPricingCard actual={subscription && subscription.identifier === 'vrrroum_plus_entitlement'} card={card1} offer={offerings.plus_offering} />
+                    <PricingCard actual={subscription && subscription.identifier === 'vrrroum_pro_entitlement'} card={card2} offer={offerings.pro_offering} />
                 </ScrollView> : <ActivityIndicator style={{ flex: 1, alignSelf: 'center' }} />}
         </View >
     );

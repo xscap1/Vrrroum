@@ -1,13 +1,36 @@
-import React from "react";
-import { View, Text, FlatList, TouchableOpacity } from "react-native";
+import React, { useContext } from "react";
+import { View, Text, FlatList, TouchableOpacity, Alert } from "react-native";
 import commonStyles from "../../../styles/common";
 import { COLORS, SIZES, images } from "../../../constants"
 import { StyleSheet } from "react-native";
 import { Icon } from "@rneui/themed";
 import { Dimensions } from "react-native";
 import RevenueCatUI, { PAYWALL_RESULT } from "react-native-purchases-ui";
+import AuthContext from "../../auth/AuthContext";
 
-const FocusPricingCard = ({ card, offer }) => {
+const FocusPricingCard = ({ card, offer, actual }) => {
+
+    const { user } = useContext(AuthContext);
+
+    async function presentPaywall() {
+        const paywallResult = await RevenueCatUI.presentPaywall({
+            offering: offer // Optional Offering object obtained through getOfferings
+        });
+
+        console.log(paywallResult);
+
+        switch (paywallResult) {
+            case PAYWALL_RESULT.NOT_PRESENTED:
+            case PAYWALL_RESULT.ERROR:
+            case PAYWALL_RESULT.CANCELLED:
+                return false;
+            case PAYWALL_RESULT.PURCHASED:
+            case PAYWALL_RESULT.RESTORED:
+                return true;
+            default:
+                return false;
+        }
+    }
 
     ww = Dimensions.get('window').width;
     wh = Dimensions.get('window').height;
@@ -85,34 +108,21 @@ const FocusPricingCard = ({ card, offer }) => {
         </View>);
     }
 
-    async function presentPaywall() {
-        const paywallResult = await RevenueCatUI.presentPaywall({
-            offering: offer // Optional Offering object obtained through getOfferings
-        });
-
-        console.log(paywallResult);
-
-        switch (paywallResult) {
-            case PAYWALL_RESULT.NOT_PRESENTED:
-            case PAYWALL_RESULT.ERROR:
-            case PAYWALL_RESULT.CANCELLED:
-                return false;
-            case PAYWALL_RESULT.PURCHASED:
-            case PAYWALL_RESULT.RESTORED:
-                return true;
-            default:
-                return false;
-        }
-    }
-
     return (
         <View style={commonStyles.flexContainer}>
             <View style={styles.cardContainer}>
+                {actual ?
+                    <View>
+                        <Text style={commonStyles.subtextCenter}>Votre abonnement actuel</Text>
+                        <View style={{ marginBottom: 10 }}></View>
+                    </View> : null}
                 <Text style={styles.planName}>{card.planName}</Text>
                 <Text style={styles.priceTag}>{card.priceTag}/mois</Text>
                 <Text style={styles.annualPriceTag}>ou {card.annualPriceTag}/an soit {card.annualDiscount} de moins</Text>
 
-                <TouchableOpacity style={styles.button} onPress={()=>{presentPaywall()}}>
+                <TouchableOpacity style={styles.button} onPress={() => {
+                    { user ? presentPaywall() : Alert.alert('Connexion', 'Vous devez être connecté pour souscrire à un abonnement.') }
+                }}>
                     <Text>S'abonner</Text>
                 </TouchableOpacity>
 

@@ -1,6 +1,7 @@
 import Purchases, { PurchasesOffering, LOG_LEVEL } from "react-native-purchases";
 import * as SecureStore from 'expo-secure-store';
 import { Platform } from "react-native";
+import RevenueCatUI from "react-native-purchases-ui";
 
 const APIKeys = {
     apple: "appl_TSXyjYXVGQMQOMWTXPTyyTAvwtc",
@@ -53,6 +54,11 @@ export const getActiveSubscriptionInfoFromRCProvider = async () => {
     return undefined;
 }
 
+export const getCustomerInfoFromRCProvider = async () => {
+    const customerInfo = await Purchases.getCustomerInfo();
+    return customerInfo;
+}
+
 export const logInCustomerToRCProvider = async (uid, email) => {
     try {
         if (uid && email) {
@@ -98,3 +104,17 @@ export const getOfferingsFromRCProvider = async () => {
     const offerings = await Purchases.getOfferings();
     return offerings;
 }
+
+export const presentPaywallFromRCProvider = async (offer) => {
+    try {
+        const paywallResult = await RevenueCatUI.presentPaywall({
+            offering: offer
+        });
+
+        return paywallResult;
+    }
+    catch(error) {
+        console.log(error);
+        return null;
+    }
+} 

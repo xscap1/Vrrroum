@@ -9,10 +9,17 @@ import SubscriptionContext from "../../sub/SubcriptionContext";
 
 const SManager = () => {
 
-    const { subscription, managementUrl } = useContext(SubscriptionContext);
+    const { subscription, managementUrl, updateSubcription } = useContext(SubscriptionContext);
     const [subType, setSubType] = useState("");
 
     useEffect(() => {
+
+        const updateSelf = async () => {
+            await updateSubcription();
+        }
+
+        updateSelf();
+
         if (subscription) {
             switch (subscription.identifier) {
                 case 'vrrroum_plus_entitlement':
@@ -25,8 +32,6 @@ const SManager = () => {
                     return;
             }
         }
-
-
     }, []);
 
     const Information = ({ label, text, border }) => {
@@ -61,7 +66,7 @@ const SManager = () => {
                         <Text style={commonStyles.subtextCenter}>Membre depuis le {new Date(subscription.latestPurchaseDateMillis).toLocaleString()}</Text>
 
                         {managementUrl ?
-                            <TouchableOpacity style={{ marginTop: 10 }} onPress={() => { Linking.openURL(""); }}><Text style={commonStyles.subtextCenter}>Résilier ou modifier mon abonnement</Text></TouchableOpacity>
+                            <TouchableOpacity style={{ marginTop: 10 }} onPress={() => { Linking.openURL(managementUrl); }}><Text style={commonStyles.subtextCenter}>Résilier ou modifier mon abonnement</Text></TouchableOpacity>
                             :
                             null}
                     </View>

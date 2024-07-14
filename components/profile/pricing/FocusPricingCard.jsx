@@ -7,30 +7,12 @@ import { Icon } from "@rneui/themed";
 import { Dimensions } from "react-native";
 import RevenueCatUI, { PAYWALL_RESULT } from "react-native-purchases-ui";
 import AuthContext from "../../auth/AuthContext";
+import SubscriptionContext from "../../sub/SubcriptionContext";
 
 const FocusPricingCard = ({ card, offer, actual }) => {
 
     const { user } = useContext(AuthContext);
-
-    async function presentPaywall() {
-        const paywallResult = await RevenueCatUI.presentPaywall({
-            offering: offer // Optional Offering object obtained through getOfferings
-        });
-
-        console.log(paywallResult);
-
-        switch (paywallResult) {
-            case PAYWALL_RESULT.NOT_PRESENTED:
-            case PAYWALL_RESULT.ERROR:
-            case PAYWALL_RESULT.CANCELLED:
-                return false;
-            case PAYWALL_RESULT.PURCHASED:
-            case PAYWALL_RESULT.RESTORED:
-                return true;
-            default:
-                return false;
-        }
-    }
+    const { presentPaywall } = useContext(SubscriptionContext);
 
     ww = Dimensions.get('window').width;
     wh = Dimensions.get('window').height;
@@ -121,7 +103,7 @@ const FocusPricingCard = ({ card, offer, actual }) => {
                 <Text style={styles.annualPriceTag}>ou {card.annualPriceTag}/an soit {card.annualDiscount} de moins</Text>
 
                 <TouchableOpacity style={styles.button} onPress={() => {
-                    { user ? presentPaywall() : Alert.alert('Connexion', 'Vous devez être connecté pour souscrire à un abonnement.') }
+                    { user ? presentPaywall(user, offer) : Alert.alert('Connexion', 'Vous devez être connecté pour souscrire à un abonnement.') }
                 }}>
                     <Text>S'abonner</Text>
                 </TouchableOpacity>

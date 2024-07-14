@@ -26,7 +26,7 @@ export const SubscriptionProvider = ({ children }) => {
         try {
             if (user) {
                 console.log(user.email);
-                console.log('[SubcriptionProvider] Can access user\'s data.');
+                console.log('[SubscriptionProvider] Can access user\'s data.');
                 const customerInfo = await logInCustomerToRCProvider(user.uid, user.email);
                 // console.log(JSON.stringify(customerInfo, null, 2));
 
@@ -41,12 +41,12 @@ export const SubscriptionProvider = ({ children }) => {
 
             else {
                 disableSubscription();
-                console.log('[SubcriptionProvider] User not logged in. Can\'t access.')
+                console.log('[SubscriptionProvider] User not logged in. Can\'t access.')
             }
         }
         catch (error) {
             console.log(error);
-            console.log('[SubcriptionProvider] Unable to fetch RevenueCat API.');
+            console.log('[SubscriptionProvider] Unable to fetch RevenueCat API.');
         }
     }
 
@@ -64,7 +64,7 @@ export const SubscriptionProvider = ({ children }) => {
         }
     }
 
-    const updateSubcription = async () => {
+    const updateSubscription = async () => {
         const customerInfo = await getCustomerInfoFromRCProvider();
         if (customerInfo) {
             setRcCustomerInfo(customerInfo);
@@ -105,7 +105,7 @@ export const SubscriptionProvider = ({ children }) => {
                     return false;
                 case PAYWALL_RESULT.PURCHASED:
                     console.log("PURCHASED");
-                    updateSubcription();
+                    updateSubscription();
                     return true;
                 default:
                     return false;
@@ -115,7 +115,7 @@ export const SubscriptionProvider = ({ children }) => {
     }
 
     return (
-        <SubscriptionContext.Provider value={{ subscription, fetchSubscription, handleSubscriptionLogOut, managementUrl, presentPaywall, updateSubcription }}>
+        <SubscriptionContext.Provider value={{ subscription, fetchSubscription, handleSubscriptionLogOut, managementUrl, presentPaywall, updateSubscription }}>
             {children}
         </SubscriptionContext.Provider>
     )

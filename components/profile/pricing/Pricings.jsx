@@ -5,7 +5,7 @@ import { COLORS, SIZES, images } from "../../../constants"
 import PricingCard from "./PricingCard";
 import FocusPricingCard from "./FocusPricingCard";
 import { getOfferingsFromRCProvider } from "../../../utils/rcprovider";
-import SubscriptionContext from "../../sub/SubcriptionContext";
+import SubscriptionContext from "../../sub/SubscriptionContext";
 
 const Pricings = () => {
 

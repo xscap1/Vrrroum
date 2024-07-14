@@ -1,7 +1,7 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import { auth } from '../../firebaseConfig';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
-import SubscriptionContext from '../sub/SubcriptionContext';
+import SubscriptionContext from '../sub/SubscriptionContext';
 
 const AuthContext = createContext();
 

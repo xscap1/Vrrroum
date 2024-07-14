@@ -7,7 +7,7 @@ import { Icon } from "@rneui/themed";
 import { Dimensions } from "react-native";
 import RevenueCatUI, { PAYWALL_RESULT } from "react-native-purchases-ui";
 import AuthContext from "../../auth/AuthContext";
-import SubscriptionContext from "../../sub/SubcriptionContext";
+import SubscriptionContext from "../../sub/SubscriptionContext";
 
 const FocusPricingCard = ({ card, offer, actual }) => {
 

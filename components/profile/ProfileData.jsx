@@ -7,7 +7,7 @@ import ListedButton from "../common/buttons/ListedButton";
 import ScreenHeaderBtn from "../common/buttons/SeeMoreButton";
 import { useNavigation } from "expo-router";
 import AuthContext from "../auth/AuthContext";
-import SubscriptionContext from "../sub/SubcriptionContext";
+import SubscriptionContext from "../sub/SubscriptionContext";
 
 const ProfileData = ({ logged }) => {
 

@@ -1,7 +1,7 @@
 import { Stack } from "expo-router";
 import commonStyles from "../styles/common";
 import { AuthProvider } from "../components/auth/AuthContext";
-import { SubscriptionProvider } from "../components/sub/SubcriptionContext";
+import { SubscriptionProvider } from "../components/sub/SubscriptionContext";
 // export const unstable_settings = {
 //   // Ensure any route can link back to `/`
 //   initialRouteName: "(tabs)",

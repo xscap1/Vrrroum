@@ -8,7 +8,7 @@ import { Dimensions } from "react-native";
 import RevenueCatUI, { PAYWALL_RESULT } from "react-native-purchases-ui";
 import * as SecureStore from 'expo-secure-store';
 import AuthContext from "../../auth/AuthContext";
-import SubscriptionContext from "../../sub/SubcriptionContext";
+import SubscriptionContext from "../../sub/SubscriptionContext";
 
 const PricingCard = ({ card, offer, actual }) => {
 

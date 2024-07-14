@@ -4,18 +4,18 @@ import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import { COLORS, SIZES } from "../../../constants";
 import commonStyles from "../../../styles/common";
 import * as Linking from 'expo-linking';
-import SubscriptionContext from "../../sub/SubcriptionContext";
+import SubscriptionContext from "../../sub/SubscriptionContext";
 
 
 const SManager = () => {
 
-    const { subscription, managementUrl, updateSubcription } = useContext(SubscriptionContext);
+    const { subscription, managementUrl, updateSubscription } = useContext(SubscriptionContext);
     const [subType, setSubType] = useState("");
 
     useEffect(() => {
 
         const updateSelf = async () => {
-            await updateSubcription();
+            await updateSubscription();
         }
 
         updateSelf();

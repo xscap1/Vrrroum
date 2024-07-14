@@ -3,7 +3,7 @@ import { Stack, useRouter } from "expo-router";
 import commonStyles from "../../../styles/common";
 import React, { useEffect, useState, useContext } from 'react';
 import DisplayTextInformations from "../../../components/common/cards/DisplayTextInformations";
-import SubscriptionContext from "../../../components/sub/SubcriptionContext";
+import SubscriptionContext from "../../../components/sub/SubscriptionContext";
 import SManager from "../../../components/profile/subscriptionManager/SManager";
 
 const SubscriptionManager = () => {

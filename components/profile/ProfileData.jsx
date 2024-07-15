@@ -32,7 +32,7 @@ const ProfileData = ({ logged }) => {
                 <ListedButton text={'S\'abonner à Vrrroum'} icon={icons.unlock} handlePress={() => { navigation.push('pricing'); }} />
 
                 {user ?
-                    <ListedButton text={'Gérer mon compte'} icon={icons.edit_account} handlePress={() => { }} />
+                    <ListedButton text={'Gérer mon compte'} icon={icons.edit_account} handlePress={() => { navigation.push('account');}} />
                     : null}
 
                 {subscription ?

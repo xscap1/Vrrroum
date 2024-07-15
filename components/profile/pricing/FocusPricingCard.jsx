@@ -8,11 +8,13 @@ import { Dimensions } from "react-native";
 import RevenueCatUI, { PAYWALL_RESULT } from "react-native-purchases-ui";
 import AuthContext from "../../auth/AuthContext";
 import SubscriptionContext from "../../sub/SubscriptionContext";
+import { useNavigation } from "expo-router";
 
 const FocusPricingCard = ({ card, offer, actual }) => {
 
     const { user } = useContext(AuthContext);
     const { presentPaywall } = useContext(SubscriptionContext);
+    const navigation = useNavigation();
 
     ww = Dimensions.get('window').width;
     wh = Dimensions.get('window').height;
@@ -103,7 +105,18 @@ const FocusPricingCard = ({ card, offer, actual }) => {
                 <Text style={styles.annualPriceTag}>ou {card.annualPriceTag}/an soit {card.annualDiscount} de moins</Text>
 
                 <TouchableOpacity style={styles.button} onPress={() => {
-                    { user ? presentPaywall(user, offer) : Alert.alert('Connexion', 'Vous devez être connecté pour souscrire à un abonnement.') }
+                    if (user) {
+                        if (user.emailVerified)
+                            presentPaywall(user, offer);
+                        else {
+                            Alert.alert('Vérification email', 'Vous devez vérifier votre compte avant de souscrire à un abonnement');
+                            navigation.navigate('account');
+                        }
+                    }
+                    else {
+                        Alert.alert('Connexion', 'Vous devez être connecté pour souscrire à un abonnement.');
+                        navigation.navigate('login');
+                    }
                 }}>
                     <Text>S'abonner</Text>
                 </TouchableOpacity>

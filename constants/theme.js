@@ -14,7 +14,7 @@ const COLORS = {
     lightgreen: "#35C262",
     whitesmoke : "#f2f2f2",
     gainsbora : "#e6e6e6",
-    hyperlink: "#0000EE"
+    hyperlink: "#0000EE",
 };
 
 const SIZES = {

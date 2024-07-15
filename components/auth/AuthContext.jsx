@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import { auth } from '../../firebaseConfig';
-import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { onAuthStateChanged, signOut, getAuth } from 'firebase/auth';
 import SubscriptionContext from '../sub/SubscriptionContext';
 
 const AuthContext = createContext();
@@ -20,6 +20,11 @@ export const AuthProvider = ({ children }) => {
         });
     };
 
+    const updateUser = async () => {
+        const auth = getAuth();
+        await auth.currentUser.reload();
+    };
+
     useEffect(() => {
         console.log("[AuthProvider] Started.")
         const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -36,7 +41,7 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     return (
-        <AuthContext.Provider value={{ user, loading, handleLogOut }}>
+        <AuthContext.Provider value={{ user, loading, handleLogOut, updateUser }}>
             {children}
         </AuthContext.Provider>
     );

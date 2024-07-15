@@ -157,6 +157,18 @@ const commonStyles = StyleSheet.create({
         textAlign: 'center'
     },
 
+    subTextCenterBlack: {
+        fontSize: SIZES.medium,
+        color: 'black',
+        textAlign: 'center'
+    },
+
+    subtextCenterWarning: {
+        fontSize: SIZES.medium,
+        color: 'orange',
+        textAlign: 'center'
+    },
+
     heading: {
         fontSize: SIZES.xLarge,
         color: COLORS.lightwhite,
@@ -299,8 +311,12 @@ const commonStyles = StyleSheet.create({
         padding: 10,
         color: COLORS.lightwhite,
         backgroundColor: COLORS.darkgray,
-        justifyContent: 'center'
-    }, 
+        alignSelf: 'center'
+    },
+
+    buttonLightGray: {
+
+    },
 
     buttonYellowCenter: {
         width: 200,
@@ -310,7 +326,7 @@ const commonStyles = StyleSheet.create({
         backgroundColor: COLORS.yellow,
         alignSelf: 'center'
     },
-    
+
 });
 
 export default commonStyles;

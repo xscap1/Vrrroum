@@ -7,6 +7,7 @@ import { auth } from "../../../firebaseConfig"
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigation } from 'expo-router';
 import { COLORS } from '../../../constants';
+import { sendEmailVerification } from 'firebase/auth';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -30,7 +31,8 @@ const Login = () => {
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 setLoading(false);
-                // Tester abonnement
+                console.log(auth.currentUser);
+
                 if (navigation.canGoBack())
                     navigation.goBack();
             })
@@ -57,7 +59,7 @@ const Login = () => {
                 setLoading(false);
                 // Redirect to profile
                 if (navigation.canGoBack())
-                    navigation.goBack();
+                    navigation.replace('account');
             })
             .catch((err) => {
                 setLoading(false);

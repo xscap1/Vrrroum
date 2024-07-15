@@ -97,7 +97,6 @@ export const SubscriptionProvider = ({ children }) => {
     const presentPaywall = async (user, offer) => {
         const paywallResult = await presentPaywallFromRCProvider(offer);
         if (paywallResult) {
-            console.log(JSON.stringify(offer, null, 2));
             switch (paywallResult) {
                 case PAYWALL_RESULT.NOT_PRESENTED:
                 case PAYWALL_RESULT.ERROR:

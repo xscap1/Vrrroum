@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { View, Text, FlatList, TouchableOpacity, ScrollView, Platform, ActivityIndicator, Alert } from "react-native";
-import commonStyles from "../../../styles/common";
-import { COLORS, SIZES, images } from "../../../constants"
+import { View, ScrollView, ActivityIndicator } from "react-native";
 import PricingCard from "./PricingCard";
 import FocusPricingCard from "./FocusPricingCard";
 import { getOfferingsFromRCProvider } from "../../../utils/rcprovider";

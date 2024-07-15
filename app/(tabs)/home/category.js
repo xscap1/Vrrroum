@@ -5,6 +5,7 @@ import ListedProducts from "../../../components/home/ListedProducts";
 import React, { useEffect, useState } from 'react';
 import NoAccess from "../../../components/common/noaccess/NoAccess";
 import { isSubscriptionActiveFromRCProvider } from "../../../utils/rcprovider";
+import ProtectedRoute from "../../../components/sub/ProtectedRoute";
 
 const Category = () => {
     const router = useRouter();
@@ -14,21 +15,11 @@ const Category = () => {
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState();
     const [cursor, setCursor] = useState(null);
-    const [isMember, setIsMember] = useState();
 
     const local = useLocalSearchParams();
 
     const category = local.category;
     const name = local.name;
-
-    useEffect(() => {
-        const getSubscriptionInfo = async () => {
-            const active = await isSubscriptionActiveFromRCProvider();
-            setIsMember(active);
-        }
-
-        getSubscriptionInfo();
-    }, []);
 
     useEffect(() => {
         api.geCategoryBatchFromApi(category, null, setData, setLoading, setCursor);
@@ -44,29 +35,30 @@ const Category = () => {
         }
     };
 
-
     return (
-        <View style={commonStyles.body}>
-            <SafeAreaView style={commonStyles.flexSafeArea}>
-                <Stack.Screen
-                    options={{
-                        headerStyle: commonStyles.header,
-                        headerShadowVisible: false,
-                        headerTitle: "",
-                    }}
-                />
-                <View style={commonStyles.flexContainer}>
-                    <View style={{ flex: 1 }}>
-                        <Text style={commonStyles.heading}>{name}</Text>
+        <ProtectedRoute>
+            <View style={commonStyles.body}>
+                <SafeAreaView style={commonStyles.flexSafeArea}>
+                    <Stack.Screen
+                        options={{
+                            headerStyle: commonStyles.header,
+                            headerShadowVisible: false,
+                            headerTitle: "",
+                        }}
+                    />
+                    <View style={commonStyles.flexContainer}>
+                        <View style={{ flex: 1 }}>
+                            <Text style={commonStyles.heading}>{name}</Text>
 
-                        {isLoading ? <ActivityIndicator /> : (
-                            <ListedProducts products={data} onEndOnPress={fetchData} />
-                        )}
+                            {isLoading ? <ActivityIndicator /> : (
+                                <ListedProducts products={data} onEndOnPress={fetchData} />
+                            )}
+                        </View>
                     </View>
-                </View>
 
-            </SafeAreaView>
-        </View>
+                </SafeAreaView>
+            </View>
+        </ProtectedRoute>
     );
 };
 

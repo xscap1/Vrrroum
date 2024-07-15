@@ -8,9 +8,6 @@ import ProfileData from '../../../components/profile/ProfileData';
 
 const Profile = () => {
 
-  // const navigation = useNavigation();
-  // const { user, loading, handleLogOut } = useContext(AuthContext);
-
   return (
     <View style={commonStyles.body}>
       <SafeAreaView style={commonStyles.flexSafeArea}>
@@ -25,17 +22,6 @@ const Profile = () => {
         />
         <View style={commonStyles.flexContainer}>
           <ProfileData logged={false} />
-          {/* <TouchableOpacity
-            style={commonStyles.buttonYellowCenter}
-            onPress={() => {
-              if (user)
-                handleLogOut();
-              else
-                navigation.navigate('login');
-            }}
-          >
-            <Text style={{ textAlign: 'center' }}>{user ? 'Déconnexion' : 'Connexion'}</Text>
-          </TouchableOpacity> */}
         </View>
       </SafeAreaView >
     </View >

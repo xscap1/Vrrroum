@@ -18,6 +18,10 @@ const StackLayout = () => {
         headerShadowVisible: false,
         headerBackTitleVisible: false
       }} />
+      <Stack.Screen name="subCategory" options={{
+        headerShadowVisible: false,
+        headerBackTitleVisible: false
+      }} />
       <Stack.Screen name="category" options={{
         headerShadowVisible: false,
         headerBackTitleVisible: false

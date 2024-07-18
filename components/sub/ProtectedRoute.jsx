@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { Stack } from "expo-router";
 import { View, TouchableOpacity, Text, SafeAreaView } from 'react-native';
 import SubscriptionContext from './SubscriptionContext';
@@ -7,11 +7,20 @@ import commonStyles from '../../styles/common';
 import { COLORS } from '../../constants';
 
 const ProtectedRoute = ({ children }) => {
-    const { subscription } = useContext(SubscriptionContext);
+    const { subscription, updateSubscription } = useContext(SubscriptionContext);
     const navigation = useNavigation();
     const missingSubscription = "Accès abonnés"
     const missingSubscriptionTitle = "Recherchez, comparez et économisez.";
     const missingSubscriptionText = "Vrrroum référence plus de 500 produits. Profitez des services de l'abonnement Vrrroum.";
+
+    useEffect(() => {
+        const updateSubscriptionStatus = async () => {
+            await updateSubscription();
+        };
+
+        updateSubscriptionStatus();
+
+    }, [])
 
     if (!subscription) {
         return (

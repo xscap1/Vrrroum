@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { SafeAreaView, ScrollView, View, Text, Platform, ActivityIndicator, TouchableOpacity, Keyboard, Button, TouchableWithoutFeedback } from "react-native";
-import { Stack, useRouter, Link } from "expo-router";
 import Trendings from "../../../components/home/Trendings";
 import BestRated from "../../../components/home/BestRated";
 import Categories from "../../../components/home/Categories";
@@ -11,8 +10,6 @@ import { Icon, SearchBar } from '@rneui/themed';
 import { COLORS } from "../../../constants";
 import DisplayTextInformations from "../../../components/common/cards/DisplayTextInformations";
 import { wh } from "../../../styles/common";
-import NoAccess from "../../../components/common/noaccess/NoAccess";
-import { isSubscriptionActiveFromRCProvider } from "../../../utils/rcprovider";
 import { useNavigation } from "expo-router";
 import ProtectedRoute from "../../../components/sub/ProtectedRoute";
 
@@ -22,7 +19,6 @@ const Home = () => {
   const [isSearching, setSearching] = useState(false);
   const [searchData, setSearchData] = useState();
   const [isLoading, setLoading] = useState(true);
-  const [isMember, setIsMember] = useState();
 
   const navigation = useNavigation();
 
@@ -54,15 +50,6 @@ const Home = () => {
     const data = [search];
     await api.PostSearchKeywordsToApi(JSON.stringify(data), setSearchData, setLoading);
   }
-
-  useEffect(() => {
-    const getSubscriptionInfo = async () => {
-      const active = await isSubscriptionActiveFromRCProvider();
-      setIsMember(active);
-    }
-
-    getSubscriptionInfo();
-  }, []);
 
   return (
     <View style={commonStyles.body}>

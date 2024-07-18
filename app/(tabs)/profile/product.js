@@ -30,7 +30,7 @@ const Product = () => {
                         headerTitle: "",
                     }}
                 />
-                {product ? <ProductCard product={product} colorNote={utils.noteToColor(product.score)} /> : null}
+                {product ? <ProductCard product={product} /> : null}
             </SafeAreaView>
         </View>
     );

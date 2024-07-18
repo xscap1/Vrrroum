@@ -20,16 +20,22 @@ const Category = () => {
 
     const category = local.category;
     const name = local.name;
+    const parent = local.parent
 
     useEffect(() => {
-        api.geCategoryBatchFromApi(category, null, setData, setLoading, setCursor);
+        const cat = parent != "" ? parent : category;
+        const subcat = parent != "" ? category : 'products';
+        api.getCategoryBatchFromApi(cat, subcat, null, setData, setLoading, setCursor);
         console.log(cursor);
     }, []);
 
 
     const fetchData = () => {
         try {
-            api.geCategoryBatchFromApi(category, cursor, setData, setLoading, setCursor);
+            const cat = parent != "" ? parent : category;
+            const subcat = parent != "" ? category : 'products';
+
+            api.getCategoryBatchFromApi(cat, subcat, cursor, setData, setLoading, setCursor);
         } catch (error) {
             console.error('Erreur lors du chargement des données:', error);
         }

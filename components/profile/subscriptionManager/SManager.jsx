@@ -46,7 +46,7 @@ const SManager = () => {
                         {subscription.willRenew ? <Information label={'Date de renouvellement'} text={new Date(subscription.expirationDateMillis).toLocaleString()} border={true} /> : null}
                         <Information label={'Expire le'} text={new Date(subscription.expirationDateMillis).toLocaleString()} border={true} />
                         {subscription.unsubscribeDetectedAtMillis ?
-                            <Information label={'Désabonnement effectué le'} text={new Date(subscription.unsubscribeDetectedAtMillis).toLocaleString()} border={true} />
+                            <Information label={'Désabonné le'} text={new Date(subscription.unsubscribeDetectedAtMillis).toLocaleString()} border={true} />
                             : null}
                     </View>
 

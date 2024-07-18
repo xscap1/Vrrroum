@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { SafeAreaView, View, Text, Platform, ActivityIndicator, Button, TouchableOpacity, StyleSheet, TextInput, Alert, Modal, Linking, TouchableWithoutFeedback, Keyboard } from "react-native";
 import { Stack } from "expo-router";
 import commonStyles from '../../../styles/common';
@@ -7,7 +7,8 @@ import { auth } from "../../../firebaseConfig"
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigation } from 'expo-router';
 import { COLORS } from '../../../constants';
-import { sendEmailVerification } from 'firebase/auth';
+import AuthContext from '../../../components/auth/AuthContext';
+import ProtectedApiRoutes from '../../../api/api';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -18,6 +19,8 @@ const Login = () => {
     const [cgu, setCgu] = useState(false);
     const [modalVisible, setModalVisible] = useState(true);
     const [modalResult, setModalResult] = useState(null);
+    const { user } = useContext(AuthContext);
+    const { PostSignUpUserFromApi } = ProtectedApiRoutes();
 
     const cguTitle = 'Acceptation des Conditions générales d\'utilisation';
     const cguMessage = "Pour s'inscrire et profiter des services de l'application vous devez accepter les conditions générales d'utilisation et les conditions générales de ventes.";
@@ -31,7 +34,6 @@ const Login = () => {
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 setLoading(false);
-                console.log(auth.currentUser);
 
                 if (navigation.canGoBack())
                     navigation.goBack();
@@ -46,7 +48,6 @@ const Login = () => {
         setError('');
 
         const result = await handleCGU();
-        console.log("result cgu : " + result);
         if (!result) {
             setLoading(false);
             return;
@@ -54,12 +55,17 @@ const Login = () => {
         setLoading(true);
 
         createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
+            .then(async (userCredential) => {
                 // Stocker utilisateur
-                setLoading(false);
-                // Redirect to profile
-                if (navigation.canGoBack())
-                    navigation.replace('account');
+                if (userCredential) {
+                    const res = await PostSignUpUserFromApi(JSON.stringify(userCredential.user));
+                    if (res.signup) {
+                        setLoading(false);
+                        // Redirect to profile
+                        if (navigation.canGoBack())
+                            navigation.replace('account');
+                    }
+                }
             })
             .catch((err) => {
                 setLoading(false);

@@ -6,17 +6,28 @@ import { COLORS, SIZES, icons } from "../../../../constants"
 import { useNavigation } from "expo-router";
 import { storeProductInCache } from "../../../../utils";
 
-const ListedProductCard = ({ product, colorNote, scan }) => {
+const ListedProductCard = ({ product, scan }) => {
 
     const wrapperStyle = product.isSponso == true ? styles.wrapperSponso : styles.wrapper;
     const navigation = useNavigation();
     const categoryLocalization = ({
-        ["rim_cleaner"] : "Nettoyant jantes",
-        ["shampoo"] : "Shampooing",
-        ["interior_plastic_cleaner"] : "Nettoyant intérieur",
-        ["wax"] : "Cire",
-        ["engine_oil"] : "Huile moteur",
+        ["body"]: "Carrosserie",
+        ["shampoo"]: "Shampoing",
+        ["wax"]: "Cire",
+        ["tire"]: "Nettoyant pneus",
+        ["rim"]: "Nettoyant jantes",
+        ["polish"]: "Polish & Lustreur",
+        ["rain"]: "Anti-pluie",
+        ["window"]: "Nettoyant vitres",
+        ["fog"]: "Anti-buée",
+        ["chrome"]: "Chrome & Alu",
+        ["dirt"]: "Détachant goudron",
+        ["scratches"]: "Efface rayures",
+        ["textile"]: "Nettoyant textile",
+        ["leather"]: "Nettoyant cuir",
     })
+
+    const utils = require('../../../../constants/utils');
 
     return (
         <TouchableOpacity onPress={() => {
@@ -46,38 +57,46 @@ const ListedProductCard = ({ product, colorNote, scan }) => {
                                     </View> : null}
                                 <View>
                                     {/* backgroundColor: COLORS.background, borderRadius: 100, borderWidth: 1, borderColor: COLORS.yellow,  */}
-                                    <View>
-                                        <Text numberOfLines={2} style={{ color: COLORS.lightwhite, fontWeight: '500' }}>{product.name}</Text>
-                                    </View>
-                                    <View style={{ marginTop: 10, flexDirection: 'row' }}>
-                                        <View style={{ alignSelf: 'flex-start' }}>
-                                            <Text style={{ color: COLORS.yellow, padding: 5 }}>{product.brand}</Text>
-                                        </View>
-                                        <View style={{ alignSelf: 'center', marginLeft: 10 }}>
-                                            <Text style={{ color: COLORS.subwhite }}>{categoryLocalization[product.category]}</Text>
-                                        </View>
-                                    </View>
-                                    <View style={styles.notationContainer}>
-                                        <View style={{ marginLeft: 20 }}>
-                                            <View style={[styles.scoreContainer, { borderColor: colorNote }]}>
-                                                <Text style={
-                                                    [styles.scoreText, { color: colorNote }]
-                                                }>{product.score}</Text>
+                                    <View style={{height: product.isSponso ? '92.5%' : '100%', flexDirection:'column', justifyContent: 'space-between'}}>
+                                        <View>
+                                            <View>
+                                                <Text numberOfLines={2} style={{ color: COLORS.lightwhite, fontWeight: '500' }}>{product.name}</Text>
+                                            </View>
+                                            <View style={{ marginTop: 10, flexDirection: 'row' }}>
+                                                <View style={{ alignSelf: 'flex-start' }}>
+                                                    <Text style={{ color: COLORS.yellow, padding: 5 }}>{product.brand}</Text>
+                                                </View>
+                                                <View style={{ alignSelf: 'center', marginLeft: 10 }}>
+                                                    <Text style={{ color: COLORS.subwhite }}>{categoryLocalization[product.category]}</Text>
+                                                </View>
                                             </View>
                                         </View>
 
-                                        {scan ? (
-                                            <View style={commonStyles.scanContainer}>
-                                                <View>
-                                                    <Text style={commonStyles.scan}>{product.scans}</Text>
+                                        <View style={styles.notationContainer}>
+
+                                            <View style={{ flexDirection: 'row', gap: 10 }}>
+                                                <View style={{ width: 20, height: 20, backgroundColor: utils.noteToColor(product.score), borderRadius: 100, justifyContent: 'center', alignSelf: 'center' }}>
+
                                                 </View>
                                                 <View>
-                                                    <Image
-                                                        source={icons.flame}
-                                                        style={styles.icon}
-                                                    />
+                                                    <Text style={{ fontWeight: 'bold', color: 'white', fontSize: 14 }}>{product.score}/10</Text>
+                                                    <Text style={{ fontWeight: 'bold', color: COLORS.subwhite, fontSize: 12 }}>{utils.noteToText(product.score)}</Text>
                                                 </View>
-                                            </View>) : null}
+                                            </View>
+
+                                            {scan ? (
+                                                <View style={commonStyles.scanContainer}>
+                                                    <View>
+                                                        <Text style={commonStyles.scan}>{product.scans}</Text>
+                                                    </View>
+                                                    <View>
+                                                        <Image
+                                                            source={icons.flame}
+                                                            style={styles.icon}
+                                                        />
+                                                    </View>
+                                                </View>) : null}
+                                        </View>
                                     </View>
                                 </View>
                             </View>

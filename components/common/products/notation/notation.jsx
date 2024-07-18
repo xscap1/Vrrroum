@@ -1,27 +1,39 @@
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
 import { View, Text } from "react-native";
 import commonStyles from "../../../../styles/common";
 import { COLORS, SIZES } from "../../../../constants";
 
-const Notation = ({ note, colorNote }) => {
+const Notation = ({ total, note, env }) => {
+
+    const utils = require('../../../../constants/utils');
 
     return (
-        <View style={{}}>
-            <View style={{ backgroundColor: COLORS.darkgray, padding: 5, borderRadius: 10, marginTop: 20, width: '100%', flexDirection: "row", padding: 10 }}>
-                <View style={{ width: '50%', alignItems: 'center', padding: 10, justifyContent: 'center' }}>
-                    <View style={{ alignItems: 'center', gap: 20 }}>
+        <View style={{ backgroundColor: COLORS.darkgray, padding: 10, borderRadius: 10, marginTop: 20, width: '100%' }}>
+            <View style={{ alignItems: 'center', flexDirection: 'row', gap: 20, justifyContent: 'center', alignContent: 'center' }}>
+                <View style={{width: 30, height: 30, backgroundColor: utils.noteToColor(2), borderRadius: 100,  justifyContent: 'center', alignSelf: 'center'}}>
+
+                </View>
+                <View>
+                    <Text style={commonStyles.textBold}>{2}/10</Text>
+                    <Text style={commonStyles.subtext}>{utils.noteToText(2)}</Text>
+                </View>
+            </View>
+            {/* <View style={{ backgroundColor: COLORS.darkgray, padding: 5, borderRadius: 10, marginTop: 20, width: '100%', flexDirection: "row", padding: 10, justifyContent: 'center', alignItems: 'center', alignSelf: 'center' }}>
+                <View style={{ width: '100%', alignItems: 'center', padding: 10, justifyContent: 'center' }}>
+                    <View style={{ gap: 20, alignItems: 'center'}}>
                         <View style={{
                             borderWidth: 2,
                             justifyContent: 'center',
                             borderStyle: 'solid',
                             borderRadius: 100,
-                            borderColor: colorNote,
+                            borderColor: utils.noteToColor(note),
                             width: 90,
                             height: 90,
                             alignItems: 'center',
                         }}>
                             <Text style={{
-                                color: colorNote, textAlign: 'center',
+                                color: utils.noteToColor(note),
+                                textAlign: 'center',
                                 fontWeight: '500',
                                 fontSize: SIZES.xLarge,
                                 marginTop: 0,
@@ -33,53 +45,7 @@ const Notation = ({ note, colorNote }) => {
                         </View>
                     </View>
                 </View>
-                <View style={{ width: '50%', alignItems: 'flex-start', paddingTop: 10, paddingBottom: 10, paddingRight: 10, gap: 20, justifyContent: 'center' }}>
-                    <View style={{ alignItems: 'center', flexDirection: 'row', justifyContent: '', gap: 5 }}>
-                        <View style={{
-                            borderWidth: 2,
-                            justifyContent: 'center',
-                            borderStyle: 'solid',
-                            borderRadius: 100,
-                            borderColor: colorNote,
-                            width: 40,
-                            height: 40,
-                            alignItems: 'center',
-                        }}>
-                            <Text style={{
-                                color: colorNote, textAlign: 'center',
-                                fontWeight: '500',
-                                fontSize: SIZES.medium,
-                                width: 40
-                            }}>{note}</Text>
-                        </View>
-                        <View style={{}}>
-                            <Text style={commonStyles.subtext}> Efficacité </Text>
-                        </View>
-                    </View>
-                    <View style={{ alignItems: 'center', flexDirection: 'row', justifyContent: '', gap: 5 }}>
-                        <View style={{
-                            borderWidth: 2,
-                            justifyContent: 'center',
-                            borderStyle: 'solid',
-                            borderRadius: 100,
-                            borderColor: colorNote,
-                            width: 40,
-                            height: 40,
-                            alignItems: 'center',
-                        }}>
-                            <Text style={{
-                                color: colorNote, textAlign: 'center',
-                                fontWeight: '500',
-                                fontSize: SIZES.medium,
-                                width: 40
-                            }}>{note}</Text>
-                        </View>
-                        <View style={{}}>
-                            <Text style={commonStyles.subtext}> Environnement </Text>
-                        </View>
-                    </View>
-                </View>
-            </View>
+            </View> */}
         </View>
     );
 };

@@ -6,12 +6,14 @@ import AuthContext from "../../auth/AuthContext";
 import { auth } from "../../../firebaseConfig";
 import { sendEmailVerification } from "firebase/auth";
 import commonStyles from "../../../styles/common";
+import ProtectedApiRoutes from "../../../api/api";
 
 const AccountEditor = () => {
     const { user, updateUser } = useContext(AuthContext);
-    console.log(JSON.stringify(user, null, 2));
 
     const [reload, setReload] = useState(false);
+
+    const { PostVerifyEmailToApi } = ProtectedApiRoutes();
 
     useEffect(() => {
         updateUser();
@@ -20,12 +22,14 @@ const AccountEditor = () => {
     const handleReload = async () => {
         await updateUser();
         setReload(false);
+        if (user.emailVerified)
+            await PostVerifyEmailToApi(JSON.stringify({ uid: user.uid }));
     }
 
     const handleEmailVerification = () => {
         sendEmailVerification(user).then(() => {
-            Alert.alert('Vérification de l\'adresse email.', 'Email de vérification envoyé.');
             setReload(true);
+            Alert.alert('Vérification de l\'adresse email.', 'Email de vérification envoyé.');
         })
     }
 
@@ -53,7 +57,7 @@ const AccountEditor = () => {
                                 </TouchableOpacity>
                             </View>
                             {reload ?
-                                <View style={{marginTop: 20}}>
+                                <View style={{ marginTop: 20 }}>
                                     <TouchableOpacity style={commonStyles.buttonYellowCenter} onPress={handleReload}>
                                         <Text style={commonStyles.subTextCenterBlack}>Recharger</Text>
                                     </TouchableOpacity>

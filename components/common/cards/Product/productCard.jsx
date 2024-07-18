@@ -10,8 +10,9 @@ import { CheckPresentInFavorite, removeFavoriteByIdInCache, storeFavoritesInCach
 import DisplayTextInformations from '../DisplayTextInformations';
 import Swiper from 'react-native-swiper';
 import Notation from '../../products/notation/notation';
+import Environnement from '../../products/environment/environment';
 
-const ProductCard = ({ product, colorNote, scan }) => {
+const ProductCard = ({ product, scan }) => {
 
     const wrapperStyle = product.isSponso == true ? styles.wrapperSponso : styles.wrapper;
 
@@ -22,7 +23,6 @@ const ProductCard = ({ product, colorNote, scan }) => {
     const [height, setHeight] = useState(100);
 
     const priceCompareText = "Cette fonctionnalité sera bientôt disponible \! L\'équipe Vrrroum travaille dur pour vous offrir la solution d'achat en ligne la plus économique.";
-    const envText = "Cette fonctionnalité sera bientôt disponible \! L\'équipe Vrrroum travaille dur pour vous donner la possibilité d'analyser l'impact environnemental d'un produit.";
 
     async function addProductToFavorites() {
         const res = await storeFavoritesInCache(product.id);
@@ -110,10 +110,10 @@ const ProductCard = ({ product, colorNote, scan }) => {
                     height={height}
                 >
                     <View onLayout={(e) => onLayoutChange(0, e)}>
-                        <Notation note={product.score} colorNote={colorNote} />
+                        <Notation note={product.score}/>
                     </View>
                     <View onLayout={(e) => onLayoutChange(1, e)}>
-                        <DisplayTextInformations text={envText} />
+                        <Environnement hazard={product.hazard} env={product.env}/>
                     </View>
                     <View onLayout={(e) => onLayoutChange(2, e)}>
                         <DisplayTextInformations text={priceCompareText} />

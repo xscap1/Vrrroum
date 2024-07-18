@@ -1,12 +1,103 @@
 import { deleteHistory, storeHistoryInCache } from "../utils";
+import { auth } from "../firebaseConfig";
 
-const serverip = 'https://api.vrrroum.com/api';
+// const serverip = 'https://api.vrrroum.com/api';
 //localhost/mac
-// const serverip = 'http://192.168.0.145:8383/api';
+const serverip = 'http://192.168.0.145:8383/api';
 //Vincent
 // const serverip = 'http://192.168.1.23:8383/api';
 //Sahra
 // const serverip = 'http://192.168.1.145:8383/api';
+
+const ProtectedApiRoutes = () => {
+
+    const getIdToken = async () => {
+        return await auth.currentUser.getIdToken(true);
+    }
+
+    const PostSignUpUserFromApi = async (data) => {
+        try {
+            const res = await fetch(serverip + '/users/signup', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: data
+            });
+            return res.json();
+        }
+
+        catch (error) {
+            console.log(error);
+        }
+    }
+
+    const getBestRatedFromApi = async (setData, setLoading) => {
+        try {
+            const token = await getIdToken();
+            await fetch(serverip + '/bestRated', {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+                .then((response) => response.json())
+                .then((json) => setData(json))
+                .catch((error) => console.error(error))
+                .finally(() => setLoading(false));
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const updateSubscriptionFromApi = async (data) => {
+        try {
+            const token = await getIdToken();
+            const res = await fetch(serverip + '/users/sub', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: data
+            });
+            return res.json();
+        }
+
+        catch (error) {
+            console.log(error);
+        }
+    }
+
+    const PostVerifyEmailToApi = async (data) => {
+        try {
+
+            const token = await getIdToken();
+            const res = await fetch(serverip + '/users/verify', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: data
+            });
+            return res.json();
+        }
+    
+        catch (error) {
+            console.log(error);
+        }
+    }
+
+    return { PostSignUpUserFromApi, getBestRatedFromApi, updateSubscriptionFromApi, PostVerifyEmailToApi };
+}
+
+
 
 const getBestRatedPreviewFromApi = async (setData, setLoading) => {
     try {
@@ -56,11 +147,11 @@ const getTrendsFromApi = async (setData, setLoading) => {
     }
 };
 
-const geCategoryBatchFromApi = async (category, cursor, setData, setLoading, setCursor) => {
+const getCategoryBatchFromApi = async (category, subcategory, cursor, setData, setLoading, setCursor) => {
     try {
-        let q = serverip + '/categoriesBatch/' + category;
+        let q = serverip + '/categoriesBatch/' + category + "/" + subcategory;
         if (cursor != null) {
-            q = serverip + '/categoriesBatch/' + category + '?cursor=' + cursor;
+            q = serverip + '/categoriesBatch/' + category + "/" + subcategory + '?cursor=' + cursor;
         }
 
         await fetch(q)
@@ -130,18 +221,31 @@ const PostUserLoginFromApi = async (data) => {
             },
             body: data
         });
-        //     .then(response => response.json())
-        //     .then((json) => {
-        //         // console.log(json.data);
-        //         return json;
-        //     });
-
-        // console.log(res.status.json);
         return res.json();
     }
 
     catch (e) {
         console.error(e);
+    }
+}
+
+const PostSignUpUserFromApi = () => {
+    try {
+        // console.log(ApiAuth.user.uid);
+        // console.log(user.uid);
+        // const res = await fetch(serverip + '/users/signup', {
+        //     method: 'POST',
+        //     headers: {
+        //         'Authorization': '',
+        //         'Accept': 'application/json',
+        //         'Content-Type': 'application/json',
+        //     },
+        //     body: data
+        // });
+    }
+
+    catch (error) {
+        console.log(error);
     }
 }
 
@@ -233,4 +337,5 @@ const PostReportMissingProductToApi = async (data, setData) => {
     }
 }
 
-export { getBestRatedFromApi, getBestRatedPreviewFromApi, getTrendsFromApi, getTrendsPreviewFromApi, geCategoryBatchFromApi, getRecommendationsFromApi, getProductFromApi, PostUserLoginFromApi, PostIdsFromApi, PostSearchKeywordsToApi, PostReportBugToApi, PostReportMissingProductToApi }
+export { getBestRatedFromApi, getBestRatedPreviewFromApi, getTrendsFromApi, getTrendsPreviewFromApi, getCategoryBatchFromApi, getRecommendationsFromApi, getProductFromApi, PostUserLoginFromApi, PostIdsFromApi, PostSearchKeywordsToApi, PostReportBugToApi, PostReportMissingProductToApi, PostSignUpUserFromApi }
+export default ProtectedApiRoutes;

@@ -11,16 +11,61 @@ const Recommendations = ({ product }) => {
     const [recommendations, setRecommendations] = useState([]);
     const api = require('../../../../api/api');
 
+    const parents= {
+        "body": "body",
+        "shampoo": "body",
+        "wax": "body",
+        "polish": "body",
+        "scratches": "body",
+        "chrome": "body",
+        "dirt": "body",
+        "rim": "wheel",
+        "tire": "wheel",
+        "window": "window",
+        "rain": "window",
+        "fog": "window",
+        "textile": "textile",
+        "leather": "leather",
+    }
+
+    const isSubCategory = (category) => {
+        if (parents[category])
+            return true;
+        return false;
+    }
+
+    const getCategoryParent = (category) => {
+        if (parents[category]) {
+            return parents[category];
+        }
+
+        return parents["invalid"];
+    }
+
     useEffect(() => {
-        if (product.score >= 0)
-            api.getRecommendationsFromApi(product.id, product.category, product.score, setRecommendations, setLoading);
+        if (product.score >= 0) {
+
+            var category = product.category;
+            var parent = "";
+
+            if (isSubCategory(category)) {
+                parent = getCategoryParent(category);
+            }
+
+            else {
+                parent = category;
+                category = "products";
+            }
+            
+            api.getRecommendationsFromApi(product.id, category, parent, product.score, setRecommendations, setLoading);
+        }
     }, []);
 
     return (
         <View>
             <Text style={commonStyles.heading}>Recommandations</Text>
             <ProtectedRoute>
-                <View>
+                <View style={{marginBottom: 20}}>
                     {/* {isLoading ? <ActivityIndicator /> : <ListedProducts products={recommendations} flatlist={false} />} */}
                     {isLoading ? (
                         <ActivityIndicator />

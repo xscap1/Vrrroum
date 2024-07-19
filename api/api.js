@@ -172,8 +172,8 @@ const getCategoryBatchFromApi = async (category, subcategory, cursor, setData, s
     }
 };
 
-const getRecommendationsFromApi = async (id, category, score, setData, setLoading) => {
-    let q = serverip + '/recommendations/' + id + '?category=' + category + '&score=' + score;
+const getRecommendationsFromApi = async (id, category, parent, score, setData, setLoading) => {
+    let q = serverip + '/recommendations/' + id + '?category=' + category + '&parent=' + parent + '&score=' + score;
 
     try {
         await fetch(q)

@@ -26,9 +26,7 @@ const Category = () => {
         const cat = parent != "" ? parent : category;
         const subcat = parent != "" ? category : 'products';
         api.getCategoryBatchFromApi(cat, subcat, null, setData, setLoading, setCursor);
-        console.log(cursor);
     }, []);
-
 
     const fetchData = () => {
         try {

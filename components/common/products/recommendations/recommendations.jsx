@@ -66,7 +66,6 @@ const Recommendations = ({ product }) => {
             <Text style={commonStyles.heading}>Recommandations</Text>
             <ProtectedRoute>
                 <View style={{marginBottom: 20}}>
-                    {/* {isLoading ? <ActivityIndicator /> : <ListedProducts products={recommendations} flatlist={false} />} */}
                     {isLoading ? (
                         <ActivityIndicator />
                     ) : (

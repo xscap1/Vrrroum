@@ -69,7 +69,7 @@ export const SubscriptionProvider = ({ children }) => {
             setRcCustomerInfo(customerInfo);
             const isActive = isSubscriptionActive(customerInfo);
 
-            console.log("status : " + subscriptionStatus);
+            // console.log("status : " + subscriptionStatus);
             if (subscriptionStatus != isActive) {
                 const user = getAuth().currentUser;
                 if (user) {
@@ -77,9 +77,9 @@ export const SubscriptionProvider = ({ children }) => {
                         disableSubscription();
                         Alert.alert("Abonnement", "Votre abonnement s'est terminé.");
                     }
-                    console.log("je met à jour");
-                    const res = await updateSubscriptionFromApi(JSON.stringify({ uid: user.uid, sub: isActive }));
-                    console.log(res);
+                    // console.log("je met à jour");
+                    // const res = await updateSubscriptionFromApi(JSON.stringify({ uid: user.uid, sub: isActive }));
+                    // console.log(res);
                 }
             }
 

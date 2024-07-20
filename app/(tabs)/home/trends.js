@@ -30,7 +30,6 @@ const Trends = () => {
             <View style={{ flex: 1 }}>
               <Text style={commonStyles.heading}>Les plus tendances</Text>
               <Text style={commonStyles.subtext}>Voici notre sélection des produits les plus scannés de cette semaine</Text>
-
               {isLoading ? <ActivityIndicator /> : (
                 <ListedProducts products={data} scan={true} />
               )}

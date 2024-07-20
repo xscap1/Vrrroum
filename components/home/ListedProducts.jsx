@@ -18,12 +18,19 @@ const ListedProducts = ({ products, scan, onEndOnPress, flatlist = true }) => {
                             style={{ flex: 1 }}
                             data={products}
                             keyExtractor={({ id }) => id}
-                            renderItem={({ item }) => (
-                                <ListedProductCard
-                                    product={item}
-                                    colorNote={utils.noteToColor(item.score)}
-                                    scan={scan}
-                                />
+                            renderItem={({ item, index }) => (
+                                <View key={index}>
+                                    <ListedProductCard
+                                        product={item}
+                                        colorNote={utils.noteToColor(item.score)}
+                                        scan={scan}
+                                    />
+                                    {(index + 1) % 5 === 0 && (
+                                        <View style={{ padding: 10, backgroundColor: 'red', marginTop: 10 }}>
+                                            <Text style={{ fontSize: 32, color: 'blue', fontWeight: 'bold' }}>PUBLICITÉS ICI</Text>
+                                        </View>
+                                    )}
+                                </View>
                             )}
                             contentContainerStyle={{ columnGap: SIZES.medium, gap: 5 }}
                             showsVerticalScrollIndicator={false}
@@ -31,12 +38,18 @@ const ListedProducts = ({ products, scan, onEndOnPress, flatlist = true }) => {
                             onEndReachedThreshold={0.2}
                         /> :
                         products.map(function (item, i) {
-                            return <ListedProductCard
-                                key={i}
-                                product={item}
-                                colorNote={utils.noteToColor(item.score)}
-                                scan={scan}
-                            />
+                            return <View key={i}>
+                                <ListedProductCard
+                                    product={item}
+                                    colorNote={utils.noteToColor(item.score)}
+                                    scan={scan}
+                                />
+                                {(i + 1) % 3 === 0 && (
+                                    <View style={{ padding: 10, backgroundColor: 'red', marginTop: 10 }}>
+                                        <Text style={{ fontSize: 32, color: 'blue', fontWeight: 'bold' }}>PUBLICITÉS ICI</Text>
+                                    </View>
+                                )}
+                            </View>
                         })}
                 </View>) : null}
         </View>

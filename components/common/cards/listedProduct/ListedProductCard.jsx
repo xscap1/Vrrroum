@@ -57,7 +57,7 @@ const ListedProductCard = ({ product, scan }) => {
                                     </View> : null}
                                 <View>
                                     {/* backgroundColor: COLORS.background, borderRadius: 100, borderWidth: 1, borderColor: COLORS.yellow,  */}
-                                    <View style={{height: product.isSponso ? '92.5%' : '100%', flexDirection:'column', justifyContent: 'space-between'}}>
+                                    <View style={{ height: product.isSponso ? '92.5%' : '100%', flexDirection: 'column', justifyContent: 'space-between' }}>
                                         <View>
                                             <View>
                                                 <Text numberOfLines={2} style={{ color: COLORS.lightwhite, fontWeight: '500' }}>{product.name}</Text>
@@ -74,11 +74,11 @@ const ListedProductCard = ({ product, scan }) => {
 
                                         <View style={styles.notationContainer}>
 
-                                            <View style={{ flexDirection: 'row', gap: 10 }}>
-                                                <View style={{ width: 20, height: 20, backgroundColor: utils.noteToColor(product.score), borderRadius: 100, justifyContent: 'center', alignSelf: 'center' }}>
+                                            <View style={{ flexDirection: 'row', gap: 10, width: '40%' }}>
+                                                <View style={{ width: '20%', height: 20, backgroundColor: utils.noteToColor(product.score), borderRadius: 100, justifyContent: 'center', alignSelf: 'center' }}>
 
                                                 </View>
-                                                <View>
+                                                <View style={{ width: '80%', justifyContent: 'flex-start' }}>
                                                     <Text style={{ fontWeight: 'bold', color: 'white', fontSize: 14 }}>{product.score}/10</Text>
                                                     <Text style={{ fontWeight: 'bold', color: COLORS.subwhite, fontSize: 12 }}>{utils.noteToText(product.score)}</Text>
                                                 </View>
@@ -89,11 +89,12 @@ const ListedProductCard = ({ product, scan }) => {
                                                     <View>
                                                         <Text style={commonStyles.scan}>{product.scans}</Text>
                                                     </View>
-                                                    <View>
-                                                        <Image
+                                                    <View style={{ justifyContent: 'center', alignSelf: 'center' }}>
+                                                        {/* <Image
                                                             source={icons.flame}
                                                             style={styles.icon}
-                                                        />
+                                                        /> */}
+                                                        <Text style={commonStyles.scan}> scans</Text>
                                                     </View>
                                                 </View>) : null}
                                         </View>

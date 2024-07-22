@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { View, Text, FlatList, TouchableOpacity, Alert } from "react-native";
 import commonStyles from "../../../styles/common";
 import { COLORS, SIZES, images } from "../../../constants"
@@ -52,7 +52,7 @@ const FocusPricingCard = ({ card, offer, actual }) => {
         descriptionText: {
             color: COLORS.subwhite,
             marginTop: 30,
-            textAlign: 'justify'
+            textAlign: 'center'
         },
 
         button: {

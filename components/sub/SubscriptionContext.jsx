@@ -4,6 +4,7 @@ import { PAYWALL_RESULT } from "react-native-purchases-ui";
 import ProtectedApiRoutes from '../../api/api';
 import { getAuth } from 'firebase/auth';
 import { Alert } from 'react-native';
+import { useNavigation } from 'expo-router';
 
 const SubscriptionContext = createContext();
 
@@ -13,6 +14,7 @@ export const SubscriptionProvider = ({ children }) => {
     const [managementUrl, setManagementUrl] = useState(null);
     const [subscriptionStatus, setSubscriptionStatus] = useState(false);
     const { updateSubscriptionFromApi } = ProtectedApiRoutes();
+    const navigation = useNavigation();
 
     useEffect(() => {
         const configureRevenueCat = async () => {
@@ -122,6 +124,7 @@ export const SubscriptionProvider = ({ children }) => {
                     return false;
                 case PAYWALL_RESULT.PURCHASED:
                     updateSubscription();
+                    navigation.navigate('purchaseCompleted');
                     return true;
                 default:
                     return false;

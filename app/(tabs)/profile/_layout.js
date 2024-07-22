@@ -1,5 +1,4 @@
 import { Stack } from "expo-router";
-
 // export const unstable_settings = {
 //   // Ensure any route can link back to `/`
 //   initialRouteName: "(tabs)",
@@ -44,6 +43,12 @@ const StackLayout = () => {
       <Stack.Screen name="account" options={{
         headerShadowVisible: false,
         headerBackTitleVisible: false
+      }} />
+      <Stack.Screen name="purchaseCompleted" options={{
+        headerShadowVisible: false,
+        headerBackTitleVisible: false,
+        headerBackVisible: false,
+        gestureEnabled: false
       }} />
     </Stack>
   )

@@ -8,8 +8,8 @@ const Environnement = ({ env, hazard }) => {
     const [envDanger, setEnvDanger] = useState(false);
     const utils = require('../../../../constants/utils');
     const envHazards = ['GHS09', 'H400', 'H401', 'H402', 'H410', 'H411', 'H412', 'H413', 'H420'];
-    const envDangerText = "Ce produit contient des composants nuisibles pour l'environnement, la faune aquatique, ou l'atmosphère s'il est déversé dans la nature. Il est fortement déconseillé de le jeter dans la nature."
-    const noEnvDangerText = "Ce produit ne contient pas de composants nuisibles pour l'environnement, la faune aquatique ou l'atmosphère.";
+    const envDangerText = "À notre connaissance ce produit contient des composants nuisibles pour l'environnement, la faune aquatique, ou l'atmosphère s'il est déversé dans la nature. Il est fortement déconseillé de le jeter dans la nature."
+    const noEnvDangerText = "À notre connaissance ce produit ne contient pas de composants nuisibles pour l'environnement, la faune aquatique ou l'atmosphère.";
     const careText = "Il est fortement déconseillé d'avaler, d'inhaler et de mettre le produit en contact avec vos yeux ou vos plaies. Tenir hors de portée des enfants. ";
 
     const envNote = env < 0 ? 1 : (env / 10).toFixed(1);

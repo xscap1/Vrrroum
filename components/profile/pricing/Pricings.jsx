@@ -22,32 +22,22 @@ const Pricings = () => {
             {
                 id: 1,
                 available: true,
-                text: "Recommendations de produits"
+                text: "Comparez et nettoyagez plus efficacement grâce aux recommendations produits"
             },
             {
                 id: 2,
                 available: true,
-                text: "Comparateur de prix et produits"
+                text: "Recherchez tous les produits"
             },
             {
                 id: 3,
                 available: true,
-                text: "Recherche de produits"
+                text: "Classement des meilleurs produits"
             },
             {
                 id: 4,
                 available: true,
-                text: "Classement des produits"
-            },
-            {
-                id: 5,
-                available: false,
-                text: "Accès au club Vrrroum"
-            },
-            {
-                id: 6,
-                available: false,
-                text: "Cummul de points sur vos achats"
+                text: "Économisez grâce au comparateur de prix (à venir)"
             }
         ]
     }
@@ -95,18 +85,22 @@ const Pricings = () => {
     return (
         <View style={{ flex: 1 }}>
             {offerings ?
-                <ScrollView
-                    horizontal={true}
-                    showsHorizontalScrollIndicator={true}
-                    style={{ flex: 1 }}
-                    alwaysBounceHorizontal={true}
-                    bounces={true}
-                    decelerationRate="fast"
-                    contentContainerStyle={{ columnGap: -25 }}
-                >
+                <View style={{flex: 1, justifyContent: 'center', alignSelf: 'center'}}>
                     <FocusPricingCard actual={subscription && subscription.identifier === 'vrrroum_plus_entitlement'} card={card1} offer={offerings.plus_offering} />
-                    <PricingCard actual={subscription && subscription.identifier === 'vrrroum_pro_entitlement'} card={card2} offer={offerings.pro_offering} />
-                </ScrollView> : <ActivityIndicator style={{ flex: 1, alignSelf: 'center' }} />}
+                </View>
+                // <ScrollView
+                //     horizontal={true}
+                //     showsHorizontalScrollIndicator={true}
+                //     style={{ flex: 1 }}
+                //     alwaysBounceHorizontal={true}
+                //     bounces={true}
+                //     decelerationRate="fast"
+                //     contentContainerStyle={{ columnGap: -25 }}
+                // >
+                //     <FocusPricingCard actual={subscription && subscription.identifier === 'vrrroum_plus_entitlement'} card={card1} offer={offerings.plus_offering} />
+                //     <PricingCard actual={subscription && subscription.identifier === 'vrrroum_pro_entitlement'} card={card2} offer={offerings.pro_offering} />
+                // </ScrollView> 
+                : <ActivityIndicator style={{ flex: 1, alignSelf: 'center' }} />}
         </View >
     );
 };

@@ -50,6 +50,10 @@ const StackLayout = () => {
         headerBackVisible: false,
         gestureEnabled: false
       }} />
+      <Stack.Screen name="resetPassword" options={{
+        headerShadowVisible: false,
+        headerBackTitleVisible: false
+      }} />
     </Stack>
   )
 };

@@ -204,6 +204,12 @@ const Login = () => {
                                     onPress={() => setIsSignUp(!isSignUp)}>
                                     <Text style={{ color: COLORS.lightwhite }}>{isSignUp ? 'Déjà un compte ? Se connecter' : 'Pas de compte ? S\'inscrire'}</Text>
                                 </TouchableOpacity>
+                                {!isSignUp ?
+                                    <TouchableOpacity
+                                        onPress={() => { navigation.navigate('resetPassword'); }}>
+                                        <Text style={{ color: COLORS.lightwhite }}>Mot de passe oublié</Text>
+                                    </TouchableOpacity>
+                                    : null}
                             </View>
                         </View>
 

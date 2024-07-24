@@ -7,6 +7,7 @@ import { auth } from "../../../firebaseConfig";
 import { sendEmailVerification } from "firebase/auth";
 import commonStyles from "../../../styles/common";
 import ProtectedApiRoutes from "../../../api/api";
+import { useNavigation } from "expo-router";
 
 const AccountEditor = () => {
     const { user, updateUser } = useContext(AuthContext);
@@ -14,6 +15,8 @@ const AccountEditor = () => {
     const [reload, setReload] = useState(false);
 
     const { PostVerifyEmailToApi } = ProtectedApiRoutes();
+
+    const navigation = useNavigation();
 
     useEffect(() => {
         updateUser();
@@ -40,8 +43,16 @@ const AccountEditor = () => {
                     <View style={{ marginTop: 20, marginBottom: 20, backgroundColor: COLORS.darkgray, padding: 5, borderRadius: 10 }}>
                         <Information label={'Email'} text={user.email} border={false} />
                         <Information label={'Compte vérifié'} text={user.emailVerified ? "Oui" : "Non"} border={true} />
-
                     </View>
+                    {user.emailVerified ?
+                        <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                            <TouchableOpacity
+                                onPress={() => { navigation.navigate('resetPassword');}}>
+                                <Text style={{ color: COLORS.lightwhite }}>Réinitialiser mon mot de passe</Text>
+                            </TouchableOpacity>
+                        </View>
+
+                        : null}
 
                     {!user.emailVerified ?
 

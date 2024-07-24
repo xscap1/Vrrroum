@@ -157,6 +157,12 @@ const commonStyles = StyleSheet.create({
         textAlign: 'center'
     },
 
+    smalltextCenter: {
+        fontSize: SIZES.small,
+        color: COLORS.subwhite,
+        textAlign: 'center'
+    },
+
     subTextCenterBlack: {
         fontSize: SIZES.medium,
         color: 'black',

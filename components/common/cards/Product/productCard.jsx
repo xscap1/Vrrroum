@@ -110,7 +110,7 @@ const ProductCard = ({ product, scan }) => {
                     height={height}
                 >
                     <View onLayout={(e) => onLayoutChange(0, e)}>
-                        <Notation note={product.score}/>
+                        <Notation note={product.score.toFixed(1)}/>
                     </View>
                     <View onLayout={(e) => onLayoutChange(1, e)}>
                         <Environnement hazard={product.hazard} env={product.env}/>

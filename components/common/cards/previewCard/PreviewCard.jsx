@@ -14,7 +14,7 @@ const PreviewCard = ({ product, colorNote, scan }) => {
 
     return (
         <TouchableOpacity onPress={() => {
-            storeProductInCache(product);
+            storeProductInCache(product.id);
             navigation.navigate('product');
         }}>
             <View style={styles.wrapper}>

@@ -1,13 +1,7 @@
 import { deleteHistory, storeHistoryInCache } from "../utils";
 import { auth } from "../firebaseConfig";
 
-// const serverip = 'https://api.vrrroum.com/api';
-//localhost/mac
-const serverip = 'http://192.168.0.145:8383/api';
-//Vincent
-// const serverip = 'http://192.168.1.23:8383/api';
-//Sahra
-// const serverip = 'http://192.168.1.145:8383/api';
+const serverip = process.env.EXPO_PUBLIC_API_DEV;
 
 const ProtectedApiRoutes = () => {
 
@@ -96,8 +90,6 @@ const ProtectedApiRoutes = () => {
 
     return { PostSignUpUserFromApi, getBestRatedFromApi, updateSubscriptionFromApi, PostVerifyEmailToApi };
 }
-
-
 
 const getBestRatedPreviewFromApi = async (setData, setLoading) => {
     try {
@@ -210,6 +202,27 @@ const getProductFromApi = async (id, setData, setLoading) => {
     }
 }
 
+const getProductWithIdFromApi = async (id, setData, setLoading) => {
+    let q = serverip + "/products/id/" + id;
+    try {
+        await fetch(q)
+            .then((response) => response.json())
+            .then((json) => {
+                if (!json.hasOwnProperty("message")) {
+                    setData(json);
+                    // deleteHistory();
+                    storeHistoryInCache(json.id);
+                }
+
+            })
+            .catch((error) => console.error(error))
+            .finally(() => {
+                setLoading(false);
+            });
+    } catch (error) {
+        console.error(error);
+    }
+}
 
 const PostUserLoginFromApi = async (data) => {
     try {
@@ -294,7 +307,6 @@ const PostSearchKeywordsToApi = async (data, setData, setLoading) => {
 }
 
 const PostReportBugToApi = async (data, setData) => {
-    console.log(data);
     try {
         await fetch(serverip + '/report', {
             method: 'POST',
@@ -316,7 +328,6 @@ const PostReportBugToApi = async (data, setData) => {
 }
 
 const PostReportMissingProductToApi = async (data, setData) => {
-    console.log(data);
     try {
         await fetch(serverip + '/report/product', {
             method: 'POST',
@@ -337,5 +348,5 @@ const PostReportMissingProductToApi = async (data, setData) => {
     }
 }
 
-export { getBestRatedFromApi, getBestRatedPreviewFromApi, getTrendsFromApi, getTrendsPreviewFromApi, getCategoryBatchFromApi, getRecommendationsFromApi, getProductFromApi, PostUserLoginFromApi, PostIdsFromApi, PostSearchKeywordsToApi, PostReportBugToApi, PostReportMissingProductToApi, PostSignUpUserFromApi }
+export { getBestRatedFromApi, getBestRatedPreviewFromApi, getTrendsFromApi, getTrendsPreviewFromApi, getCategoryBatchFromApi, getRecommendationsFromApi, getProductFromApi, PostUserLoginFromApi, PostIdsFromApi, PostSearchKeywordsToApi, PostReportBugToApi, PostReportMissingProductToApi, PostSignUpUserFromApi, getProductWithIdFromApi }
 export default ProtectedApiRoutes;

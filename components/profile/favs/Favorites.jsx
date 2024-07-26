@@ -15,7 +15,6 @@ const Favorites = ({ products, scan, onEndOnPress, onEmptyFavorites, flatlist = 
     const [data, setData] = useState(products);
 
     async function handleRemove (id) {
-        console.log(id);
         const filteredData = data.filter((item) => item.id !== id);
         setData(filteredData);
         const size = await removeFavoriteByIdInCache(id);

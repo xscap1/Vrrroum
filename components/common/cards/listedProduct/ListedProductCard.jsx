@@ -31,7 +31,8 @@ const ListedProductCard = ({ product, scan }) => {
 
     return (
         <TouchableOpacity onPress={() => {
-            storeProductInCache(product);
+            // storeProductInCache(product);
+            storeProductInCache(product.id);
             navigation.push('product');
         }}>
             <View>

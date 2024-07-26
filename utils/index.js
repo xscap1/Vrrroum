@@ -75,7 +75,6 @@ export const removeAllFavorites = async (id) => {
 
 export const getFavoritesInCache = async () => {
     const f = await SecureStore.getItemAsync('favorites');
-    console.log("favorites : " + JSON.parse(f));
     return JSON.parse(f);
 }
 

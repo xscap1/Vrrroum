@@ -40,7 +40,6 @@ export const getActiveSubscriptionInfoFromRCProvider = async () => {
     if (user != null && user != undefined) {
         const customerInfo = await Purchases.getCustomerInfo();
         const managementURL = customerInfo.managementURL;
-        console.log(customerInfo.activeSubscriptions);
         if (customerInfo.activeSubscriptions.length > 0) {
             let actives = customerInfo.entitlements.active;
             if (actives != null && actives != undefined) {

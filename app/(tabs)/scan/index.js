@@ -105,8 +105,8 @@ const Scan = () => {
     // Camera permissions are not granted yet
     return (
       <View style={styles.container}>
-        <Text style={{ textAlign: 'center' }}>We need your permission to show the camera</Text>
-        <Button onPress={requestPermission} title="grant permission" />
+        <Text style={{ textAlign: 'center' }}>Vrrroum a besoin de votre permission pour accéder à votre appareil photo.</Text>
+        <Button onPress={requestPermission} title="Donner la permission" />
       </View>
     );
   }
@@ -147,11 +147,6 @@ const Scan = () => {
           barCodeTypes: [BarCodeScanner.Constants.BarCodeType.ean13, BarCodeScanner.Constants.BarCodeType.ean8, BarCodeScanner.Constants.BarCodeType.upc_ean, BarCodeScanner.Constants.BarCodeType.qr],
           barCodeSize: { height: 10, width: 10 }
         }}>
-        <View style={styles.rectangleContainer}>
-          <Text style={styles.focus}>Cliquer pour effectuer un focus</Text>
-          <View style={styles.rectangle} />
-          <Text style={styles.vrrroum}>Vrrroum Scan</Text>
-        </View>
 
         <TouchableOpacity style={{ padding: 10, backgroundColor: COLORS.darkgray, alignSelf: 'center', marginBottom: 30, borderRadius: 15 }} onPress={toggleCameraType}>
           <Icon name='cameraswitch' type='material' color={COLORS.yellow} size={30} />

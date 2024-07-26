@@ -32,7 +32,6 @@ export const SubscriptionProvider = ({ children }) => {
     const fetchSubscription = async (user) => {
         try {
             if (user) {
-                console.log('[SubscriptionProvider] Can access user\'s data.');
                 const customerInfo = await logInCustomerToRCProvider(user.uid, user.email);
 
                 if (customerInfo) {
@@ -46,11 +45,10 @@ export const SubscriptionProvider = ({ children }) => {
 
             else {
                 disableSubscription();
-                console.log('[SubscriptionProvider] User not logged in. Can\'t access.')
             }
         }
         catch (error) {
-            console.log('[SubscriptionProvider] Unable to fetch RevenueCat API.');
+            console.log(error);
         }
     }
 
@@ -70,18 +68,14 @@ export const SubscriptionProvider = ({ children }) => {
         if (customerInfo) {
             setRcCustomerInfo(customerInfo);
             const isActive = isSubscriptionActive(customerInfo);
-
-            // console.log("status : " + subscriptionStatus);
+            console.log(isActive);
             if (subscriptionStatus != isActive) {
                 const user = getAuth().currentUser;
                 if (user) {
                     if (!isActive) {
                         disableSubscription();
-                        Alert.alert("Abonnement", "Votre abonnement s'est terminé.");
+                        Alert.alert("Abonnement", "Votre abonnement Vrrroum s'est terminé.");
                     }
-                    // console.log("je met à jour");
-                    // const res = await updateSubscriptionFromApi(JSON.stringify({ uid: user.uid, sub: isActive }));
-                    // console.log(res);
                 }
             }
 

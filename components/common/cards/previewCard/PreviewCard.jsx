@@ -42,7 +42,7 @@ const PreviewCard = ({ product, colorNote, scan }) => {
 
                                 </View>
                                 <View style={{ width: '80%', justifyContent: 'flex-start' }}>
-                                    <Text style={{ fontWeight: 'bold', color: 'white', fontSize: 14 }}>{product.score}/10</Text>
+                                    <Text style={{ fontWeight: 'bold', color: 'white', fontSize: 14 }}>{product.score.toFixed(1)}/10</Text>
                                     <Text style={{ fontWeight: 'bold', color: COLORS.subwhite, fontSize: 12 }}>{utils.noteToText(product.score)}</Text>
                                 </View>
                             </View>

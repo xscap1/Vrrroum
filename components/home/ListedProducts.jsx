@@ -25,11 +25,6 @@ const ListedProducts = ({ products, scan, onEndOnPress, flatlist = true }) => {
                                         colorNote={utils.noteToColor(item.score)}
                                         scan={scan}
                                     />
-                                    {(index + 1) % 5 === 0 && (
-                                        <View style={{ padding: 10, backgroundColor: 'red', marginTop: 10 }}>
-                                            <Text style={{ fontSize: 32, color: 'blue', fontWeight: 'bold' }}>PUBLICITÉS ICI</Text>
-                                        </View>
-                                    )}
                                 </View>
                             )}
                             contentContainerStyle={{ columnGap: SIZES.medium, gap: 5 }}
@@ -44,11 +39,6 @@ const ListedProducts = ({ products, scan, onEndOnPress, flatlist = true }) => {
                                     colorNote={utils.noteToColor(item.score)}
                                     scan={scan}
                                 />
-                                {(i + 1) % 3 === 0 && (
-                                    <View style={{ padding: 10, backgroundColor: 'red', marginTop: 10 }}>
-                                        <Text style={{ fontSize: 32, color: 'blue', fontWeight: 'bold' }}>PUBLICITÉS ICI</Text>
-                                    </View>
-                                )}
                             </View>
                         })}
                 </View>) : null}

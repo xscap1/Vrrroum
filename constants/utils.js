@@ -1,11 +1,28 @@
 import { COLORS } from "./theme";
 
-const colors = [COLORS.notation1, COLORS.notation3, COLORS.notation4, COLORS.notation5];
-const noteScore = ['Mauvais', 'Médiocre', 'Bon', 'Excellent'];
+const colors = [COLORS.notation1, COLORS.notation2, COLORS.notation3, COLORS.notation4, COLORS.notation5];
+const noteScore = ['Très mauvais', 'Mauvais', 'Moyen', 'Bon', 'Excellent'];
 const envScore = ['E', 'D', 'C', 'B', 'A']
+const criteria = {
+    poussiere_salete: "Poussière et saleté",
+    goudron: "Goudron",
+    particules_de_fer: "Particules de fer",
+    residus_insecte: "Résidu d'insecte",
+    sebum: "Sébum",
+    huiles: "Huiles",
+    brillance: "Brillance",
+    protection: "Protection",
+    durabilite: "Durabilité",
+    hydrophobie: "Hydrophobie",
+    rayure: "Rayure",
+    effet_nettoyant: "Effet nettoyant général",
+    nourrissant: "Nourrissant",
+    resistance_chimique: "Résistance du produit",
+    aspect_final: "Aspect final"
+}
 
 const noteToColor = (note) => {
-    const tranche = Math.floor(note / 2.5) + 1;
+    const tranche = Math.floor(note / 2) + 1;
 
     if (tranche > 0 && tranche <= colors.length)
         return colors[tranche - 1];
@@ -34,7 +51,7 @@ const envToScore = (note) => {
 }
 
 const noteToText = (note) => {
-    const tranche = Math.floor(note / 2.5) + 1;
+    const tranche = Math.floor(note / 2) + 1;
 
     if (tranche > 0 && tranche <= noteScore.length)
         return noteScore[tranche - 1];
@@ -44,4 +61,9 @@ const noteToText = (note) => {
     return '?';
 }
 
-export { noteToColor, hasCommonItems, envToScore, noteToText };
+const criteriaToText = (c) => {
+    if (criteria[c]) return criteria[c];
+    return "";
+}
+
+export { noteToColor, hasCommonItems, envToScore, noteToText, criteriaToText };

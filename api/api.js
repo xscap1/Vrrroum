@@ -295,6 +295,7 @@ const PostSearchKeywordsToApi = async (data, setData, setLoading) => {
             body: data
         }).then((response) => response.json())
             .then((json) => {
+                console.log(json);
                 setData(json);
             })
             .catch((error) => console.error(error))
@@ -348,5 +349,27 @@ const PostReportMissingProductToApi = async (data, setData) => {
     }
 }
 
-export { getBestRatedFromApi, getBestRatedPreviewFromApi, getTrendsFromApi, getTrendsPreviewFromApi, getCategoryBatchFromApi, getRecommendationsFromApi, getProductFromApi, PostUserLoginFromApi, PostIdsFromApi, PostSearchKeywordsToApi, PostReportBugToApi, PostReportMissingProductToApi, PostSignUpUserFromApi, getProductWithIdFromApi }
+const PostIngredientsToApi = async (ingredients, setData, setLoading) => {
+    try {
+        await fetch(serverip + '/ingredients/cas', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: ingredients
+        }).then((response) => response.json())
+            .then((json) => {
+                setData(json);
+                setLoading(false);
+            })
+            .catch((error) => console.error(error))
+    }
+
+    catch (e) {
+        console.error(e);
+    }
+}
+
+export { PostIngredientsToApi, getBestRatedFromApi, getBestRatedPreviewFromApi, getTrendsFromApi, getTrendsPreviewFromApi, getCategoryBatchFromApi, getRecommendationsFromApi, getProductFromApi, PostUserLoginFromApi, PostIdsFromApi, PostSearchKeywordsToApi, PostReportBugToApi, PostReportMissingProductToApi, PostSignUpUserFromApi, getProductWithIdFromApi }
 export default ProtectedApiRoutes;

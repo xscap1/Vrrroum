@@ -62,6 +62,21 @@ const ProductCard = ({ product, scan }) => {
         });
     };
 
+    const renderContent = () => {
+        switch (activeIndex) {
+            case 0:
+                return <Notation note={product.score.toFixed(1)} criteria={product.criteria} effectiveness={product.effectiveness} durability={product.durability} key={0} />;
+            case 1:
+                return <Environnement hazard={product.hazard} env={product.env} key={1} />;
+            case 2:
+                return <DisplayTextInformations text={priceCompareText} key={2} />;
+            case 3:
+                return <Details product={product} key={3} />;
+            default:
+                return null;
+        }
+    };
+
     return (
         <View style={commonStyles.flexContainer}>
             <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
@@ -92,36 +107,26 @@ const ProductCard = ({ product, scan }) => {
                     ) : null}
                 </View>
 
-                <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', marginTop: 20 }}>
-                    <View style={activeIndex == 0 ? commonStyles.activeSwipeContainer : {}}><Text style={activeIndex == 0 ? commonStyles.activeSwipeSubtext : commonStyles.swipeSubtext}>Note</Text></View>
-                    <View style={activeIndex == 1 ? commonStyles.activeSwipeContainer : {}}><Text style={activeIndex == 1 ? commonStyles.activeSwipeSubtext : commonStyles.swipeSubtext}>Environnement</Text></View>
-                    <View style={activeIndex == 2 ? commonStyles.activeSwipeContainer : {}}><Text style={activeIndex == 2 ? commonStyles.activeSwipeSubtext : commonStyles.swipeSubtext}>Comparateur</Text></View>
-                    <View style={activeIndex == 3 ? commonStyles.activeSwipeContainer : {}}><Text style={activeIndex == 3 ? commonStyles.activeSwipeSubtext : commonStyles.swipeSubtext}>Informations</Text></View>
+                <View style={{ flex: 1 }}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 20}}>
+                        <TouchableOpacity onPress={() => setActiveIndex(0)} style={activeIndex == 0 ? commonStyles.activeSwipeContainer : commonStyles.swipeContainer}>
+                            <Text style={activeIndex == 0 ? commonStyles.activeSwipeSubtext : commonStyles.swipeSubtext}>Note</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => setActiveIndex(1)} style={activeIndex == 1 ? commonStyles.activeSwipeContainer : commonStyles.swipeContainer}>
+                            <Text style={activeIndex == 1 ? commonStyles.activeSwipeSubtext : commonStyles.swipeSubtext}>Environnement</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => setActiveIndex(2)} style={activeIndex == 2 ? commonStyles.activeSwipeContainer : commonStyles.swipeContainer}>
+                            <Text style={activeIndex == 2 ? commonStyles.activeSwipeSubtext : commonStyles.swipeSubtext}>Comparateur</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => setActiveIndex(3)} style={activeIndex == 3 ? commonStyles.activeSwipeContainer : commonStyles.swipeContainer}>
+                            <Text style={activeIndex == 3 ? commonStyles.activeSwipeSubtext : commonStyles.swipeSubtext}>Info</Text>
+                        </TouchableOpacity>
+                    </View>
+
+                    <View style={{ flex: 1 }}>
+                        {renderContent()}
+                    </View>
                 </View>
-
-
-                <Swiper
-                    activeDotColor="yellow" // Change this to COLORS.yellow if you have a COLORS object
-                    onIndexChanged={(index) => {
-                        setActiveIndex(index);
-                    }}
-                    loadMinimal={true}
-                    showsPagination={false}
-                    height={height}
-                >
-                    <View onLayout={(e) => onLayoutChange(0, e)}>
-                        <Notation note={product.score.toFixed(1)}/>
-                    </View>
-                    <View onLayout={(e) => onLayoutChange(1, e)}>
-                        <Environnement hazard={product.hazard} env={product.env}/>
-                    </View>
-                    <View onLayout={(e) => onLayoutChange(2, e)}>
-                        <DisplayTextInformations text={priceCompareText} />
-                    </View>
-                    <View onLayout={(e) => onLayoutChange(3, e)}>
-                        <Details product={product} />
-                    </View>
-                </Swiper>
 
                 <View style={{ marginTop: 20 }}>
                     <Recommendations product={product} />

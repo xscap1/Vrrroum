@@ -129,13 +129,13 @@ const commonStyles = StyleSheet.create({
 
     activeSwipeContainer: {
         borderBottomWidth: 2,
-        borderColor: COLORS.yellow
+        borderColor: COLORS.yellow,
+        padding: 10
     },
 
     swipeContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
+        borderBottomWidth: 2,
+        padding: 10
     },
 
     subtextBold: {
@@ -161,6 +161,17 @@ const commonStyles = StyleSheet.create({
         fontSize: SIZES.small,
         color: COLORS.subwhite,
         textAlign: 'center'
+    },
+
+    smallText: {
+        fontSize: SIZES.small,
+        color: COLORS.subwhite,
+    },
+
+    smallTextBold: {
+        fontSize: SIZES.small,
+        color: 'white',
+        fontWeight: 'bold'
     },
 
     subTextCenterBlack: {

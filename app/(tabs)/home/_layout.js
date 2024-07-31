@@ -8,7 +8,7 @@ import commonStyles from "../../../styles/common";
 
 const StackLayout = () => {
   return (
-    <Stack>
+    <Stack initialRouteName="index">
       <Stack.Screen name="index" options={{ headerShown: false }} />
       <Stack.Screen name="bestRated" options={{
         headerShadowVisible: false,
@@ -27,6 +27,14 @@ const StackLayout = () => {
         headerBackTitleVisible: false
       }} />
       <Stack.Screen name="product" options={{
+        headerShadowVisible: false,
+        headerBackTitleVisible: false
+      }} />
+      <Stack.Screen name="ingredients" options={{
+        headerShadowVisible: false,
+        headerBackTitleVisible: false
+      }} />
+      <Stack.Screen name="notation" options={{
         headerShadowVisible: false,
         headerBackTitleVisible: false
       }} />

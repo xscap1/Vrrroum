@@ -38,6 +38,7 @@ import rain from "../assets/icons/rain.png"
 import fog from "../assets/icons/fog.png"
 import textile from "../assets/icons/textile.png"
 import hazard_env_aquatic from "../assets/icons/hazard_env_aquatic.png"
+import list from "../assets/icons/list.png"
 
 export default {
     motoroil, motoroil_selected,
@@ -47,5 +48,6 @@ export default {
     rim, shampoo, wax, flame,
     edit_sub, unlock, edit_account,
     logout, search, login, help, hatch,
-    bug, info, plastic, windshield, shine, leather, erase, wheel, tire, window, body, brake, dirt, polish, rain, fog, textile, hazard_env_aquatic
+    bug, info, plastic, windshield, shine, leather, erase, wheel, tire, window, body, brake, dirt, polish, rain, fog, textile, 
+    hazard_env_aquatic, list
 };

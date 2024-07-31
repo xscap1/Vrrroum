@@ -1,11 +1,12 @@
 import { useState, useEffect, useCallback, React, useRef } from 'react';
-import { Button, StyleSheet, Text, TouchableOpacity, View, Platform, Dimensions } from 'react-native';
+import { Button, StyleSheet, Text, TouchableOpacity, View, Platform, Dimensions, SafeAreaView, Linking } from 'react-native';
 import * as BarCodeScanner from "expo-barcode-scanner";
 import { useNavigation, useFocusEffect, useRouter } from "expo-router";
 import { Icon } from '@rneui/themed';
 import { COLORS } from '../../../constants';
 import { useIsFocused } from '@react-navigation/native';
 import { AutoFocus, Camera, CameraType } from 'expo-camera';
+import commonStyles from '../../../styles/common';
 // import { Camera, CameraType } from 'expo-camera/legacy';
 
 const Scan = () => {
@@ -43,6 +44,10 @@ const Scan = () => {
       setIsRefreshing(false);
     }
   }, [isRefreshing]);
+
+  useEffect(() => {
+    requestPermission();
+  }, [permission]);
 
   // set the camera ratio and padding.
   // this code assumes a portrait mode screen
@@ -104,9 +109,26 @@ const Scan = () => {
   if (!permission.granted) {
     // Camera permissions are not granted yet
     return (
-      <View style={styles.container}>
-        <Text style={{ textAlign: 'center' }}>Vrrroum a besoin de votre permission pour accéder à votre appareil photo.</Text>
-        <Button onPress={requestPermission} title="Donner la permission" />
+      <View style={commonStyles.body}>
+        <SafeAreaView style={commonStyles.flexSafeArea}>
+          <View style={styles.container}>
+            <View style={{ padding: 10 }}>
+              <Text style={commonStyles.textCenter}>Vrrroum a besoin de votre permission pour accéder à votre appareil photo.</Text>
+              <View style={{ marginTop: 20 }}>
+                <TouchableOpacity style={commonStyles.buttonYellowCenter}
+                  onPress={async () => {
+                    const p = await requestPermission();
+                    if (p.granted == false)
+                      Linking.openSettings();
+                    }
+                    }>
+                  <Text style={{ textAlign: 'center' }}>Donner la permission</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+            {/* <Button onPress={requestPermission} title="Donner la permission" /> */}
+          </View>
+        </SafeAreaView>
       </View>
     );
   }

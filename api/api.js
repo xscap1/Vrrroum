@@ -1,7 +1,7 @@
 import { deleteHistory, storeHistoryInCache } from "../utils";
 import { auth } from "../firebaseConfig";
 
-const serverip = process.env.EXPO_PUBLIC_API_DEV;
+const serverip = process.env.EXPO_PUBLIC_API_PROD;
 
 const ProtectedApiRoutes = () => {
 
@@ -185,11 +185,10 @@ const getProductFromApi = async (id, setData, setLoading) => {
     try {
         await fetch(q)
             .then((response) => response.json())
-            .then((json) => {
+            .then(async (json) => {
                 if (!json.hasOwnProperty("message")) {
                     setData(json);
                     // deleteHistory();
-                    storeHistoryInCache(json.id);
                 }
 
             })
@@ -211,7 +210,6 @@ const getProductWithIdFromApi = async (id, setData, setLoading) => {
                 if (!json.hasOwnProperty("message")) {
                     setData(json);
                     // deleteHistory();
-                    storeHistoryInCache(json.id);
                 }
 
             })
@@ -295,7 +293,6 @@ const PostSearchKeywordsToApi = async (data, setData, setLoading) => {
             body: data
         }).then((response) => response.json())
             .then((json) => {
-                console.log(json);
                 setData(json);
             })
             .catch((error) => console.error(error))

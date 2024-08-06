@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { SafeAreaView, ScrollView, View, Text, Platform, ActivityIndicator, TouchableOpacity, Keyboard, Button, TouchableWithoutFeedback } from "react-native";
+import { ScrollView, View, Text, Platform, ActivityIndicator, TouchableOpacity, Keyboard, Button, TouchableWithoutFeedback } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import Trendings from "../../../components/home/Trendings";
 import BestRated from "../../../components/home/BestRated";
 import Categories from "../../../components/home/Categories";

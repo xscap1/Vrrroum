@@ -3,7 +3,6 @@ import { View, Text, ActivityIndicator } from "react-native";
 import commonStyles from "../../../../styles/common";
 import ListedProducts from "../../../home/ListedProducts";
 import DisplayTextInformations from "../../cards/DisplayTextInformations";
-import ProtectedRoute from "../../../sub/ProtectedRoute";
 
 const Recommendations = ({ product }) => {
 
@@ -11,7 +10,7 @@ const Recommendations = ({ product }) => {
     const [recommendations, setRecommendations] = useState([]);
     const api = require('../../../../api/api');
 
-    const parents= {
+    const parents = {
         "body": "body",
         "shampoo": "body",
         "wax": "body",
@@ -24,8 +23,8 @@ const Recommendations = ({ product }) => {
         "window": "window",
         "rain": "window",
         "fog": "window",
-        "textile": "textile",
-        "leather": "leather",
+        "textile": "seat",
+        "leather": "seat",
     }
 
     const isSubCategory = (category) => {
@@ -56,7 +55,7 @@ const Recommendations = ({ product }) => {
                 parent = category;
                 category = "products";
             }
-            
+
             api.getRecommendationsFromApi(product.id, category, parent, product.score, setRecommendations, setLoading);
         }
     }, []);
@@ -64,19 +63,17 @@ const Recommendations = ({ product }) => {
     return (
         <View>
             <Text style={commonStyles.heading}>Recommandations</Text>
-            <ProtectedRoute>
-                <View style={{marginBottom: 20}}>
-                    {isLoading ? (
-                        <ActivityIndicator />
+            <View style={{ marginBottom: 20 }}>
+                {isLoading ? (
+                    <ActivityIndicator />
+                ) : (
+                    recommendations.length > 0 ? (
+                        <ListedProducts products={recommendations} flatlist={false} />
                     ) : (
-                        recommendations.length > 0 ? (
-                            <ListedProducts products={recommendations} flatlist={false} />
-                        ) : (
-                            <DisplayTextInformations text={"Aucune recommandations trouvées pour l'instant. L'équipe Vrrroum travaille pour vous recommander des produits similaires."} />
-                        )
-                    )}
-                </View>
-            </ProtectedRoute>
+                        <DisplayTextInformations text={"Aucune recommandations trouvées pour l'instant. L'équipe Vrrroum travaille pour vous recommander des produits similaires."} />
+                    )
+                )}
+            </View>
         </View>
     );
 };

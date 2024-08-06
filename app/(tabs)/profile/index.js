@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { SafeAreaView, ScrollView, View, Text, TouchableOpacity, Platform, ActivityIndicator, Alert, StyleSheet, TextInput } from "react-native";
+import { ScrollView, View, Text, TouchableOpacity, Platform, ActivityIndicator, Alert, StyleSheet, TextInput } from "react-native";
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Stack } from "expo-router";
 import commonStyles from '../../../styles/common';
 import ProfileData from '../../../components/profile/ProfileData';
-// import { useNavigation } from "expo-router";
-// import AuthContext from '../../../components/auth/AuthContext';
 
 const Profile = () => {
 

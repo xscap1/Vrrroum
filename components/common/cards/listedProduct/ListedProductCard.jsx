@@ -25,6 +25,7 @@ const ListedProductCard = ({ product, scan }) => {
         ["scratches"]: "Efface rayures",
         ["textile"]: "Nettoyant textile",
         ["leather"]: "Nettoyant cuir",
+        ["plastic"]: "Nettoyant plastique"
     })
 
     const utils = require('../../../../constants/utils');
@@ -58,46 +59,39 @@ const ListedProductCard = ({ product, scan }) => {
                                     </View> : null}
                                 <View>
                                     {/* backgroundColor: COLORS.background, borderRadius: 100, borderWidth: 1, borderColor: COLORS.yellow,  */}
-                                    <View style={{ height: product.isSponso ? '92.5%' : '100%', flexDirection: 'column', justifyContent: 'space-between' }}>
-                                        <View>
-                                            <View>
-                                                <Text numberOfLines={2} style={{ color: COLORS.lightwhite, fontWeight: '500' }}>{product.name}</Text>
+                                    <View style={{ height: product.isSponso ? '92.5%' : '100%', flexDirection: 'column', width: '100%' }}>
+                                        <View style={{ height: '60%' }}>
+                                            <View style={{ height: '50%' }}>
+                                                <Text numberOfLines={2} style={{ color: COLORS.lightwhite, fontWeight: '500', fontSize: 13 }}>{product.name}</Text>
                                             </View>
-                                            <View style={{ marginTop: 10, flexDirection: 'row' }}>
-                                                <View style={{ alignSelf: 'flex-start' }}>
-                                                    <Text style={{ color: COLORS.yellow, padding: 5 }}>{product.brand}</Text>
-                                                </View>
-                                                <View style={{ alignSelf: 'center', marginLeft: 10 }}>
-                                                    <Text style={{ color: COLORS.subwhite }}>{categoryLocalization[product.category]}</Text>
-                                                </View>
+                                            <View style={{ height: '50%', flexDirection: 'row', gap: 10, alignItems: 'center' }}>
+                                                <Text style={{ color: COLORS.yellow, fontSize: 13 }}>{product.brand}</Text>
+                                                <Text style={{ color: COLORS.subwhite, fontSize: 13 }}>{categoryLocalization[product.category]}</Text>
                                             </View>
                                         </View>
 
-                                        <View style={styles.notationContainer}>
+                                        <View style={{ height: '40%' }}>
+                                            <View style={{ flexDirection: 'row', alignContent: 'center', alignItems: 'center', justifyContent: 'flex-end', marginRight: 20, height: '100%' }}>
+                                                <View style={{ flexDirection: 'row', width: '40%', gap: 10, height: '100%' }}>
+                                                    <View style={{ width: 20, height: 20, backgroundColor: utils.noteToColor(product.score), borderRadius: 100, justifyContent: 'center', alignSelf: 'center' }}>
+                                                    </View>
+                                                    <View style={{ height: '100%', justifyContent: 'center' }}>
+                                                        {product.score > 0 ? <Text style={{ fontWeight: 'bold', color: 'white', fontSize: 11 }}>{utils.formatNote(product.score)}/10</Text> : null}
 
-                                            <View style={{ flexDirection: 'row', gap: 10, width: '40%' }}>
-                                                <View style={{ width: '20%', height: 20, backgroundColor: utils.noteToColor(product.score), borderRadius: 100, justifyContent: 'center', alignSelf: 'center' }}>
+                                                        <Text style={{ fontWeight: 'bold', color: COLORS.subwhite, fontSize: 11 }}>{utils.noteToText(product.score)}</Text>
+                                                    </View>
+                                                </View>
 
-                                                </View>
-                                                <View style={{ width: '80%', justifyContent: 'flex-start' }}>
-                                                    <Text style={{ fontWeight: 'bold', color: 'white', fontSize: 14 }}>{product.score.toFixed(1)}/10</Text>
-                                                    <Text style={{ fontWeight: 'bold', color: COLORS.subwhite, fontSize: 12 }}>{utils.noteToText(product.score)}</Text>
-                                                </View>
+                                                {scan ? (
+                                                    <View style={commonStyles.scanContainer}>
+                                                        <View>
+                                                            <Text style={commonStyles.scan}>{product.scans}</Text>
+                                                        </View>
+                                                        <View style={{ justifyContent: 'center', alignSelf: 'center' }}>
+                                                            <Text style={commonStyles.scan}> scans</Text>
+                                                        </View>
+                                                    </View>) : null}
                                             </View>
-
-                                            {scan ? (
-                                                <View style={commonStyles.scanContainer}>
-                                                    <View>
-                                                        <Text style={commonStyles.scan}>{product.scans}</Text>
-                                                    </View>
-                                                    <View style={{ justifyContent: 'center', alignSelf: 'center' }}>
-                                                        {/* <Image
-                                                            source={icons.flame}
-                                                            style={styles.icon}
-                                                        /> */}
-                                                        <Text style={commonStyles.scan}> scans</Text>
-                                                    </View>
-                                                </View>) : null}
                                         </View>
                                     </View>
                                 </View>

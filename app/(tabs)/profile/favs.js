@@ -13,7 +13,7 @@ const Favs = () => {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState();
 
-  const missingFavoritesText = "Vous n'avez aucun produit favoris. Scanner ou rechercher un produit pour l'ajouter à vos favoris !"
+  const missingFavoritesText = "Vous n'avez aucun produit favoris dans votre coffre. Scannez ou recherchez un produit pour l'ajouter à votre coffre !"
 
   useEffect(() => {
     const deleteFavs = async () => {

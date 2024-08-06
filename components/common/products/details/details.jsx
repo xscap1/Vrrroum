@@ -8,6 +8,7 @@ import { Link } from "expo-router";
 const Details = ({ product }) => {
 
     const [show, setShow] = useState(false);
+    const utils = require('../../../../constants/utils');
 
     const Information = ({ label, text, border }) => {
         return (
@@ -32,8 +33,8 @@ const Details = ({ product }) => {
                 {product.reference ?
                     <Information label={'Référence'} text={product.reference} border={true} />
                     : null}
-                <Information label={'Catégorie'} text={product.category} border={true} />
-                {product.viscosity ?
+                <Information label={'Catégorie'} text={utils.categoryToText(product.category)} border={true} />
+                {/* {product.viscosity ?
                     <Information label={'Viscosité'} text={product.viscosity} border={true} />
                     : null}
                 {product.norm_ACEA ?
@@ -44,11 +45,11 @@ const Details = ({ product }) => {
                     : null}
                 {product.norm_man ?
                     <Information label={'Norme constructeur'} text={product.norm_man} border={true} />
-                    : null}
+                    : null} */}
                 {product.capacity ?
                     <Information label={'Capacité'} text={product.capacity} border={true} />
                     : null}
-                <Information label={'Scans'} text={product.scans} border={true} />
+                <Information label={'Scans'} text={product.scans ? product.scans : 0} border={true} />
                 <Information label={'Note'} text={product.score} border={true} />
             </View>
         </View>

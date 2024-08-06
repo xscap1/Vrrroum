@@ -142,7 +142,7 @@ const BugReport = () => {
                             />
                             <View>
                                 <TextInput style={styles.textInputStyle} value={tiValue} onChangeText={setTiValue} placeholder="Décrivez le problème rencontré" multiline
-                                    numberOfLines={4} maxLength={80} />
+                                    numberOfLines={4} maxLength={80} placeholderTextColor={COLORS.lightgray}/>
                             </View>
                             <ScreenHeaderBtn text={"Envoyer"} disabled={ddCode != null && (tiValue != null && tiValue.length > 10) ? false : true} handlePress={async () => {
                                 await ReportBugToApi();

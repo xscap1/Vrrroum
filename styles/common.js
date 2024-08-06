@@ -16,12 +16,10 @@ const commonStyles = StyleSheet.create({
 
     safeArea: {
         backgroundColor: COLORS.background,
-        paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
     },
 
     flexSafeArea: {
         backgroundColor: COLORS.background,
-        paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
         flex: 1
     },
 
@@ -261,7 +259,7 @@ const commonStyles = StyleSheet.create({
     },
 
     scan: {
-        fontSize: SIZES.small,
+        fontSize: 11,
         color: COLORS.lightgreen,
         alignSelf: "flex-start",
     },

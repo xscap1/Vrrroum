@@ -1,5 +1,6 @@
 import { Stack } from "expo-router";
 import commonStyles from "../../../styles/common";
+import { COLORS } from "../../../constants";
 
 // export const unstable_settings = {
 //   // Ensure any route can link back to `/`
@@ -8,7 +9,9 @@ import commonStyles from "../../../styles/common";
 
 const StackLayout = () => {
   return (
-    <Stack initialRouteName="index">
+    <Stack initialRouteName="index" screenOptions={{
+      headerTintColor: COLORS.yellow
+    }}>
       <Stack.Screen name="index" options={{ headerShown: false }} />
       <Stack.Screen name="bestRated" options={{
         headerShadowVisible: false,

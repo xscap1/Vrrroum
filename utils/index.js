@@ -85,33 +85,46 @@ export const deleteFavorites = async () => {
 export const storeHistoryInCache = async (id) => {
     var h = await SecureStore.getItemAsync('history');
     if (h) {
+        console.log("history exists");
         let history = JSON.parse(h);
+        console.log("length :", history.length);
+        console.log(JSON.stringify(history, null, 2));
         const present = checkPresentInHistory(id, history);
         if (history.length < 5) {
             if (!present) {
+                console.log("Produit non présent");
                 history.push(id);
                 await SecureStore.setItemAsync('history', JSON.stringify(history));
+                console.log("Produit ajouté:", id);
+            }
+
+            else {
+                console.log("Produit déjà présent");
             }
         }
         else {
+            console.log("History trop grand je supprime un item");
             history.pop();
             history.unshift(id);
             await SecureStore.setItemAsync('history', JSON.stringify(history));
+            console.log("Produit ajouté:", id);
         }
     }
     else {
+        console.log("Je créée history");
         const history = [id];
         await SecureStore.setItemAsync('history', JSON.stringify(history));
+        console.log("Produit ajouté:", id);
     }
 }
 
 const checkPresentInHistory = (id, history) => {
     let i;
     for (i = 0; i < history.length; i++) {
-        if (history[i] == id)
+        if (history[i] === id)
             return true;
     }
-    return true;
+    return false;
 }
 
 export const deleteHistory = async () => {

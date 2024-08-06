@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { View, Text, FlatList, TouchableOpacity, Alert } from "react-native";
+import { View, Text, FlatList, TouchableOpacity, Alert, ScrollView } from "react-native";
 import commonStyles from "../../../styles/common";
 import { COLORS, SIZES, images } from "../../../constants"
 import { StyleSheet } from "react-native";
@@ -23,7 +23,6 @@ const FocusPricingCard = ({ card, offer, actual }) => {
         cardContainer: {
             borderRadius: 15,
             backgroundColor: COLORS.darkgray,
-            height: '90%',
             padding: 15,
             width: 0.85 * ww,
             borderWidth: 2,
@@ -64,24 +63,25 @@ const FocusPricingCard = ({ card, offer, actual }) => {
         },
 
         availableFeature: {
-            fontSize: 16,
+            fontSize: 14,
             color: COLORS.whitesmoke
         },
 
         disabledFeature: {
-            fontSize: 16,
+            fontSize: 14,
             color: 'gray'
         },
 
         featuresContainer: {
-            marginTop: 30
+            padding: 10
         },
 
         singleFeatureContainer: {
             display: 'flex',
             flexDirection: 'row',
             gap: 5,
-            marginTop: 10
+            marginTop: 10,
+            width: '90%'
         },
     });
 
@@ -94,45 +94,47 @@ const FocusPricingCard = ({ card, offer, actual }) => {
 
     return (
         <View style={commonStyles.flexContainer}>
-            <View style={styles.cardContainer}>
-                {actual ?
-                    <View>
-                        <Text style={commonStyles.subtextCenter}>Votre abonnement actuel</Text>
-                        <View style={{ marginBottom: 10 }}></View>
-                    </View> : null}
-                <Text style={styles.planName}>{card.planName}</Text>
-                <Text style={styles.priceTag}>{card.priceTag}/mois</Text>
-                <Text style={styles.annualPriceTag}>ou {card.annualPriceTag}/an soit {card.annualDiscount} de moins</Text>
+            <ScrollView showsVerticalScrollIndicator={false}>
+                <View style={styles.cardContainer}>
+                    {actual ?
+                        <View>
+                            <Text style={commonStyles.subtextCenter}>Votre abonnement actuel</Text>
+                            <View style={{ marginBottom: 10 }}></View>
+                        </View> : null}
+                    <Text style={styles.planName}>{card.planName}</Text>
+                    <Text style={styles.priceTag}>{card.priceTag}/mois</Text>
+                    <Text style={styles.annualPriceTag}>ou {card.annualPriceTag}/an soit {card.annualDiscount} de moins</Text>
 
-                <TouchableOpacity style={styles.button} onPress={() => {
-                    if (user) {
-                        if (user.emailVerified)
-                            presentPaywall(user, offer);
-                        else {
-                            Alert.alert('Vérification email', 'Vous devez vérifier votre compte avant de souscrire à un abonnement');
-                            navigation.navigate('account');
+                    <TouchableOpacity style={styles.button} onPress={() => {
+                        if (user) {
+                            if (user.emailVerified)
+                                presentPaywall(user, offer);
+                            else {
+                                Alert.alert('Vérification email', 'Vous devez vérifier votre compte avant de souscrire à un abonnement');
+                                navigation.navigate('account');
+                            }
                         }
-                    }
-                    else {
-                        Alert.alert('Connexion', 'Vous devez être connecté pour souscrire à un abonnement.');
-                        navigation.navigate('login');
-                    }
-                }}>
-                    <Text>S'abonner</Text>
-                </TouchableOpacity>
+                        else {
+                            Alert.alert('Connexion', 'Vous devez être connecté pour souscrire à un abonnement.');
+                            navigation.navigate('login');
+                        }
+                    }}>
+                        <Text>S'abonner</Text>
+                    </TouchableOpacity>
 
-                <Text style={styles.descriptionText}>{card.descriptionText}</Text>
-                <View style={styles.featuresContainer}>
-                    {
-                        card.features.map(function (item, i) {
-                            return <Feature
-                                key={i}
-                                feature={item}
-                            />
-                        })
-                    }
+                    <Text style={styles.descriptionText}>{card.descriptionText}</Text>
+                    <View style={styles.featuresContainer}>
+                        {
+                            card.features.map(function (item, i) {
+                                return <Feature
+                                    key={i}
+                                    feature={item}
+                                />
+                            })
+                        }
+                    </View>
                 </View>
-            </View>
+            </ScrollView>
         </View>
     );
 };

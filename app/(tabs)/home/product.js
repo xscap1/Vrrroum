@@ -7,7 +7,6 @@ import { getProductInCache } from "../../../utils";
 
 const Product = () => {
 
-    // const { product } = getProductInCache();
     const [product, setProduct] = useState();
     const [loading, setLoading] = useState(false);
     const utils = require('../../../constants/utils');

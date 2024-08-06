@@ -17,12 +17,15 @@ export default function Index() {
         router.replace('/home');
     });
 
-    return (
-        <View style={commonStyles.flexSafeArea}>
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', }}>
-                <Text style={{color: COLORS.lightwhite, fontWeight: 'bold', fontSize: 30}}>Vrrroum.</Text>
-                <ActivityIndicator style={{marginTop:10}}/>
-            </View>
-        </View>
-    );
+    // return (
+    //     <View style={commonStyles.flexSafeArea}>
+    //         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', }}>
+    //             <View style={{flexDirection:'row'}}>
+    //                 <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 30 }}>Vrrroum</Text>
+    //                 <Text style={{ color: COLORS.yellow, fontWeight: 'bold', fontSize: 30 }}>.</Text>
+    //             </View>
+    //             <ActivityIndicator style={{ marginTop: 10 }} />
+    //         </View>
+    //     </View>
+    // );
 }

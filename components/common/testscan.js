@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, React, useRef } from 'react';
-import { Button, StyleSheet, Text, TouchableOpacity, View, Platform, Dimensions, Linking, ActivityIndicator } from 'react-native';
+import { Button, StyleSheet, Text, TouchableOpacity, View, Platform, Dimensions, Linking } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import * as BarCodeScanner from "expo-barcode-scanner";
 import { useNavigation, useFocusEffect, useRouter } from "expo-router";
@@ -45,6 +45,10 @@ const Scan = () => {
       setIsRefreshing(false);
     }
   }, [isRefreshing]);
+
+  useEffect(() => {
+    requestPermission();
+  }, [permission]);
 
   // set the camera ratio and padding.
   // this code assumes a portrait mode screen
@@ -98,7 +102,13 @@ const Scan = () => {
     }
   };
 
-  const AskPermission = () => {
+  if (!permission) {
+    // Camera permissions are still loading
+    return <View />;
+  }
+
+  if (!permission.granted) {
+    // Camera permissions are not granted yet
     return (
       <View style={commonStyles.body}>
         <SafeAreaView style={commonStyles.flexSafeArea}>
@@ -117,6 +127,7 @@ const Scan = () => {
                 </TouchableOpacity>
               </View>
             </View>
+            {/* <Button onPress={requestPermission} title="Donner la permission" /> */}
           </View>
         </SafeAreaView>
       </View>
@@ -146,41 +157,31 @@ const Scan = () => {
     setIsRefreshing(true);
   };
 
-  const AndroidCamera = () => {
-    if (isFocused && Platform.OS === "android") {
-      return (
-        <View style={{ flexDirection: 'column', justifyContent: 'space-between' }}>
-          <View style={{ height: '85%' }}>
-            <Camera style={styles.camera} type={type}
-              ref={cameraRef}
-              // ratio={ratio}
-              // onCameraReady={setCameraReady}
-              onBarCodeScanned={scanned ? null : onCodeScanned}
-              autoFocus={!isRefreshing ? AutoFocus.on : AutoFocus.off}
-              onTouchEnd={handleTouch} // Handle touch to set focus point
-              barCodeScannerSettings={{
-                barCodeTypes: [BarCodeScanner.Constants.BarCodeType.ean13, BarCodeScanner.Constants.BarCodeType.qr],
-                barCodeSize: { height: 10, width: 10 }
-              }}
-            >
-            </Camera>
-          </View>
-          <View style={{ height: '15%', justifyContent: 'center' }}>
-            <TouchableOpacity style={{ padding: 10, backgroundColor: COLORS.darkgray, alignSelf: 'center', borderRadius: 15 }} onPress={toggleCameraType}>
-              <Icon name='cameraswitch' type='material' color={COLORS.yellow} size={30} />
-            </TouchableOpacity>
-          </View>
+  return (
+    <View style={styles.container}>
+      {isFocused && Platform.OS === "android" &&
+        <View style={{ flexDirection: 'col', justifyContent: 'space-between', flex: 1, backgroundColor: COLORS.background }}>
+          <Camera style={styles.camera} type={type}
+            ref={cameraRef}
+            ratio={ratio}
+            onCameraReady={setCameraReady}
+            onBarCodeScanned={scanned ? null : onCodeScanned}
+            autoFocus={!isRefreshing ? AutoFocus.on : AutoFocus.off}
+            onTouchEnd={handleTouch} // Handle touch to set focus point
+            barCodeScannerSettings={{
+              barCodeTypes: [BarCodeScanner.Constants.BarCodeType.ean13, BarCodeScanner.Constants.BarCodeType.qr],
+              barCodeSize: { height: 10, width: 10 }
+            }}
+          >
+          </Camera>
+          <TouchableOpacity style={{ padding: 10, backgroundColor: COLORS.darkgray}} onPress={toggleCameraType}>
+            <Icon name='cameraswitch' type='material' color={COLORS.yellow} size={30} />
+          </TouchableOpacity>
         </View>
+      }
 
-      );
-    }
-    return (<View />)
-  }
-
-  const IOSCamera = () => {
-    if (isFocused && Platform.OS === "ios") {
-      return (
-        <Camera style={styles.camera} type={type}
+      {isFocused && Platform.OS === "ios" &&
+        < Camera style={styles.camera} type={type}
           ref={cameraRef}
           onBarCodeScanned={scanned ? null : onCodeScanned}
           autoFocus={!isRefreshing ? AutoFocus.on : AutoFocus.off}
@@ -198,23 +199,8 @@ const Scan = () => {
           <TouchableOpacity style={{ padding: 10, backgroundColor: COLORS.darkgray, alignSelf: 'center', marginBottom: 30, borderRadius: 15 }} onPress={toggleCameraType}>
             <Icon name='cameraswitch' type='material' color={COLORS.yellow} size={30} />
           </TouchableOpacity>
-        </Camera>
-      );
-    }
-    return (<View />)
-  }
-
-  const CameraComponent = () => {
-    if (Platform.OS === "ios") return IOSCamera();
-    return AndroidCamera();
-  }
-
-  return (
-    <SafeAreaView style={commonStyles.flexSafeArea}>
-      <View style={styles.container}>
-        {!permission ? <ActivityIndicator /> : (permission && permission.granted ? <CameraComponent /> : <AskPermission />)}
-      </View>
-    </SafeAreaView>
+        </Camera>}
+    </View >
   );
 };
 

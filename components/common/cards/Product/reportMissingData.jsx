@@ -24,10 +24,10 @@ const ReportMissingData = (code) => {
             padding: 10,
             paddingTop: 10,
             backgroundColor: COLORS.darkgray,
-            borderRadius: 15,
+            borderRadius: 10,
             color: COLORS.lightwhite,
             fontSize: 16,
-            marginTop: 10
+            marginTop: 10,
         }
     });
 
@@ -39,16 +39,16 @@ const ReportMissingData = (code) => {
         <View style={{}}>
             {response != null ? <DisplayTextInformations text={validReport}/> : <View>
                 <View style={{ marginBottom: 20 }}>
-                    <Text style={commonStyles.text}>Marque</Text>
-                    <TextInput style={styles.textInputStyle} value={brand} onChangeText={setBrand} placeholder="Renseigner la marque du produit" maxLength={15} />
+                    <Text style={commonStyles.textBold}>Marque</Text>
+                    <TextInput style={styles.textInputStyle} value={brand} onChangeText={setBrand} placeholder="Marque du produit" maxLength={50} placeholderTextColor={COLORS.lightgray}/>
                 </View>
                 <View style={{ marginBottom: 20 }}>
-                    <Text style={commonStyles.text}>Nom</Text>
-                    <TextInput style={styles.textInputStyle} value={name} onChangeText={setName} placeholder="Renseigner le nom du produit" maxLength={15} />
+                    <Text style={commonStyles.textBold}>Nom</Text>
+                    <TextInput style={styles.textInputStyle} value={name} onChangeText={setName} placeholder="Nom du produit" maxLength={50} placeholderTextColor={COLORS.lightgray}/>
                 </View>
                 <View style={{ marginBottom: 20 }}>
-                    <Text style={commonStyles.text}>Référence</Text>
-                    <TextInput style={styles.textInputStyle} value={ref} onChangeText={setRef} placeholder="Renseigner la référence si possible" maxLength={15} />
+                    <Text style={commonStyles.textBold}>Référence</Text>
+                    <TextInput style={styles.textInputStyle} value={ref} onChangeText={setRef} placeholder="Référence si possible" maxLength={50} placeholderTextColor={COLORS.lightgray}/>
                 </View>
                 <ScreenHeaderBtn text={"Envoyer"} disabled={brand != "" && name != "" ? false : true} handlePress={async () => { await reportMissingProduct(); }} />
             </View>}

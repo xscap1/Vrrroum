@@ -21,7 +21,8 @@ const Product = () => {
 
     useEffect(() => {
         const storeInHistory = async () => {
-            await storeHistoryInCache(data.id);
+            if (data)
+                await storeHistoryInCache(data.id);
         };
         storeInHistory();
     }, [data]);

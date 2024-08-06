@@ -10,13 +10,23 @@ const styles = StyleSheet.create({
     wrapper: {
         flex: 1,
         flexDirection: "row",
-        height: 0.125 * wh,
+        height: 0.13 * wh,
     },
 
     wrapperSponso: {
         flex: 1,
         flexDirection: "row",
         height: 0.155 * wh,
+    },
+
+    container: {
+        backgroundColor: COLORS.darkgray,
+        marginTop: 0.02 * ww,
+        paddingTop: 0.02 * ww,
+        paddingBottom: 0.02 * ww,
+        paddingLeft: 0.02 * ww,
+        paddingRight: 0.02 * ww,
+        borderRadius: 10
     },
 
     imgContiner: {
@@ -80,11 +90,11 @@ const styles = StyleSheet.create({
     },
 
     notationContainer: {
-        flexDirection: 'row', 
-        alignSelf: 'flex-end', 
+        flexDirection: 'row',
+        alignSelf: 'flex-end',
         alignItems: 'center',
         gap: 0.025 * ww,
-        marginTop: 0.01 * ww
+        marginTop: 0.01 * ww,
     },
 
     scoreContainer: {

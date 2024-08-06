@@ -19,6 +19,13 @@ const Product = () => {
         api.getProductFromApi(local.code, setData, setLoading);
     }, []);
 
+    useEffect(() => {
+        const storeInHistory = async () => {
+            await storeHistoryInCache(data.id);
+        };
+        storeInHistory();
+    }, [data]);
+
     return (
         <View style={commonStyles.body}>
             <SafeAreaView style={commonStyles.flexSafeArea}>
@@ -29,7 +36,7 @@ const Product = () => {
                         headerTitle: "",
                     }}
                 />
-                {isLoading ? <ActivityIndicator /> : (data ? <ProductCard product={data} colorNote={utils.noteToColor(data.score)} /> : <ProductNotFoundCard code={local.code}/>)}
+                {isLoading ? <ActivityIndicator /> : (data ? <ProductCard product={data} /> : <ProductNotFoundCard code={local.code} />)}
             </SafeAreaView>
         </View>
     );

@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { SafeAreaView, ScrollView, View, Text, Platform, ActivityIndicator, TouchableOpacity, Keyboard } from "react-native";
-import { Stack, useRouter, Link } from "expo-router";
+import React, { useState } from "react";
+import { ScrollView, View, Text, Platform, ActivityIndicator, TouchableOpacity, Keyboard, Button, TouchableWithoutFeedback } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import Trendings from "../../../components/home/Trendings";
 import BestRated from "../../../components/home/BestRated";
 import Categories from "../../../components/home/Categories";
@@ -11,8 +11,8 @@ import { Icon, SearchBar } from '@rneui/themed';
 import { COLORS } from "../../../constants";
 import DisplayTextInformations from "../../../components/common/cards/DisplayTextInformations";
 import { wh } from "../../../styles/common";
-import NoAccess from "../../../components/common/noaccess/NoAccess";
-import { isSubscriptionActiveFromRCProvider } from "../../../utils/rcprovider";
+import { useNavigation } from "expo-router";
+import ProtectedRoute from "../../../components/sub/ProtectedRoute";
 
 const Home = () => {
 
@@ -20,7 +20,8 @@ const Home = () => {
   const [isSearching, setSearching] = useState(false);
   const [searchData, setSearchData] = useState();
   const [isLoading, setLoading] = useState(true);
-  const [isMember, setIsMember] = useState();
+
+  const navigation = useNavigation();
 
   const missingSearchDataText = "Aucuns résultats trouvés pour votre recherche.";
 
@@ -29,8 +30,6 @@ const Home = () => {
   const updateSearch = (search) => {
     setSearch(search);
   };
-
-  // <Icon name="cancel" type="material" onPress={resetSearchBar} />
 
   const clearIcon = () => {
     return (
@@ -53,61 +52,64 @@ const Home = () => {
     await api.PostSearchKeywordsToApi(JSON.stringify(data), setSearchData, setLoading);
   }
 
-  useEffect(() => {
-    const getSubscriptionInfo = async () => {
-      const active = await isSubscriptionActiveFromRCProvider();
-      setIsMember(active);
-    }
-
-    getSubscriptionInfo();
-  }, []);
-
   return (
     <View style={commonStyles.body}>
       <SafeAreaView style={commonStyles.flexSafeArea}>
         {/* scrollEnabled={!isSearching} */}
         <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={"always"}>
-          <View style={{ paddingLeft: 0.02 * ww, paddingRight: 0.02 * ww, display: isSearching ? 'flex' : null, flexDirection: isSearching ? 'row' : null }}>
-            {isSearching ?
-              <TouchableOpacity onPressIn={() => { resetSearchBar(); }} style={{ padding: 10, alignSelf: 'center' }}>
-                <Icon name="arrow-back" type="material" color={COLORS.yellow} size={30} />
-              </TouchableOpacity>
-              : null}
-            <SearchBar
-              placeholder="Rechercher un produit"
-              onChangeText={updateSearch}
-              editable={true}
-              value={search}
-              platform={"ios"}
-              searchIcon={null}
-              containerStyle={{ backgroundColor: COLORS.background, width: isSearching ? '85%' : 'auto' }}
-              inputContainerStyle={{ backgroundColor: COLORS.darkgray, borderRadius: 10 }}
-              inputStyle={{ backgroundColor: COLORS.darkgray, color: COLORS.lightwhite, paddingLeft: 10 }}
-              onFocus={() => {
-                setSearching(true);
-              }}
-              returnKeyType={"search"}
-              enablesReturnKeyAutomatically={true}
-              cancelButtonTitle={""}
-              clearIcon={search != "" ? clearIcon : null}
-              onSubmitEditing={() => { if (isMember) {postKeywordsToApi();} }}
-            />
-          </View>
-          {isSearching ? (
-            !isMember ? <View style={[commonStyles.flexContainer, { height: wh }]}><NoAccess /></View> :
-              <View style={commonStyles.flexFullScreenContainer}>
-                {isLoading ? (
-                  <ActivityIndicator />
-                ) : (
-                  searchData.length === 0 ? <View style={{ height: wh }}><DisplayTextInformations text={missingSearchDataText} /></View> : <ListedProducts products={searchData} flatlist={false} />
-                )}
-              </View>
-          ) : null}
+          <View>
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+              <View>
+                <View style={{ paddingLeft: 0.02 * ww, paddingRight: 0.02 * ww, display: isSearching ? 'flex' : null, flexDirection: isSearching ? 'row' : null }}>
+                  {isSearching ?
+                    <TouchableOpacity onPressIn={() => { resetSearchBar(); }} style={{ padding: 10, alignSelf: 'center' }}>
+                      <Icon name="arrow-back" type="material" color={COLORS.yellow} size={30} />
+                    </TouchableOpacity>
+                    : null}
+                  <SearchBar
+                    placeholder="Rechercher un produit"
+                    onChangeText={updateSearch}
+                    editable={true}
+                    value={search}
+                    platform={"ios"}
+                    searchIcon={null}
+                    containerStyle={{ backgroundColor: COLORS.background, width: isSearching ? '85%' : 'auto' }}
+                    inputContainerStyle={{ backgroundColor: COLORS.darkgray, borderRadius: 10 }}
+                    inputStyle={{ backgroundColor: COLORS.darkgray, color: COLORS.lightwhite, paddingLeft: 10 }}
+                    onFocus={() => {
+                      setSearching(true);
+                    }}
+                    returnKeyType={"search"}
+                    enablesReturnKeyAutomatically={true}
+                    cancelButtonTitle={""}
+                    clearIcon={search != "" ? clearIcon : null}
+                    onSubmitEditing={() => { postKeywordsToApi(); }}
+                  />
+                </View>
+                {isSearching ? (
 
-          {!searchData ? (<View><Offers />
-            <Trendings />
-            <BestRated />
-            <Categories /></View>) : null}
+                  <View style={commonStyles.flexFullScreenContainer}>
+                    <ProtectedRoute>
+                      {isLoading ? (
+                        <ActivityIndicator />
+                      ) : (
+                        searchData.length === 0 ? <View style={{ height: wh }}><DisplayTextInformations text={missingSearchDataText} /></View> : <ListedProducts products={searchData} flatlist={false} />
+                      )}
+                    </ProtectedRoute>
+                  </View>
+                ) : null}
+              </View>
+
+            </TouchableWithoutFeedback>
+
+            {!searchData ? (
+              <View>
+                <Offers />
+                <Trendings />
+                <BestRated />
+                <Categories /></View>) : null}
+          </View>
+
         </ScrollView>
       </SafeAreaView>
     </View >

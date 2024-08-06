@@ -15,7 +15,6 @@ const Favorites = ({ products, scan, onEndOnPress, onEmptyFavorites, flatlist = 
     const [data, setData] = useState(products);
 
     async function handleRemove (id) {
-        console.log(id);
         const filteredData = data.filter((item) => item.id !== id);
         setData(filteredData);
         const size = await removeFavoriteByIdInCache(id);
@@ -34,8 +33,8 @@ const Favorites = ({ products, scan, onEndOnPress, onEmptyFavorites, flatlist = 
                             data={data}
                             keyExtractor={({ id }) => id}
                             renderItem={({ item }) => (
-                                <View style={{ display: 'flex', flexDirection: 'row', gap: 20, alignItems: 'center' }}>
-                                    <View style={{ width: '85%' }}>
+                                <View style={{ display: 'flex', flexDirection: 'row', gap: 10, alignItems: 'center' }}>
+                                    <View style={{ width: '90%' }}>
                                         <ListedProductCard
                                             product={item}
                                             colorNote={utils.noteToColor(item.score)}
@@ -43,7 +42,7 @@ const Favorites = ({ products, scan, onEndOnPress, onEmptyFavorites, flatlist = 
                                         />
                                     </View>
                                     <TouchableOpacity onPress={() => { handleRemove(item.id); }}>
-                                        <Icon name="delete" color={COLORS.yellow} size={25} />
+                                        <Icon name="delete" color={COLORS.yellow} size={20} />
                                     </TouchableOpacity>
                                 </View>
 

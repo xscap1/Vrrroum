@@ -1,11 +1,20 @@
 import Purchases, { PurchasesOffering, LOG_LEVEL } from "react-native-purchases";
 import * as SecureStore from 'expo-secure-store';
 import { Platform } from "react-native";
+import RevenueCatUI from "react-native-purchases-ui";
 
 const APIKeys = {
     apple: "appl_TSXyjYXVGQMQOMWTXPTyyTAvwtc",
     google: "goog_uFlEWDvOKFjmInkMbxoEILwzCyB",
 };
+
+const SUBSCRIPTION_EVENT_TYPES = {
+    DISABLE: "DISABLE",
+    UPGRADE: "UPGRADE",
+    DOWNGRANDE: "DOWNGRADE",
+    MONTH_TO_ANNUAL: "MONTH_TO_ANNUAL",
+    ANNUAL_MONTH: "ANNUAL_MONTH",
+}
 
 export const getActiveSubscriptionFromRCProvider = async () => {
     let user = await SecureStore.getItemAsync('user');
@@ -19,19 +28,11 @@ export const getActiveSubscriptionFromRCProvider = async () => {
 }
 
 export const isSubscriptionActiveFromRCProvider = async () => {
-    let user = await SecureStore.getItemAsync('user');
-
-    if (user != null && user != undefined) {
-        user = JSON.parse(user);
-        const customerInfo = await Purchases.getCustomerInfo();
-        if (customerInfo.activeSubscriptions.length > 0)
-            return true;
-        return false;
-    }
-
+    const customerInfo = await Purchases.getCustomerInfo();
+    if (customerInfo.activeSubscriptions.length > 0)
+        return true;
     return false;
 }
-
 
 export const getActiveSubscriptionInfoFromRCProvider = async () => {
     let user = await SecureStore.getItemAsync('user');
@@ -39,7 +40,6 @@ export const getActiveSubscriptionInfoFromRCProvider = async () => {
     if (user != null && user != undefined) {
         const customerInfo = await Purchases.getCustomerInfo();
         const managementURL = customerInfo.managementURL;
-        console.log(customerInfo.activeSubscriptions);
         if (customerInfo.activeSubscriptions.length > 0) {
             let actives = customerInfo.entitlements.active;
             if (actives != null && actives != undefined) {
@@ -53,24 +53,32 @@ export const getActiveSubscriptionInfoFromRCProvider = async () => {
     return undefined;
 }
 
-export const logInCustomerToRCProvider = async () => {
-    let user = await SecureStore.getItemAsync('user');
-    user = JSON.parse(user);
+export const getCustomerInfoFromRCProvider = async () => {
+    const customerInfo = await Purchases.getCustomerInfo();
+    return customerInfo;
+}
 
-    if (user != null && user != undefined) {
-        const { customerInfo } = await Purchases.logIn(user.id);
-        return customerInfo;
+export const logInCustomerToRCProvider = async (uid, email) => {
+    try {
+        if (uid && email) {
+            if (typeof uid === 'string' && typeof email === 'string') {
+                const { customerInfo } = await Purchases.logIn(uid)
+                if (customerInfo)
+                    await Purchases.setEmail(email);
+                return  customerInfo;
+            }
+        }
+    }
+
+    catch (error) {
+        console.log(error);
+        return (null);
     }
 }
 
 export const logOutCustomerFromRCProvider = async () => {
-    let user = await SecureStore.getItemAsync('user');
-    user = JSON.parse(user);
-
-    if (user != null && user != undefined) {
-        const { customerInfo } = await Purchases.logOut();
-        return customerInfo;
-    }
+    const { customerInfo } = await Purchases.logOut();
+    return customerInfo;
 }
 
 export const configureRCProvider = async () => {
@@ -80,14 +88,32 @@ export const configureRCProvider = async () => {
     } else {
         await Purchases.configure({ apiKey: APIKeys.apple });
     }
+}
 
-    const { customerInfo } = await logInCustomerToRCProvider();
-    if (customerInfo != null && customerInfo != undefined)
-        return true;
-    return false;
+export const configureRCProviderWithUserId = async (uid) => {
+    // Setup api keys
+    if (Platform.OS == "android") {
+        await Purchases.configure({ apiKey: APIKeys.google, appUserID: uid });
+    } else {
+        await Purchases.configure({ apiKey: APIKeys.apple, appUserID: uid });
+    }
 }
 
 export const getOfferingsFromRCProvider = async () => {
     const offerings = await Purchases.getOfferings();
     return offerings;
 }
+
+export const presentPaywallFromRCProvider = async (offer) => {
+    try {
+        const paywallResult = await RevenueCatUI.presentPaywall({
+            offering: offer
+        });
+
+        return paywallResult;
+    }
+    catch(error) {
+        console.log(error);
+        return null;
+    }
+} 

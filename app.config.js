@@ -1,8 +1,19 @@
-{
+export default {
   "expo": {
-    "scheme": "myapp",
+    "scheme": "vrrroum",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
     "web": {
       "bundler": "metro"
+    },
+    "icon": "./assets/images/logo/vrrroum_logo.png",
+    "splash": {
+      "image": "./assets/images/logo/vrrroum_logo.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#1d1f1e"
     },
     "plugins": [
       "expo-router",
@@ -26,7 +37,14 @@
         {
           "faceIDPermission": "Autoriser $(PRODUCT_NAME) à accéder à vos données biométriques Face ID."
         }
-      ]
+      ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Autoriser $(PRODUCT_NAME) à accéder à votre appareil photo."
+        }
+      ],
+      ["@react-native-google-signin/google-signin"]
     ],
     "name": "Vrrroum",
     "slug": "Vrrroum",
@@ -39,15 +57,19 @@
       }
     },
     "ios": {
-      "bundleIdentifier": "miraixscapVrrroum-fe4ed6bbb700fffdfd597217fde624ba---com.miraixscap.Vrrroum",
+      "bundleIdentifier": "miraixscapVrrroum",
       "usesAppleSignIn": true,
       "config": {
         "usesNonExemptEncryption": false
       }
     },
     "android": {
-      "permissions":["READ_EXTERNAL_STORAGE", "WRITE_EXTERNAL_STORAGE"],
-      "package": "com.miraixscap.Vrrroum"
+      "permissions": [
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "INTERNET"
+      ],
+      "package": "com.miraixscap.Vrrroum",
     }
   }
 }

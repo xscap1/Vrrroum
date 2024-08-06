@@ -12,7 +12,7 @@ const History = () => {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState();
 
-  const missingHistoryText = "Vous n'avez scanné aucun produits récemment. Utiliser le scanner afin d'obtenir des informations sur un produit. Ensuite retrouver tous vos produits scannés ici !"
+  const missingHistoryText = "Vous n'avez scanné aucun produits récemment. Utilisez le scanner afin d'obtenir des informations sur un produit. Ensuite retrouver tous vos produits scannés ici !"
 
   useEffect(() => {
     const getHistory = async () => {
@@ -20,10 +20,8 @@ const History = () => {
       const h = await getHistoryInCache();
       if (h != null && h.length > 0)
         api.PostIdsFromApi(JSON.stringify(h), setData, setLoading);
-
-      else if (h.length == 0)
+      else
         setLoading(false);
-
     }
 
     getHistory();

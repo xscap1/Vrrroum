@@ -13,6 +13,12 @@ credentials.json
 ios/
 android/
 eas.json
-
+.env
+.env.local
 # macOS
 .DS_Store
+google-services.json
+# Expo
+.expo
+dist/
+web-build/

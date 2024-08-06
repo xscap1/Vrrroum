@@ -1,13 +1,20 @@
-import React from "react";
-import { View, Text, FlatList, TouchableOpacity } from "react-native";
+import React, { useContext, useState } from "react";
+import { View, Text, FlatList, TouchableOpacity, Alert, ScrollView } from "react-native";
 import commonStyles from "../../../styles/common";
 import { COLORS, SIZES, images } from "../../../constants"
 import { StyleSheet } from "react-native";
 import { Icon } from "@rneui/themed";
 import { Dimensions } from "react-native";
 import RevenueCatUI, { PAYWALL_RESULT } from "react-native-purchases-ui";
+import AuthContext from "../../auth/AuthContext";
+import SubscriptionContext from "../../sub/SubscriptionContext";
+import { useNavigation } from "expo-router";
 
-const FocusPricingCard = ({ card, offer }) => {
+const FocusPricingCard = ({ card, offer, actual }) => {
+
+    const { user } = useContext(AuthContext);
+    const { presentPaywall } = useContext(SubscriptionContext);
+    const navigation = useNavigation();
 
     ww = Dimensions.get('window').width;
     wh = Dimensions.get('window').height;
@@ -16,7 +23,6 @@ const FocusPricingCard = ({ card, offer }) => {
         cardContainer: {
             borderRadius: 15,
             backgroundColor: COLORS.darkgray,
-            height: '90%',
             padding: 15,
             width: 0.85 * ww,
             borderWidth: 2,
@@ -45,7 +51,7 @@ const FocusPricingCard = ({ card, offer }) => {
         descriptionText: {
             color: COLORS.subwhite,
             marginTop: 30,
-            textAlign: 'justify'
+            textAlign: 'center'
         },
 
         button: {
@@ -57,24 +63,25 @@ const FocusPricingCard = ({ card, offer }) => {
         },
 
         availableFeature: {
-            fontSize: 16,
+            fontSize: 14,
             color: COLORS.whitesmoke
         },
 
         disabledFeature: {
-            fontSize: 16,
+            fontSize: 14,
             color: 'gray'
         },
 
         featuresContainer: {
-            marginTop: 30
+            padding: 10
         },
 
         singleFeatureContainer: {
             display: 'flex',
             flexDirection: 'row',
             gap: 5,
-            marginTop: 10
+            marginTop: 10,
+            width: '90%'
         },
     });
 
@@ -85,49 +92,49 @@ const FocusPricingCard = ({ card, offer }) => {
         </View>);
     }
 
-    async function presentPaywall() {
-        const paywallResult = await RevenueCatUI.presentPaywall({
-            offering: offer // Optional Offering object obtained through getOfferings
-        });
-
-        console.log(paywallResult);
-
-        switch (paywallResult) {
-            case PAYWALL_RESULT.NOT_PRESENTED:
-            case PAYWALL_RESULT.ERROR:
-            case PAYWALL_RESULT.CANCELLED:
-                return false;
-            case PAYWALL_RESULT.PURCHASED:
-            case PAYWALL_RESULT.RESTORED:
-                return true;
-            default:
-                return false;
-        }
-    }
-
     return (
         <View style={commonStyles.flexContainer}>
-            <View style={styles.cardContainer}>
-                <Text style={styles.planName}>{card.planName}</Text>
-                <Text style={styles.priceTag}>{card.priceTag}/mois</Text>
-                <Text style={styles.annualPriceTag}>ou {card.annualPriceTag}/an soit {card.annualDiscount} de moins</Text>
+            <ScrollView showsVerticalScrollIndicator={false}>
+                <View style={styles.cardContainer}>
+                    {actual ?
+                        <View>
+                            <Text style={commonStyles.subtextCenter}>Votre abonnement actuel</Text>
+                            <View style={{ marginBottom: 10 }}></View>
+                        </View> : null}
+                    <Text style={styles.planName}>{card.planName}</Text>
+                    <Text style={styles.priceTag}>{card.priceTag}/mois</Text>
+                    <Text style={styles.annualPriceTag}>ou {card.annualPriceTag}/an soit {card.annualDiscount} de moins</Text>
 
-                <TouchableOpacity style={styles.button} onPress={()=>{presentPaywall()}}>
-                    <Text>S'abonner</Text>
-                </TouchableOpacity>
+                    <TouchableOpacity style={styles.button} onPress={() => {
+                        if (user) {
+                            if (user.emailVerified)
+                                presentPaywall(user, offer);
+                            else {
+                                Alert.alert('Vérification email', 'Vous devez vérifier votre compte avant de souscrire à un abonnement');
+                                navigation.navigate('account');
+                            }
+                        }
+                        else {
+                            Alert.alert('Connexion', 'Vous devez être connecté pour souscrire à un abonnement.');
+                            navigation.navigate('login');
+                        }
+                    }}>
+                        <Text>S'abonner</Text>
+                    </TouchableOpacity>
 
-                <Text style={styles.descriptionText}>{card.descriptionText}</Text>
-                <View style={styles.featuresContainer}>
-                    {
-                        card.features.map(function (item, i) {
-                            return <Feature
-                                key={i}
-                                feature={item}
-                            />
-                        })
-                    }
+                    <Text style={styles.descriptionText}>{card.descriptionText}</Text>
+                    <View style={styles.featuresContainer}>
+                        {
+                            card.features.map(function (item, i) {
+                                return <Feature
+                                    key={i}
+                                    feature={item}
+                                />
+                            })
+                        }
+                    </View>
                 </View>
-            </View>
+            </ScrollView>
         </View>
     );
 };

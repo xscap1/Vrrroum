@@ -26,10 +26,11 @@ const styles = StyleSheet.create({
     },
 
     img: {
-        width: '100%',
-        height: '100%',
-        borderRadius: 10,
-        resizeMode: 'contain'
+        height: 0.3 * wh,
+        width: 0.7 * ww,
+        resizeMode: 'contain',
+        borderRadius: 15,
+        alignSelf: 'center'
     },
 
     datasContainer: {

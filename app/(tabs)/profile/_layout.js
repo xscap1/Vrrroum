@@ -1,5 +1,5 @@
 import { Stack } from "expo-router";
-
+import { COLORS } from "../../../constants";
 // export const unstable_settings = {
 //   // Ensure any route can link back to `/`
 //   initialRouteName: "(tabs)",
@@ -7,7 +7,9 @@ import { Stack } from "expo-router";
 
 const StackLayout = () => {
   return (
-    <Stack initialRouteName="index">
+    <Stack initialRouteName="index" screenOptions={{
+      headerTintColor: COLORS.yellow
+    }}>
       <Stack.Screen name="index" options={{ headerShown: false }} />
       <Stack.Screen name="pricing" options={{
         headerShadowVisible: false,
@@ -30,6 +32,28 @@ const StackLayout = () => {
         headerBackTitleVisible: false
       }} />
       <Stack.Screen name="bugReport" options={{
+        headerShadowVisible: false,
+        headerBackTitleVisible: false
+      }} />
+      <Stack.Screen name="product" options={{
+        headerShadowVisible: false,
+        headerBackTitleVisible: false
+      }} />
+      <Stack.Screen name="login" options={{
+        headerShadowVisible: false,
+        headerBackTitleVisible: false
+      }} />
+      <Stack.Screen name="account" options={{
+        headerShadowVisible: false,
+        headerBackTitleVisible: false
+      }} />
+      <Stack.Screen name="purchaseCompleted" options={{
+        headerShadowVisible: false,
+        headerBackTitleVisible: false,
+        headerBackVisible: false,
+        gestureEnabled: false
+      }} />
+      <Stack.Screen name="resetPassword" options={{
         headerShadowVisible: false,
         headerBackTitleVisible: false
       }} />

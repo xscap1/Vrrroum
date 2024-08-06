@@ -18,25 +18,28 @@ const ListedProducts = ({ products, scan, onEndOnPress, flatlist = true }) => {
                             style={{ flex: 1 }}
                             data={products}
                             keyExtractor={({ id }) => id}
-                            renderItem={({ item }) => (
-                                <ListedProductCard
-                                    product={item}
-                                    colorNote={utils.noteToColor(item.score)}
-                                    scan={scan}
-                                />
+                            renderItem={({ item, index }) => (
+                                <View key={index}>
+                                    <ListedProductCard
+                                        product={item}
+                                        colorNote={utils.noteToColor(item.score)}
+                                        scan={scan}
+                                    />
+                                </View>
                             )}
-                            contentContainerStyle={{ columnGap: SIZES.medium }}
+                            contentContainerStyle={{ columnGap: SIZES.medium, gap: 5 }}
                             showsVerticalScrollIndicator={false}
                             onEndReached={() => { if (onEndOnPress != null) onEndOnPress(); }}
                             onEndReachedThreshold={0.2}
                         /> :
                         products.map(function (item, i) {
-                            return <ListedProductCard
-                                key={i}
-                                product={item}
-                                colorNote={utils.noteToColor(item.score)}
-                                scan={scan}
-                            />
+                            return <View key={i}>
+                                <ListedProductCard
+                                    product={item}
+                                    colorNote={utils.noteToColor(item.score)}
+                                    scan={scan}
+                                />
+                            </View>
                         })}
                 </View>) : null}
         </View>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { View, Text, FlatList, TouchableOpacity, Alert } from "react-native";
 import commonStyles from "../../../styles/common";
 import { COLORS, SIZES, images } from "../../../constants"
@@ -7,8 +7,15 @@ import { Icon } from "@rneui/themed";
 import { Dimensions } from "react-native";
 import RevenueCatUI, { PAYWALL_RESULT } from "react-native-purchases-ui";
 import * as SecureStore from 'expo-secure-store';
+import AuthContext from "../../auth/AuthContext";
+import SubscriptionContext from "../../sub/SubscriptionContext";
+import { useNavigation } from "expo-router";
 
-const PricingCard = ({ card, offer }) => {
+const PricingCard = ({ card, offer, actual }) => {
+
+    const { user } = useContext(AuthContext);
+    const { presentPaywall } = useContext(SubscriptionContext);
+    const navigation = useNavigation();
 
     ww = Dimensions.get('window').width;
     wh = Dimensions.get('window').height;
@@ -83,50 +90,32 @@ const PricingCard = ({ card, offer }) => {
         </View>);
     }
 
-    const [user, setUser] = useState();
-
-    useEffect(()=>{
-
-        const set = async () => {
-            const res = await SecureStore.getItemAsync('user');
-            setUser(res);
-        }
-
-        set();
-    }, []);
-
-    async function presentPaywall() {
-
-        const paywallResult = await RevenueCatUI.presentPaywall({
-            offering: offer // Optional Offering object obtained through getOfferings
-        });
-
-        switch (paywallResult) {
-            case PAYWALL_RESULT.NOT_PRESENTED:
-            case PAYWALL_RESULT.ERROR:
-            case PAYWALL_RESULT.CANCELLED:
-                return false;
-            case PAYWALL_RESULT.PURCHASED:
-                return true;
-            default:
-                return false;
-            // case PAYWALL_RESULT.RESTORED:
-        }
-    }
-
     return (
         <View style={commonStyles.flexContainer}>
+            <View style={{ marginBottom: 10 }}></View>
             <View style={styles.cardContainer}>
+                {actual ?
+                    <View>
+                        <Text style={commonStyles.subtextCenter}>Votre abonnement actuel</Text>
+                        <View style={{ marginBottom: 10 }}></View>
+                    </View> : null}
+
                 <Text style={styles.planName}>{card.planName}</Text>
                 <Text style={styles.priceTag}>{card.priceTag}/mois</Text>
                 <Text style={styles.annualPriceTag}>ou {card.annualPriceTag}/an soit {card.annualDiscount} de moins</Text>
 
-                <TouchableOpacity style={styles.button} onPress={()=>{
-                    if (user != null && user != undefined) {
-                        presentPaywall();
+                <TouchableOpacity style={styles.button} onPress={() => {
+                    if (user) {
+                        if (user.emailVerified)
+                            presentPaywall(user, offer);
+                        else {
+                            Alert.alert('Vérification email', 'Vous devez vérifier votre compte avant de souscrire à un abonnement');
+                            navigation.navigate('account');
+                        }
                     }
                     else {
-                        Alert.alert('Connexion', 'Vous devez être connecté pour souscrire à un abonnement.')
+                        Alert.alert('Connexion', 'Vous devez être connecté pour souscrire à un abonnement.');
+                        navigation.replace('login');
                     }
                 }}>
                     <Text>S'abonner</Text>

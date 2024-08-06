@@ -16,12 +16,10 @@ const commonStyles = StyleSheet.create({
 
     safeArea: {
         backgroundColor: COLORS.background,
-        paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
     },
 
     flexSafeArea: {
         backgroundColor: COLORS.background,
-        paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
         flex: 1
     },
 
@@ -35,14 +33,14 @@ const commonStyles = StyleSheet.create({
     },
 
     container: {
-        paddingTop: 0.05 * ww,
-        paddingBottom: 0.05 * ww,
+        paddingTop: 0.02 * ww,
+        paddingBottom: 0.02 * ww,
         paddingLeft: 0.05 * ww,
         paddingRight: 0.05 * ww,
     },
 
     flexContainer: {
-        paddingTop: 0.05 * ww,
+        paddingTop: 0.02 * ww,
         paddingLeft: 0.05 * ww,
         paddingRight: 0.05 * ww,
         flex: 1
@@ -52,9 +50,9 @@ const commonStyles = StyleSheet.create({
         flex: 1
     },
 
-    flexFullScreenContainer : {
-        paddingTop: 0.05 * ww,
-        paddingBottom: 0.05 * ww,
+    flexFullScreenContainer: {
+        paddingTop: 0.02 * ww,
+        paddingBottom: 0.02 * ww,
         paddingLeft: 0.05 * ww,
         paddingRight: 0.05 * ww,
         width: '100%',
@@ -63,9 +61,18 @@ const commonStyles = StyleSheet.create({
 
     subcontainer: {
         backgroundColor: COLORS.darkgray,
-        marginTop: 0.05 * ww,
-        paddingTop: 0.05 * ww,
-        paddingBottom: 0.05 * ww,
+        marginTop: 0.02 * ww,
+        paddingTop: 0.02 * ww,
+        paddingBottom: 0.02 * ww,
+        paddingLeft: 0.05 * ww,
+        paddingRight: 0.05 * ww,
+        borderRadius: 10
+    },
+
+    subContainerWithoutColor: {
+        marginTop: 0.02 * ww,
+        paddingTop: 0.02 * ww,
+        paddingBottom: 0.02 * ww,
         paddingLeft: 0.05 * ww,
         paddingRight: 0.05 * ww,
         borderRadius: 10
@@ -94,12 +101,86 @@ const commonStyles = StyleSheet.create({
 
     subtext: {
         fontSize: SIZES.medium,
-        color: COLORS.subwhite
+        color: COLORS.subwhite,
+    },
+
+    swipeWrapper: {
+        backgroundColor: 'red',
+        height: 'auto'
+    },
+
+    swipeView: {
+    },
+
+    swipeSubtext: {
+        fontSize: SIZES.xMedium,
+        color: COLORS.subwhite,
+        paddingBottom: 3
+    },
+
+    activeSwipeSubtext: {
+        fontSize: SIZES.xMedium,
+        color: COLORS.yellow,
+        fontWeight: 'bold',
+        paddingBottom: 2
+    },
+
+    activeSwipeContainer: {
+        borderBottomWidth: 2,
+        borderColor: COLORS.yellow,
+        padding: 10
+    },
+
+    swipeContainer: {
+        borderBottomWidth: 2,
+        padding: 10
+    },
+
+    subtextBold: {
+        fontSize: SIZES.medium,
+        color: COLORS.lightwhite,
+        fontWeight: 'bold',
+        lineHeight: 23
+    },
+
+    textCenter: {
+        fontSize: SIZES.large,
+        color: COLORS.subwhite,
+        textAlign: 'center'
     },
 
     subtextCenter: {
         fontSize: SIZES.medium,
         color: COLORS.subwhite,
+        textAlign: 'center'
+    },
+
+    smalltextCenter: {
+        fontSize: SIZES.small,
+        color: COLORS.subwhite,
+        textAlign: 'center'
+    },
+
+    smallText: {
+        fontSize: SIZES.small,
+        color: COLORS.subwhite,
+    },
+
+    smallTextBold: {
+        fontSize: SIZES.small,
+        color: 'white',
+        fontWeight: 'bold'
+    },
+
+    subTextCenterBlack: {
+        fontSize: SIZES.medium,
+        color: 'black',
+        textAlign: 'center'
+    },
+
+    subtextCenterWarning: {
+        fontSize: SIZES.medium,
+        color: 'orange',
         textAlign: 'center'
     },
 
@@ -109,10 +190,33 @@ const commonStyles = StyleSheet.create({
         fontWeight: 'bold',
     },
 
-    subHeading : {
+    headingCenter: {
+        fontSize: SIZES.xLarge,
+        color: COLORS.lightwhite,
+        fontWeight: 'bold',
+        textAlign: 'center'
+    },
+
+    subHeading: {
         fontSize: SIZES.large,
         color: COLORS.lightwhite,
         fontWeight: 'bold',
+    },
+
+    subHeadingCenter: {
+        fontSize: SIZES.large,
+        color: COLORS.lightwhite,
+        fontWeight: 'bold',
+        textAlign: 'center'
+    },
+
+    link: {
+        color: COLORS.hyperlink,
+    },
+
+    linkCenter: {
+        color: COLORS.hyperlink,
+        textAlign: 'center'
     },
 
     tabBar: {
@@ -155,7 +259,7 @@ const commonStyles = StyleSheet.create({
     },
 
     scan: {
-        fontSize: SIZES.small,
+        fontSize: 11,
         color: COLORS.lightgreen,
         alignSelf: "flex-start",
     },
@@ -188,7 +292,56 @@ const commonStyles = StyleSheet.create({
     inactiveText: {
         fontSize: SIZES.medium,
         color: COLORS.lightwhite
-    }
+    },
+
+    input: {
+        height: 40,
+        borderRadius: 10,
+        marginBottom: 16,
+        paddingHorizontal: 8,
+        backgroundColor: COLORS.darkgray,
+        color: COLORS.lightwhite
+    },
+
+    buttonGray: {
+        width: 200,
+        borderRadius: 10,
+        padding: 10,
+        color: COLORS.lightwhite,
+        backgroundColor: COLORS.darkgray
+    },
+
+    buttonYellow: {
+        width: 200,
+        borderRadius: 10,
+        padding: 10,
+        color: 'black',
+        backgroundColor: COLORS.yellow,
+        alignItems: 'center'
+    },
+
+    buttonGrayCenter: {
+        width: 200,
+        borderRadius: 10,
+        padding: 10,
+        color: COLORS.lightwhite,
+        backgroundColor: COLORS.darkgray,
+        alignSelf: 'center'
+    },
+
+    buttonLightGray: {
+
+    },
+
+    buttonYellowCenter: {
+        width: 200,
+        borderRadius: 10,
+        padding: 10,
+        color: 'black',
+        backgroundColor: COLORS.yellow,
+        alignSelf: 'center'
+    },
+
 });
 
 export default commonStyles;

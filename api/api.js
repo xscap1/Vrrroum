@@ -1,6 +1,95 @@
 import { deleteHistory, storeHistoryInCache } from "../utils";
+import { auth } from "../firebaseConfig";
 
-const serverip = 'https://api.vrrroum.com/api';
+const serverip = process.env.EXPO_PUBLIC_API_PROD;
+
+const ProtectedApiRoutes = () => {
+
+    const getIdToken = async () => {
+        return await auth.currentUser.getIdToken(true);
+    }
+
+    const PostSignUpUserFromApi = async (data) => {
+        try {
+            const res = await fetch(serverip + '/users/signup', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: data
+            });
+            return res.json();
+        }
+
+        catch (error) {
+            console.log(error);
+        }
+    }
+
+    const getBestRatedFromApi = async (setData, setLoading) => {
+        try {
+            const token = await getIdToken();
+            await fetch(serverip + '/bestRated', {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+                .then((response) => response.json())
+                .then((json) => setData(json))
+                .catch((error) => console.error(error))
+                .finally(() => setLoading(false));
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const updateSubscriptionFromApi = async (data) => {
+        try {
+            const token = await getIdToken();
+            const res = await fetch(serverip + '/users/sub', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: data
+            });
+            return res.json();
+        }
+
+        catch (error) {
+            console.log(error);
+        }
+    }
+
+    const PostVerifyEmailToApi = async (data) => {
+        try {
+
+            const token = await getIdToken();
+            const res = await fetch(serverip + '/users/verify', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: data
+            });
+            return res.json();
+        }
+    
+        catch (error) {
+            console.log(error);
+        }
+    }
+
+    return { PostSignUpUserFromApi, getBestRatedFromApi, updateSubscriptionFromApi, PostVerifyEmailToApi };
+}
 
 const getBestRatedPreviewFromApi = async (setData, setLoading) => {
     try {
@@ -50,11 +139,11 @@ const getTrendsFromApi = async (setData, setLoading) => {
     }
 };
 
-const geCategoryBatchFromApi = async (category, cursor, setData, setLoading, setCursor) => {
+const getCategoryBatchFromApi = async (category, subcategory, cursor, setData, setLoading, setCursor) => {
     try {
-        let q = serverip + '/categoriesBatch/' + category;
+        let q = serverip + '/categoriesBatch/' + category + "/" + subcategory;
         if (cursor != null) {
-            q = serverip + '/categoriesBatch/' + category + '?cursor=' + cursor;
+            q = serverip + '/categoriesBatch/' + category + "/" + subcategory + '?cursor=' + cursor;
         }
 
         await fetch(q)
@@ -75,8 +164,8 @@ const geCategoryBatchFromApi = async (category, cursor, setData, setLoading, set
     }
 };
 
-const getRecommendationsFromApi = async (id, category, score, setData, setLoading) => {
-    let q = serverip + '/recommendations/' + id + '?category=' + category + '&score=' + score;
+const getRecommendationsFromApi = async (id, category, parent, score, setData, setLoading) => {
+    let q = serverip + '/recommendations/' + id + '?category=' + category + '&parent=' + parent + '&score=' + score;
 
     try {
         await fetch(q)
@@ -96,11 +185,10 @@ const getProductFromApi = async (id, setData, setLoading) => {
     try {
         await fetch(q)
             .then((response) => response.json())
-            .then((json) => {
+            .then(async (json) => {
                 if (!json.hasOwnProperty("message")) {
                     setData(json);
                     // deleteHistory();
-                    storeHistoryInCache(json.id);
                 }
 
             })
@@ -113,6 +201,26 @@ const getProductFromApi = async (id, setData, setLoading) => {
     }
 }
 
+const getProductWithIdFromApi = async (id, setData, setLoading) => {
+    let q = serverip + "/products/id/" + id;
+    try {
+        await fetch(q)
+            .then((response) => response.json())
+            .then((json) => {
+                if (!json.hasOwnProperty("message")) {
+                    setData(json);
+                    // deleteHistory();
+                }
+
+            })
+            .catch((error) => console.error(error))
+            .finally(() => {
+                setLoading(false);
+            });
+    } catch (error) {
+        console.error(error);
+    }
+}
 
 const PostUserLoginFromApi = async (data) => {
     try {
@@ -124,18 +232,31 @@ const PostUserLoginFromApi = async (data) => {
             },
             body: data
         });
-        //     .then(response => response.json())
-        //     .then((json) => {
-        //         // console.log(json.data);
-        //         return json;
-        //     });
-
-        // console.log(res.status.json);
         return res.json();
     }
 
     catch (e) {
         console.error(e);
+    }
+}
+
+const PostSignUpUserFromApi = () => {
+    try {
+        // console.log(ApiAuth.user.uid);
+        // console.log(user.uid);
+        // const res = await fetch(serverip + '/users/signup', {
+        //     method: 'POST',
+        //     headers: {
+        //         'Authorization': '',
+        //         'Accept': 'application/json',
+        //         'Content-Type': 'application/json',
+        //     },
+        //     body: data
+        // });
+    }
+
+    catch (error) {
+        console.log(error);
     }
 }
 
@@ -184,7 +305,6 @@ const PostSearchKeywordsToApi = async (data, setData, setLoading) => {
 }
 
 const PostReportBugToApi = async (data, setData) => {
-    console.log(data);
     try {
         await fetch(serverip + '/report', {
             method: 'POST',
@@ -206,7 +326,6 @@ const PostReportBugToApi = async (data, setData) => {
 }
 
 const PostReportMissingProductToApi = async (data, setData) => {
-    console.log(data);
     try {
         await fetch(serverip + '/report/product', {
             method: 'POST',
@@ -227,4 +346,27 @@ const PostReportMissingProductToApi = async (data, setData) => {
     }
 }
 
-export { getBestRatedFromApi, getBestRatedPreviewFromApi, getTrendsFromApi, getTrendsPreviewFromApi, geCategoryBatchFromApi, getRecommendationsFromApi, getProductFromApi, PostUserLoginFromApi, PostIdsFromApi, PostSearchKeywordsToApi, PostReportBugToApi, PostReportMissingProductToApi }
+const PostIngredientsToApi = async (ingredients, setData, setLoading) => {
+    try {
+        await fetch(serverip + '/ingredients/cas', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: ingredients
+        }).then((response) => response.json())
+            .then((json) => {
+                setData(json);
+                setLoading(false);
+            })
+            .catch((error) => console.error(error))
+    }
+
+    catch (e) {
+        console.error(e);
+    }
+}
+
+export { PostIngredientsToApi, getBestRatedFromApi, getBestRatedPreviewFromApi, getTrendsFromApi, getTrendsPreviewFromApi, getCategoryBatchFromApi, getRecommendationsFromApi, getProductFromApi, PostUserLoginFromApi, PostIdsFromApi, PostSearchKeywordsToApi, PostReportBugToApi, PostReportMissingProductToApi, PostSignUpUserFromApi, getProductWithIdFromApi }
+export default ProtectedApiRoutes;

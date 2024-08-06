@@ -5,6 +5,7 @@ import ListedProducts from "../../../components/home/ListedProducts";
 import React, { useEffect, useState } from 'react';
 import NoAccess from "../../../components/common/noaccess/NoAccess";
 import { isSubscriptionActiveFromRCProvider } from "../../../utils/rcprovider";
+import ProtectedRoute from "../../../components/sub/ProtectedRoute";
 
 const Category = () => {
     const router = useRouter();
@@ -14,59 +15,54 @@ const Category = () => {
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState();
     const [cursor, setCursor] = useState(null);
-    const [isMember, setIsMember] = useState();
 
     const local = useLocalSearchParams();
 
     const category = local.category;
+    const name = local.name;
+    const parent = local.parent
 
     useEffect(() => {
-        const getSubscriptionInfo = async () => {
-            const active = await isSubscriptionActiveFromRCProvider();
-            setIsMember(active);
-        }
-
-        getSubscriptionInfo();
+        const cat = parent != "" ? parent : category;
+        const subcat = parent != "" ? category : 'products';
+        api.getCategoryBatchFromApi(cat, subcat, null, setData, setLoading, setCursor);
     }, []);
-
-    useEffect(() => {
-        api.geCategoryBatchFromApi(category, null, setData, setLoading, setCursor);
-        console.log(cursor);
-    }, []);
-
 
     const fetchData = () => {
         try {
-            api.geCategoryBatchFromApi(category, cursor, setData, setLoading, setCursor);
+            const cat = parent != "" ? parent : category;
+            const subcat = parent != "" ? category : 'products';
+
+            api.getCategoryBatchFromApi(cat, subcat, cursor, setData, setLoading, setCursor);
         } catch (error) {
             console.error('Erreur lors du chargement des données:', error);
         }
     };
 
-
     return (
-        <View style={commonStyles.body}>
-            <SafeAreaView style={commonStyles.flexSafeArea}>
-                <Stack.Screen
-                    options={{
-                        headerStyle: commonStyles.header,
-                        headerShadowVisible: false,
-                        headerTitle: "",
-                    }}
-                />
-                <View style={commonStyles.flexContainer}>
-                    {!isMember ? <NoAccess /> :
+        <ProtectedRoute>
+            <View style={commonStyles.body}>
+                <SafeAreaView style={commonStyles.flexSafeArea}>
+                    <Stack.Screen
+                        options={{
+                            headerStyle: commonStyles.header,
+                            headerShadowVisible: false,
+                            headerTitle: "",
+                        }}
+                    />
+                    <View style={commonStyles.flexContainer}>
                         <View style={{ flex: 1 }}>
-                            <Text style={commonStyles.heading}>{category}</Text>
+                            <Text style={commonStyles.heading}>{name}</Text>
 
                             {isLoading ? <ActivityIndicator /> : (
                                 <ListedProducts products={data} onEndOnPress={fetchData} />
                             )}
-                        </View>}
-                </View>
+                        </View>
+                    </View>
 
-            </SafeAreaView>
-        </View>
+                </SafeAreaView>
+            </View>
+        </ProtectedRoute>
     );
 };
 

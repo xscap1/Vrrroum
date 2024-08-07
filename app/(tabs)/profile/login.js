@@ -186,6 +186,7 @@ const Login = () => {
                                 style={commonStyles.input}
                                 placeholder="Mot de passe"
                                 value={password}
+                                autoCapitalize="none"
                                 onChangeText={setPassword}
                                 placeholderTextColor={COLORS.lightgray}
                                 secureTextEntry

@@ -54,7 +54,7 @@ const Home = () => {
 
   return (
     <View style={commonStyles.body}>
-      <SafeAreaView style={commonStyles.flexSafeArea}>
+      <SafeAreaView style={commonStyles.flexSafeArea} edges={['top', 'left', 'right']}>
         {/* scrollEnabled={!isSearching} */}
         <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={"always"}>
           <View>
@@ -104,7 +104,7 @@ const Home = () => {
 
             {!searchData ? (
               <View>
-                <Offers />
+                {/* <Offers /> */}
                 <Trendings />
                 <BestRated />
                 <Categories /></View>) : null}

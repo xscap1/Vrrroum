@@ -68,7 +68,6 @@ export const SubscriptionProvider = ({ children }) => {
         if (customerInfo) {
             setRcCustomerInfo(customerInfo);
             const isActive = isSubscriptionActive(customerInfo);
-            console.log(isActive);
             if (subscriptionStatus != isActive) {
                 const user = getAuth().currentUser;
                 if (user) {

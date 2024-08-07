@@ -64,6 +64,8 @@ export default {
       }
     },
     "android": {
+      "versionCode": 3,
+      "versionName": "1.0.0",
       "permissions": [
         "READ_EXTERNAL_STORAGE",
         "WRITE_EXTERNAL_STORAGE",

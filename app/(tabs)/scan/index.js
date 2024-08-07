@@ -1,24 +1,20 @@
-import { useState, useEffect, useCallback, React, useRef } from 'react';
-import { Button, StyleSheet, Text, TouchableOpacity, View, Platform, Dimensions, Linking, ActivityIndicator } from 'react-native';
+import { useState, useEffect, React, useRef } from 'react';
+import { StyleSheet, Text, TouchableOpacity, View, Platform, Dimensions, Linking, ActivityIndicator, TouchableWithoutFeedback } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import * as BarCodeScanner from "expo-barcode-scanner";
 import { useNavigation, useFocusEffect, useRouter } from "expo-router";
-import { Icon } from '@rneui/themed';
 import { COLORS } from '../../../constants';
 import { useIsFocused } from '@react-navigation/native';
-import { AutoFocus, Camera, CameraType } from 'expo-camera';
+import { CameraView, useCameraPermissions } from "expo-camera/next";
 import commonStyles from '../../../styles/common';
-// import { Camera, CameraType } from 'expo-camera/legacy';
+
+const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
 const Scan = () => {
-
-  const [type, setType] = useState(CameraType.back);
+  const [facing, setFacing] = useState("back");
   const [scanned, setScanned] = useState(false);
-  const [permission, requestPermission] = Camera.useCameraPermissions();
+  const [permission, requestPermission] = useCameraPermissions();
+
   const navigation = useNavigation();
-  const [isRefreshing, setIsRefreshing] = useState(false);
-  const [focusSquare, setFocusSquare] = useState({ visible: false, x: 0, y: 0 });
-  const [prevFocusDistance, setPrevFocusDistance] = useState(null);
   const cameraRef = useRef();
 
   const isFocused = useIsFocused();
@@ -39,12 +35,6 @@ const Scan = () => {
     // Nettoyer l'écouteur lors du démontage de l'écran
     return unsubscribe;
   }, [navigation]);
-
-  useEffect(() => {
-    if (isRefreshing) {
-      setIsRefreshing(false);
-    }
-  }, [isRefreshing]);
 
   // set the camera ratio and padding.
   // this code assumes a portrait mode screen
@@ -98,6 +88,7 @@ const Scan = () => {
     }
   };
 
+
   const AskPermission = () => {
     return (
       <View style={commonStyles.body}>
@@ -123,55 +114,75 @@ const Scan = () => {
     );
   }
 
-  function toggleCameraType() {
-    setType(current => (current === CameraType.back ? CameraType.front : CameraType.back));
-  }
 
-  const onCodeScanned = ({ type, data }) => {
-    setScanned(true);
-    const newCode = { type: type, data: data };
-    navigation.navigate('product', { code: newCode.data });
+  const onCodeScanned = ({ data, bounds }) => {
+    const { origin, size } = bounds;
+
+    const barCodeX1 = origin.y * screenWidth; // Inversé
+    const barCodeY1 = origin.x * screenHeight; // Inversé
+    const barCodeX2 = (origin.y + size.height) * screenWidth; // Inversé
+    const barCodeY2 = (origin.x + size.width) * screenHeight; // Inversé
+
+    // Définir les dimensions du rectangle de scan
+    const scanAreaWidth = screenWidth * 0.9;
+    const scanAreaHeight = screenHeight * 0.2;
+    const scanAreaX = (screenWidth - scanAreaWidth) / 2;
+    const scanAreaY = (screenHeight - scanAreaHeight) / 2;
+
+    const isInsideScanArea =
+      barCodeX1 >= scanAreaX &&
+      barCodeX2 <= scanAreaX + scanAreaWidth &&
+      barCodeY1 >= scanAreaY &&
+      barCodeY2 <= scanAreaY + scanAreaHeight;
+
+    if (isInsideScanArea) {
+      setScanned(true);
+      navigation.navigate('product', { code: data });
+    }
   };
 
-  // Function to handle touch events
-  const handleTouch = (event) => {
-    const { locationX, locationY } = event.nativeEvent;
-    setFocusSquare({ visible: true, x: locationX, y: locationY });
+  const onCodeScannedAndroid = ({ data, cornerPoints }) => {
+    // Convertir les cornerPoints en coordonnées pixels
+    const points = cornerPoints.map(point => ({
+      x: point.y, // Inversé
+      y: point.x // Inversé
+    }));
 
-    // Hide the square after 1 second
-    setTimeout(() => {
-      setFocusSquare((prevState) => ({ ...prevState, visible: false }));
-    }, 1000);
+    const barCodeX1 = Math.min(...points.map(point => point.y));
+    const barCodeY1 = Math.min(...points.map(point => point.x));
+    const barCodeX2 = Math.max(...points.map(point => point.y));
+    const barCodeY2 = Math.max(...points.map(point => point.x));
 
-    setIsRefreshing(true);
+    const scanAreaWidth = screenWidth * 0.9;
+    const scanAreaHeight = screenHeight * 0.2;
+    const scanAreaX = (screenWidth - scanAreaWidth) / 2;
+    const scanAreaY = (screenHeight - scanAreaHeight) / 2;
+
+    const isInsideScanArea =
+      barCodeX1 >= scanAreaX &&
+      barCodeX2 <= scanAreaX + scanAreaWidth &&
+      barCodeY1 >= scanAreaY &&
+      barCodeY2 <= scanAreaY + scanAreaHeight;
+
+    if (isInsideScanArea) {
+      setScanned(true);
+      navigation.navigate('product', { code: data });
+    }
   };
 
   const AndroidCamera = () => {
     if (isFocused && Platform.OS === "android") {
       return (
-        <View style={{ flexDirection: 'column', justifyContent: 'space-between' }}>
-          <View style={{ height: '85%' }}>
-            <Camera style={styles.camera} type={type}
-              ref={cameraRef}
-              // ratio={ratio}
-              // onCameraReady={setCameraReady}
-              onBarCodeScanned={scanned ? null : onCodeScanned}
-              autoFocus={!isRefreshing ? AutoFocus.on : AutoFocus.off}
-              onTouchEnd={handleTouch} // Handle touch to set focus point
-              barCodeScannerSettings={{
-                barCodeTypes: [BarCodeScanner.Constants.BarCodeType.ean13, BarCodeScanner.Constants.BarCodeType.qr],
-                barCodeSize: { height: 10, width: 10 }
-              }}
-            >
-            </Camera>
-          </View>
-          <View style={{ height: '15%', justifyContent: 'center' }}>
-            <TouchableOpacity style={{ padding: 10, backgroundColor: COLORS.darkgray, alignSelf: 'center', borderRadius: 15 }} onPress={toggleCameraType}>
-              <Icon name='cameraswitch' type='material' color={COLORS.yellow} size={30} />
-            </TouchableOpacity>
-          </View>
-        </View>
-
+        <CameraView style={styles.camera} facing={facing}
+          ref={cameraRef}
+          onBarcodeScanned={scanned ? null : onCodeScannedAndroid}
+          barcodeScannerSettings={{
+            barcodeTypes: ["ean13", "qr"],
+          }
+          }
+        >
+          <View style={styles.scanArea} />
+        </CameraView>
       );
     }
     return (<View />)
@@ -180,25 +191,16 @@ const Scan = () => {
   const IOSCamera = () => {
     if (isFocused && Platform.OS === "ios") {
       return (
-        <Camera style={styles.camera} type={type}
+        <CameraView style={styles.camera} facing={facing}
           ref={cameraRef}
-          onBarCodeScanned={scanned ? null : onCodeScanned}
-          autoFocus={!isRefreshing ? AutoFocus.on : AutoFocus.off}
-          onTouchEnd={handleTouch} // Handle touch to set focus point
-          barCodeScannerSettings={{
-            barCodeTypes: [BarCodeScanner.Constants.BarCodeType.ean13, BarCodeScanner.Constants.BarCodeType.qr],
-            barCodeSize: { height: 10, width: 10 }
-          }}>
-          <View style={styles.rectangleContainer}>
-            <Text style={styles.focus}>Cliquer pour effectuer un focus</Text>
-            <View style={styles.rectangle} />
-            <Text style={styles.vrrroum}>Vrrroum Scan</Text>
-          </View>
-
-          <TouchableOpacity style={{ padding: 10, backgroundColor: COLORS.darkgray, alignSelf: 'center', marginBottom: 30, borderRadius: 15 }} onPress={toggleCameraType}>
-            <Icon name='cameraswitch' type='material' color={COLORS.yellow} size={30} />
-          </TouchableOpacity>
-        </Camera>
+          onBarcodeScanned={scanned ? null : onCodeScanned}
+          barcodeScannerSettings={{
+            barcodeTypes: ["ean13", "qr"],
+          }
+          }
+        >
+          <View style={styles.scanArea} />
+        </CameraView>
       );
     }
     return (<View />)
@@ -210,7 +212,7 @@ const Scan = () => {
   }
 
   return (
-    <SafeAreaView style={commonStyles.flexSafeArea}>
+    <SafeAreaView style={commonStyles.flexSafeArea} edges={['left', 'right']}>
       <View style={styles.container}>
         {!permission ? <ActivityIndicator /> : (permission && permission.granted ? <CameraComponent /> : <AskPermission />)}
       </View>
@@ -278,6 +280,17 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: 'white',
     backgroundColor: 'transparent',
+  },
+
+  scanArea: {
+    position: 'absolute',
+    left: (screenWidth * 0.05),
+    top: (screenHeight * 0.4),
+    width: (screenWidth * 0.9),
+    height: (screenHeight * 0.2),
+    borderWidth: 2,
+    borderColor: 'white',
+    borderRadius: 10
   },
 });
 

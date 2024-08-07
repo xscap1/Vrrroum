@@ -242,8 +242,6 @@ const PostUserLoginFromApi = async (data) => {
 
 const PostSignUpUserFromApi = () => {
     try {
-        // console.log(ApiAuth.user.uid);
-        // console.log(user.uid);
         // const res = await fetch(serverip + '/users/signup', {
         //     method: 'POST',
         //     headers: {

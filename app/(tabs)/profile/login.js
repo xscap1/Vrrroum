@@ -23,7 +23,7 @@ const Login = () => {
     const { PostSignUpUserFromApi } = ProtectedApiRoutes();
 
     const cguTitle = 'Acceptation des Conditions générales d\'utilisation';
-    const cguMessage = "Pour s'inscrire et profiter des services de l'application vous devez accepter les conditions générales d'utilisation et les conditions générales de ventes.";
+    const cguMessage = "Pour s'inscrire et profiter des services de l'application vous devez accepter les conditions générales d'utilisation/ventes et la politique de confidentialité.";
 
     const navigation = useNavigation();
 
@@ -90,7 +90,8 @@ const Login = () => {
                         <Text style={commonStyles.subtextCenter}>{cguMessage}</Text>
                         <View style={{ marginBottom: 20 }}></View>
                         <Text style={commonStyles.subtextCenter}>Consultez sur</Text>
-                        <Text style={commonStyles.linkCenter} onPress={() => { Linking.openURL('https://www.vrrroum.com') }}>https://www.vrrroum.com</Text>
+                        <Text style={commonStyles.linkCenter} onPress={() => { Linking.openURL('https://www.apple.com/legal/internet-services/itunes/dev/stdeula/') }}>CGU et CGV</Text>
+                        <Text style={commonStyles.linkCenter} onPress={() => { Linking.openURL('https://www.vrrroum.com/politique-de-confidentialite') }}>Politque de confidentialité</Text>
                         <View style={{ flexDirection: 'row', gap: 50, marginTop: 50, justifyContent: 'center' }}>
                             <TouchableOpacity
                                 style={{ backgroundColor: COLORS.lightgray, padding: 10, borderRadius: 10 }}
@@ -191,7 +192,7 @@ const Login = () => {
                                 placeholderTextColor={COLORS.lightgray}
                                 secureTextEntry
                             />
-                            {error ? <Text style={styles.error}>{error}</Text> : null}
+                            {error ? <Text style={styles.error}>Les indentifiants sont incorrects ou l'utilisateur est introuvable.</Text> : null}
                             <View style={{ alignSelf: 'center', alignItems: 'center', gap: 20, marginTop: 20 }}>
                                 <TouchableOpacity
                                     style={commonStyles.buttonYellow}

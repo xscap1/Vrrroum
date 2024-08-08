@@ -17,27 +17,22 @@ const Pricings = () => {
             {
                 id: 0,
                 available: true,
-                text: "Scan illimité"
+                text: "Nettoyagez plus efficacement grâce à la barre de recherche."
             },
             {
                 id: 1,
                 available: true,
-                text: "Comparez et nettoyagez plus efficacement grâce aux recommendations produits"
+                text: "Accès total au catalogue des produits"
             },
             {
                 id: 2,
                 available: true,
-                text: "Recherchez tous les produits"
+                text: "Accéder au classement des meilleurs produits."
             },
             {
                 id: 3,
                 available: true,
-                text: "Classement des meilleurs produits"
-            },
-            {
-                id: 4,
-                available: true,
-                text: "Économisez grâce au comparateur de prix (à venir)"
+                text: "Accéder au classement des produits les plus scannés."
             }
         ]
     }

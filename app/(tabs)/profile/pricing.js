@@ -26,6 +26,8 @@ const Pricing = () => {
                     marginBottom: 20
                 }}>
                     <Text style={commonStyles.heading}>Abonnements</Text>
+                    <View style={{height: 20}}></View>
+                    <Text style={commonStyles.smallText}>Tous les abonnements se renouvellent automatiquement. Vous pouvez annuler le vôtre à tout moment depuis l'espace de gestion des abonnements ou via votre compte App Store.</Text>
                 </View>
                 <View style={commonStyles.flexContainerWoPadding}>
                     <Pricings />

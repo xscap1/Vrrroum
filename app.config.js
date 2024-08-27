@@ -1,7 +1,7 @@
 export default {
   "expo": {
     "scheme": "vrrroum",
-    "version" : "1.1",
+    "version" : "1.3",
     "platforms": [
       "ios",
       "android",
@@ -42,7 +42,7 @@ export default {
       [
         "expo-camera",
         {
-          "cameraPermission": "Autoriser $(PRODUCT_NAME) à accéder à votre appareil photo."
+          "cameraPermission": "$(PRODUCT_NAME) souhaite accéder à votre appareil photo uniquement pour scanner des produits en lisant leur code barre. Aucune capture vidéo ou photo ne sera effectuée."
         }
       ],
       ["@react-native-google-signin/google-signin"]

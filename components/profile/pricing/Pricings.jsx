@@ -80,7 +80,7 @@ const Pricings = () => {
     return (
         <View style={{ flex: 1 }}>
             {offerings ?
-                <View style={{flex: 1, justifyContent: 'center', alignSelf: 'center'}}>
+                <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'center' }}>
                     <FocusPricingCard actual={subscription && subscription.identifier === 'vrrroum_plus_entitlement'} card={card1} offer={offerings.plus_offering} />
                 </View>
                 // <ScrollView

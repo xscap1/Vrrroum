@@ -8,7 +8,7 @@ import { useNavigation } from "expo-router";
 import { icons } from "../../../constants";
 
 const Help = () => {
-    
+
     const navigation = useNavigation();
 
     return (
@@ -27,14 +27,17 @@ const Help = () => {
                     <View style={{ marginTop: 20 }}>
                         <Text style={commonStyles.subHeading}>Bug rencontrés</Text>
                         <View style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', justifyContent: 'space-between', gap: 15, marginTop: 20 }}>
-                            <ListedButton text={'Rapporter un bug'} icon={icons.bug} handlePress={() => {navigation.push('bugReport');}}/>
+                            <ListedButton text={'Rapporter un bug'} icon={icons.bug} handlePress={() => { navigation.push('bugReport'); }} />
                         </View>
                     </View>
 
                     <View style={{ marginTop: 20 }}>
                         <Text style={commonStyles.subHeading}>À propos de Vrrroum</Text>
                         <View style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', justifyContent: 'space-between', gap: 15, marginTop: 20 }}>
-                            <ListedButton text={'Qui sommes-nous ?'} icon={icons.info} handlePress={() => {Linking.openURL('https://www.vrrroum.com')}}/>
+                            <ListedButton text={'Nous contacter'} icon={icons.help} handlePress={() => { Linking.openURL('https://www.vrrroum.com/contact') }} />
+                            <ListedButton text={'Qui sommes-nous ?'} icon={icons.info} handlePress={() => { Linking.openURL('https://www.vrrroum.com') }} />
+                            <ListedButton text={'Conditions d\'utilisation'} icon={icons.terms} handlePress={() => { Linking.openURL('https://www.apple.com/legal/internet-services/itunes/dev/stdeula/') }} />
+                            <ListedButton text={'Politique de confidentialité'} icon={icons.privacy} handlePress={() => { Linking.openURL('https://www.vrrroum.com/politique-de-confidentialite') }} />
                         </View>
                     </View>
 

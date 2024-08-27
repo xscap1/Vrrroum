@@ -45,9 +45,9 @@ const AccountEditor = () => {
                         <Information label={'Compte vérifié'} text={user.emailVerified ? "Oui" : "Non"} border={true} />
                     </View>
                     {user.emailVerified ?
-                        <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                             <TouchableOpacity
-                                onPress={() => { navigation.navigate('resetPassword');}}>
+                                onPress={() => { navigation.navigate('resetPassword'); }}>
                                 <Text style={{ color: COLORS.lightwhite }}>Réinitialiser mon mot de passe</Text>
                             </TouchableOpacity>
                         </View>
@@ -59,7 +59,7 @@ const AccountEditor = () => {
                         <View style={{ gap: 20 }}>
                             <View style={{ borderWidth: 1, borderColor: 'orange', padding: 10, borderRadius: 10 }}>
                                 <Text style={commonStyles.subtextCenterWarning}>
-                                    Votre adresse email n'est pas vérifiée. Vous ne pouvez pas souscrire à un abonnement sans compte vérifié.
+                                    Votre adresse email n'est pas vérifiée. Vous devez vérifier votre adresse email pour modifier votre mot de passe.
                                 </Text>
                             </View>
                             <View>
@@ -77,7 +77,12 @@ const AccountEditor = () => {
                                 : null}
                         </View> : null}
 
-
+                    <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: 20 }}>
+                        <TouchableOpacity
+                            onPress={() => { navigation.navigate('deleteAccount'); }}>
+                            <Text style={{ color: COLORS.lightwhite }}>Supprimer mon compte</Text>
+                        </TouchableOpacity>
+                    </View>
 
                 </View>
 

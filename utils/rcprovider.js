@@ -63,9 +63,11 @@ export const logInCustomerToRCProvider = async (uid, email) => {
         if (uid && email) {
             if (typeof uid === 'string' && typeof email === 'string') {
                 const { customerInfo } = await Purchases.logIn(uid)
-                if (customerInfo)
+                if (customerInfo) {
                     await Purchases.setEmail(email);
-                return  customerInfo;
+                    await Purchases.syncPurchases();
+                }
+                return customerInfo;
             }
         }
     }
@@ -112,7 +114,7 @@ export const presentPaywallFromRCProvider = async (offer) => {
 
         return paywallResult;
     }
-    catch(error) {
+    catch (error) {
         console.log(error);
         return null;
     }

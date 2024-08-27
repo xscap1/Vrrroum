@@ -66,6 +66,7 @@ export const SubscriptionProvider = ({ children }) => {
     const updateSubscription = async () => {
         const customerInfo = await getCustomerInfoFromRCProvider();
         if (customerInfo) {
+            console.log('jupdate');
             setRcCustomerInfo(customerInfo);
             const isActive = isSubscriptionActive(customerInfo);
             if (subscriptionStatus != isActive) {
@@ -107,7 +108,7 @@ export const SubscriptionProvider = ({ children }) => {
             return Object.keys(customerInfo.entitlements.active)[0];
     }
 
-    const presentPaywall = async (user, offer) => {
+    const presentPaywall = async (offer) => {
         const paywallResult = await presentPaywallFromRCProvider(offer);
         if (paywallResult) {
             switch (paywallResult) {

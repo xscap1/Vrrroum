@@ -95,7 +95,7 @@ const Scan = () => {
         <SafeAreaView style={commonStyles.flexSafeArea}>
           <View style={styles.container}>
             <View style={{ padding: 10 }}>
-              <Text style={commonStyles.textCenter}>Vrrroum a besoin de votre permission pour accéder à votre appareil photo.</Text>
+              <Text style={commonStyles.textCenter}>Vrrroum souhaite accéder à votre appareil photo uniquement pour scanner des produits. Aucune capture vidéo ou photo ne sera effectuée.</Text>
               <View style={{ marginTop: 20 }}>
                 <TouchableOpacity style={commonStyles.buttonYellowCenter}
                   onPress={async () => {

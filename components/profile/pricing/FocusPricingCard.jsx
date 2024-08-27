@@ -73,68 +73,64 @@ const FocusPricingCard = ({ card, offer, actual }) => {
         },
 
         featuresContainer: {
-            padding: 10
-        },
+            padding: 10,
+         },
 
         singleFeatureContainer: {
-            display: 'flex',
-            flexDirection: 'row',
-            gap: 5,
             marginTop: 10,
             width: '90%'
         },
     });
 
     const Feature = ({ feature }) => {
-        return (<View style={styles.singleFeatureContainer}>
-            <Icon name="check" size={18} color={feature.available ? COLORS.whitesmoke : 'gray'} />
-            <Text style={feature.available ? styles.availableFeature : styles.disabledFeature}>{feature.text}</Text>
-        </View>);
+        return (
+            <View style={styles.singleFeatureContainer}>
+                <Text style={feature.available ? styles.availableFeature : styles.disabledFeature}>- {feature.text}</Text>
+            </View>);
     }
 
     return (
         <View style={commonStyles.flexContainer}>
-            <ScrollView showsVerticalScrollIndicator={false}>
-                <View style={styles.cardContainer}>
-                    {actual ?
-                        <View>
-                            <Text style={commonStyles.subtextCenter}>Votre abonnement actuel</Text>
-                            <View style={{ marginBottom: 10 }}></View>
-                        </View> : null}
-                    <Text style={styles.planName}>{card.planName}</Text>
-                    <Text style={styles.priceTag}>{card.priceTag}/mois</Text>
-                    <Text style={styles.annualPriceTag}>ou {card.annualPriceTag}/an soit {card.annualDiscount} de moins</Text>
+            <View style={styles.cardContainer}>
+                {actual ?
+                    <View>
+                        <Text style={commonStyles.subtextCenter}>Votre abonnement actuel</Text>
+                        <View style={{ marginBottom: 10 }}></View>
+                    </View> : null}
+                <Text style={styles.planName}>{card.planName}</Text>
+                <Text style={styles.priceTag}>{card.priceTag}/mois</Text>
+                <Text style={styles.annualPriceTag}>ou {card.annualPriceTag}/an soit {card.annualDiscount} de moins</Text>
 
-                    <TouchableOpacity style={styles.button} onPress={() => {
-                        if (user) {
-                            if (user.emailVerified)
-                                presentPaywall(user, offer);
-                            else {
-                                Alert.alert('Vérification email', 'Vous devez vérifier votre compte avant de souscrire à un abonnement');
-                                navigation.navigate('account');
-                            }
-                        }
-                        else {
-                            Alert.alert('Connexion', 'Vous devez être connecté pour souscrire à un abonnement.');
-                            navigation.navigate('login');
-                        }
-                    }}>
-                        <Text>S'abonner</Text>
-                    </TouchableOpacity>
+                <TouchableOpacity style={styles.button} onPress={() => {
+                    presentPaywall(offer);
+                    // if (user) {
+                    //     if (user.emailVerified)
+                    //         presentPaywall(user, offer);
+                    //     else {
+                    //         Alert.alert('Vérification email', 'Vous devez vérifier votre compte avant de souscrire à un abonnement');
+                    //         navigation.navigate('account');
+                    //     }
+                    // }
+                    // else {
+                    //     Alert.alert('Connexion', 'Vous devez être connecté pour souscrire à un abonnement.');
+                    //     navigation.navigate('login');
+                    // }
+                }}>
+                    <Text>S'abonner</Text>
+                </TouchableOpacity>
 
-                    <Text style={styles.descriptionText}>{card.descriptionText}</Text>
-                    <View style={styles.featuresContainer}>
-                        {
-                            card.features.map(function (item, i) {
-                                return <Feature
-                                    key={i}
-                                    feature={item}
-                                />
-                            })
-                        }
-                    </View>
+                <Text style={styles.descriptionText}>{card.descriptionText}</Text>
+                <View style={styles.featuresContainer}>
+                    {
+                        card.features.map(function (item, i) {
+                            return <Feature
+                                key={i}
+                                feature={item}
+                            />
+                        })
+                    }
                 </View>
-            </ScrollView>
+            </View>
         </View>
     );
 };

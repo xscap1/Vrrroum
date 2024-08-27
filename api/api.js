@@ -82,13 +82,36 @@ const ProtectedApiRoutes = () => {
             });
             return res.json();
         }
-    
+
         catch (error) {
             console.log(error);
         }
     }
 
-    return { PostSignUpUserFromApi, getBestRatedFromApi, updateSubscriptionFromApi, PostVerifyEmailToApi };
+    const PostDeleteUserToApi = async (data) => {
+        try {
+
+            const token = await getIdToken();
+            const res = await fetch(serverip + '/users/delete', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: data
+            });
+            return res.json();
+        }
+
+        catch (error) {
+            console.log(error);
+        }
+    }
+
+
+
+    return { PostSignUpUserFromApi, getBestRatedFromApi, updateSubscriptionFromApi, PostVerifyEmailToApi, PostDeleteUserToApi };
 }
 
 const getBestRatedPreviewFromApi = async (setData, setLoading) => {

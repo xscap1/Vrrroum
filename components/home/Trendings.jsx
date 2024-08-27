@@ -13,7 +13,7 @@ const Trendings = () => {
 
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState();
-
+  
     useEffect(() => {
         api.getTrendsPreviewFromApi(setData, setLoading);
     }, []);

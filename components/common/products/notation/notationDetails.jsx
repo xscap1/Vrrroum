@@ -23,8 +23,8 @@ const NotationDetails = ({ criteria, effectiveness, durability }) => {
     }
 
     return (
-        <View style={{ marginTop: 20 }}>
-            <ScrollView style={{ height: '100%' }}>
+        <View style={{ marginTop: 20, flex: 1, paddingBottom: 5 }}>
+            <ScrollView style={{ height: '100%', flex: 1 }} showsVerticalScrollIndicator={false}>
                 <View style={{ flexDirection: 'row' }}>
                     <View style={{ width: '50%', alignItems: 'center' }}>
                         <Text style={commonStyles.subHeading}>Efficacité</Text>

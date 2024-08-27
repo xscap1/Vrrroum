@@ -2,6 +2,7 @@ import React, { createContext, useState, useEffect, useContext } from 'react';
 import { auth } from '../../firebaseConfig';
 import { onAuthStateChanged, signOut, getAuth } from 'firebase/auth';
 import SubscriptionContext from '../sub/SubscriptionContext';
+import ProtectedApiRoutes from '../../api/api';
 
 const AuthContext = createContext();
 
@@ -9,6 +10,7 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const { fetchSubscription, handleSubscriptionLogOut } = useContext(SubscriptionContext);
+    const { PostDeleteUserToApi } = ProtectedApiRoutes();
 
     const handleLogOut = () => {
         signOut(auth).then(() => {
@@ -25,6 +27,26 @@ export const AuthProvider = ({ children }) => {
         await auth.currentUser.reload();
     };
 
+    const deleteUser = async () => {
+        if (user) {
+            const res = await PostDeleteUserToApi(JSON.stringify({ uid: user.uid }));
+            console.log(res);
+            if (res.status) {
+                const auth = getAuth();
+                await auth.currentUser.delete().then(() => {
+                    console.log("user deleted");
+                    handleLogOut();
+                    return true;
+                }).catch((error) => {
+                    console.error(error);
+                    return false;
+                })
+                return true;
+            }
+        }
+        return false;
+    };
+
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             setUser(user);
@@ -36,7 +58,7 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     return (
-        <AuthContext.Provider value={{ user, loading, handleLogOut, updateUser }}>
+        <AuthContext.Provider value={{ user, loading, handleLogOut, updateUser, deleteUser }}>
             {children}
         </AuthContext.Provider>
     );

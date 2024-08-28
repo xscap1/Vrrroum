@@ -32,10 +32,10 @@ const Pricing = () => {
                     <Text style={commonStyles.heading}>Abonnements</Text>
                     <ScrollView style={{gap: 20, marginTop: 20}}>
                         <View style={{ gap: 10, marginBottom: 20 }}>
-                            <Text style={commonStyles.smallText}>Tous les abonnements se renouvellent automatiquement. Vous pouvez annuler le vôtre à tout moment depuis l'espace de gestion des abonnements ou via votre compte App Store.</Text>
-                            <Text style={commonStyles.smallText}>En vous abonnant vous acceptez les conditions générales d'utilisations, de ventes et la politique de confidentialité présentes sur la page de paiement.</Text>
+                            <Text style={commonStyles.xsmallText}>Tous les abonnements se renouvellent automatiquement. Vous pouvez annuler le vôtre à tout moment depuis l'espace de gestion des abonnements ou via votre compte App Store.</Text>
+                            <Text style={commonStyles.xsmallText}>En vous abonnant vous acceptez les conditions générales d'utilisations, de ventes et la politique de confidentialité présentes sur la page de paiement.</Text>
                             {!user ?
-                                <Text style={commonStyles.smallText}>Vous n'êtes pas connecté. Il n'est pas nécessaire de s'inscrire pour souscrire à un abonnement. Il est possible de créer un compte ultérieurement pour l'associer à votre abonnement et l'utiliser sur plusieurs appareils. En créant un compte ou en vous connectant, l'abonnement courant sera transféré sur ce compte.</Text>
+                                <Text style={commonStyles.xsmallText}>Vous n'êtes pas connecté. Il n'est pas nécessaire de s'inscrire pour souscrire à un abonnement. Il est possible de créer un compte ultérieurement pour l'associer à votre abonnement et l'utiliser sur plusieurs appareils. En créant un compte ou en vous connectant, l'abonnement courant sera transféré sur ce compte.</Text>
                                 :
                                 null}
                         </View>

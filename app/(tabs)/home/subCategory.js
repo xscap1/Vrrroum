@@ -47,6 +47,8 @@ const subCategory = () => {
                 return 'Cuir';
             case 'brake':
                 return 'Frein';
+            case 'bugs':
+                return 'Nettoyant insecte';
             default:
                 return '';
         }
@@ -84,6 +86,8 @@ const subCategory = () => {
                 return icons.leather;
             case 'brake':
                 return icons.brake;
+            case 'bugs':
+                return icons.insect;
             default:
                 return icons.car;
         }

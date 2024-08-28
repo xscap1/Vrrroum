@@ -25,7 +25,10 @@ const ListedProductCard = ({ product, scan }) => {
         ["scratches"]: "Efface rayures",
         ["textile"]: "Nettoyant textile",
         ["leather"]: "Nettoyant cuir",
-        ["plastic"]: "Nettoyant plastique"
+        ["plastic"]: "Nettoyant plastique",
+        ["universal"] : "Nettoyant universel",
+        ["brake"] : "Nettoyant frein",
+        ["bugs"] : "Nettoyant insecte",
     })
 
     const utils = require('../../../../constants/utils');

@@ -14,7 +14,7 @@ const Categories = () => {
             icon: icons.car,
             name: 'Carrosserie',
             cat: 'body',
-            subcat: ['body', 'shampoo', 'wax', 'polish', 'scratches', 'chrome', 'dirt'],
+            subcat: ['body', 'shampoo', 'wax', 'polish', 'scratches', 'chrome', 'dirt', 'bugs'],
             parent: ''
         },
         {
@@ -22,7 +22,7 @@ const Categories = () => {
             icon: icons.wheel,
             name: 'Roues',
             cat: 'wheel',
-            subcat: ['rim', 'tire'],
+            subcat: ['rim', 'tire', 'brake'],
             parent: ''
         },
         {
@@ -49,6 +49,14 @@ const Categories = () => {
             subcat: [],
             parent: ''
         },
+        {
+            id: 6,
+            icon: icons.universal,
+            name: 'Nettoyant universel',
+            cat: 'universal',
+            subcat: [],
+            parent: ''
+        }
     ];
 
     categoriesArr = categories.map(cat => (

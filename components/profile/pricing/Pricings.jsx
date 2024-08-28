@@ -17,7 +17,7 @@ const Pricings = () => {
             {
                 id: 0,
                 available: true,
-                text: "Nettoyagez plus efficacement grâce à la barre de recherche."
+                text: "Nettoyez plus efficacement grâce à la barre de recherche."
             },
             {
                 id: 1,

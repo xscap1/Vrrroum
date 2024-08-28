@@ -36,7 +36,10 @@ const categories = {
     textile: "Nettoyant textile",
     window: "Nettoyant vitres",
     fog: "Anti-buée",
-    rain: "Anti-pluie"
+    rain: "Anti-pluie",
+    brake: "Nettoyant frein",
+    bugs: "Nettoyant insecte",
+    universal: "Nettoyant universel"
 }
 
 const noteToColor = (note) => {
@@ -88,6 +91,7 @@ const criteriaToText = (c) => {
 }
 
 const categoryToText = (c) => {
+    console.log(c);
     if (categories[c]) return categories[c];
     return "";
 }

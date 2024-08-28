@@ -166,6 +166,11 @@ const commonStyles = StyleSheet.create({
         color: COLORS.subwhite,
     },
 
+    xsmallText: {
+        fontSize: SIZES.xSmall,
+        color: COLORS.subwhite,
+    },
+
     smallTextBold: {
         fontSize: SIZES.small,
         color: 'white',

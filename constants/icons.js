@@ -41,6 +41,9 @@ import hazard_env_aquatic from "../assets/icons/hazard_env_aquatic.png"
 import list from "../assets/icons/list.png"
 import terms from "../assets/icons/terms.png"
 import privacy from "../assets/icons/privacy.png"
+import insect from "../assets/icons/insect.png"
+import universal from "../assets/icons/universal.png"
+
 
 export default {
     motoroil, motoroil_selected,
@@ -51,5 +54,5 @@ export default {
     edit_sub, unlock, edit_account,
     logout, search, login, help, hatch,
     bug, info, plastic, windshield, shine, leather, erase, wheel, tire, window, body, brake, dirt, polish, rain, fog, textile, 
-    hazard_env_aquatic, list, terms, privacy
+    hazard_env_aquatic, list, terms, privacy, insect, universal
 };

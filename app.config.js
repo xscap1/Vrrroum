@@ -11,11 +11,11 @@ export default {
       "bundler": "metro"
     },
     "icon": "./assets/images/logo/vrrroum_logo.png",
-    "splash": {
-      "image": "./assets/images/logo/vrrroum_logo.png",
-      "resizeMode": "cover",
-      "backgroundColor": "#1d1f1e"
-    },
+    // "splash": {
+    //   "image": "./assets/images/logo/vrrroum_logo.png",
+    //   "resizeMode": "cover",
+    //   "backgroundColor": "#1d1f1e"
+    // },
     "plugins": [
       "expo-router",
       [

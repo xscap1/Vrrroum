@@ -143,6 +143,13 @@ const commonStyles = StyleSheet.create({
         lineHeight: 23
     },
 
+    subtextYellowBold: {
+        fontSize: SIZES.medium,
+        color: COLORS.yellow,
+        fontWeight: 'bold',
+        lineHeight: 23,
+    },
+
     textCenter: {
         fontSize: SIZES.large,
         color: COLORS.subwhite,

@@ -104,7 +104,7 @@ const Scan = () => {
                       Linking.openSettings();
                   }
                   }>
-                  <Text style={{ textAlign: 'center' }}>Donner la permission</Text>
+                  <Text style={{ textAlign: 'center' }}>Continuer</Text>
                 </TouchableOpacity>
               </View>
             </View>

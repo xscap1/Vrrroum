@@ -68,7 +68,7 @@ const ListedProductCard = ({ product, scan }) => {
                                                 <Text numberOfLines={2} style={{ color: COLORS.lightwhite, fontWeight: '500', fontSize: 13 }}>{product.name}</Text>
                                             </View>
                                             <View style={{ height: '50%', flexDirection: 'row', gap: 10, alignItems: 'center' }}>
-                                                <Text style={{ color: COLORS.yellow, fontSize: 13 }}>{product.brand}</Text>
+                                                <Text style={{ color: COLORS.yellow, fontSize: 13 }}>{utils.capitalizeFirstLetter(product.brand)}</Text>
                                                 <Text style={{ color: COLORS.subwhite, fontSize: 13 }}>{categoryLocalization[product.category]}</Text>
                                             </View>
                                         </View>

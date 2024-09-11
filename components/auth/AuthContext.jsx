@@ -30,11 +30,9 @@ export const AuthProvider = ({ children }) => {
     const deleteUser = async () => {
         if (user) {
             const res = await PostDeleteUserToApi(JSON.stringify({ uid: user.uid }));
-            console.log(res);
             if (res.status) {
                 const auth = getAuth();
                 await auth.currentUser.delete().then(() => {
-                    console.log("user deleted");
                     handleLogOut();
                     return true;
                 }).catch((error) => {

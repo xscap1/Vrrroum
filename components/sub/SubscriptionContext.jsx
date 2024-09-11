@@ -66,7 +66,6 @@ export const SubscriptionProvider = ({ children }) => {
     const updateSubscription = async () => {
         const customerInfo = await getCustomerInfoFromRCProvider();
         if (customerInfo) {
-            console.log('jupdate');
             setRcCustomerInfo(customerInfo);
             const isActive = isSubscriptionActive(customerInfo);
             if (subscriptionStatus != isActive) {

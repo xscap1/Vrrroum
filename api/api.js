@@ -389,5 +389,17 @@ const PostIngredientsToApi = async (ingredients, setData, setLoading) => {
     }
 }
 
-export { PostIngredientsToApi, getBestRatedFromApi, getBestRatedPreviewFromApi, getTrendsFromApi, getTrendsPreviewFromApi, getCategoryBatchFromApi, getRecommendationsFromApi, getProductFromApi, PostUserLoginFromApi, PostIdsFromApi, PostSearchKeywordsToApi, PostReportBugToApi, PostReportMissingProductToApi, PostSignUpUserFromApi, getProductWithIdFromApi }
+const CheckForUpdates = async () => {
+    try {
+        const response = await fetch(serverip + '/appUpdates');
+        const json = await response.json();
+        return json;  // Retourne le résultat
+    }
+    catch (error) {
+        console.error("Erreur lors de la récupération des mises à jour:", error);
+        return { error: true };
+    }
+}
+
+export { CheckForUpdates, PostIngredientsToApi, getBestRatedFromApi, getBestRatedPreviewFromApi, getTrendsFromApi, getTrendsPreviewFromApi, getCategoryBatchFromApi, getRecommendationsFromApi, getProductFromApi, PostUserLoginFromApi, PostIdsFromApi, PostSearchKeywordsToApi, PostReportBugToApi, PostReportMissingProductToApi, PostSignUpUserFromApi, getProductWithIdFromApi }
 export default ProtectedApiRoutes;

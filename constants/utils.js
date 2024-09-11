@@ -1,4 +1,9 @@
 import { COLORS } from "./theme";
+import Constants from "expo-constants";
+import { Alert, Platform } from "react-native";
+import { Linking } from "react-native";
+
+const api = require('../api/api');
 
 const colors = [COLORS.notation1, COLORS.notation2, COLORS.notation3, COLORS.notation4, COLORS.notation5];
 const noteScore = ['Très mauvais', 'Mauvais', 'Moyen', 'Bon', 'Excellent'];
@@ -23,7 +28,7 @@ const criteria = {
 }
 
 const categories = {
-    plastic : "Nettoyant plastique",
+    plastic: "Nettoyant plastique",
     body: "Nettoyant carrosserie",
     shampoo: "Shampooing",
     wax: "Cire",
@@ -91,7 +96,6 @@ const criteriaToText = (c) => {
 }
 
 const categoryToText = (c) => {
-    console.log(c);
     if (categories[c]) return categories[c];
     return "";
 }
@@ -106,4 +110,32 @@ const formatNote = (note) => {
         return rounded.toFixed(1); // Retourner avec une décimale
     }
 }
-export { noteToColor, hasCommonItems, envToScore, noteToText, criteriaToText, formatNote, categoryToText };
+
+const openUpdateLink = (latest) => {
+    // Ouvrir le lien de mise à jour
+    url = Platform.OS === "ios" ? latest.updateLinkIOS : updateLinkAndroid;
+    Linking.openURL(url);
+  };
+
+const checkForUpdates = async () => {
+    const currentVersion = Constants.expoConfig.version;
+    console.log(currentVersion);
+
+    const latest = await api.CheckForUpdates();
+    if (latest != null || !(latest.error)) {
+        if (currentVersion != latest.version) {
+            Alert.alert('Mise à jour', 'Une nouvelle mise à jour de l\'application est disponible. Veuillez effectuer la mise à jour.', [
+                { text: "Mettre à jour" ,onPress: () => openUpdateLink(latest) },
+                { text: "Plus tard"}
+            ]);
+        }
+    }
+}
+
+function capitalizeFirstLetter(text) {
+    if (!text) return ''; // Vérifie si le texte est vide ou null
+    // Met tout le texte en minuscules, puis met en majuscule la première lettre
+    return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+}
+
+export { noteToColor, hasCommonItems, envToScore, noteToText, criteriaToText, formatNote, categoryToText, checkForUpdates, capitalizeFirstLetter };

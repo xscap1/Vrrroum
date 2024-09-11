@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ScrollView, View, Text, Platform, ActivityIndicator, TouchableOpacity, Keyboard, Button, TouchableWithoutFeedback } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Trendings from "../../../components/home/Trendings";
@@ -13,6 +13,7 @@ import DisplayTextInformations from "../../../components/common/cards/DisplayTex
 import { wh } from "../../../styles/common";
 import { useNavigation } from "expo-router";
 import ProtectedRoute from "../../../components/sub/ProtectedRoute";
+import Constants from 'expo-constants';
 
 const Home = () => {
 
@@ -26,6 +27,17 @@ const Home = () => {
   const missingSearchDataText = "Aucuns résultats trouvés pour votre recherche.";
 
   const api = require('../../../api/api');
+
+  const utils = require('../../../constants/utils');
+
+  useEffect(() => {
+    // const checkUpdate = async () => {
+    //   await utils.checkForUpdates();
+    // };
+
+    // checkUpdate();
+    utils.checkForUpdates();
+  }, []);
 
   const updateSearch = (search) => {
     setSearch(search);

@@ -102,6 +102,7 @@ const ProductCard = ({ product, scan }) => {
                             </View>
 
                             <View style={{ marginTop: 20 }}>
+                                <Text style={commonStyles.subtextYellowBold}>{(product.brand).toUpperCase()}</Text>
                                 <Text style={commonStyles.subtextBold}>{product.name}</Text>
                             </View>
                         </View>

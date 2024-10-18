@@ -20,7 +20,8 @@ const styles = StyleSheet.create({
 
     nameContainer : {
         marginLeft: 0.05*ww,
-        alignSelf: 'center'
+        alignSelf: 'center',
+        gap: 5
     }
 });
 

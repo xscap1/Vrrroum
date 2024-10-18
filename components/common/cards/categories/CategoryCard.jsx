@@ -30,13 +30,14 @@ const CategoryCard = ({ category }) => {
         return (
             <Link href={{
                 pathname: `/home/category`,
-                params: { category: category.cat, name: category.name, parent: category.parent }
+                params: { category: category.cat, name: category.name, parent: category.parent, free: category.free }
             }} asChild>
                 <Pressable>
                     <View style={commonStyles.categoryContainer}>
                         <View style={styles.wrapper}>
                             <Image source={category.icon} style={styles.icon} />
                             <View style={styles.nameContainer}>
+                                {category.free ? <View style={{ backgroundColor: COLORS.yellow, borderRadius: 5, padding: 3, alignSelf: 'flex-start' }}><Text style={{ fontSize: SIZES.xSmall, fontWeight: 'bold' }}>Gratuit</Text></View> : null}
                                 <Text style={commonStyles.text}>{category.name}</Text>
                             </View>
                         </View>

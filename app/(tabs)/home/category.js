@@ -21,9 +21,7 @@ const Category = () => {
     const category = local.category;
     const name = local.name;
     const parent = local.parent;
-
-    const free_categories = ['plastic', 'universal'];
-    const isFreeToView = free_categories.includes(category);
+    const freeToView = local.free;
 
     useEffect(() => {
         const cat = parent != "" ? parent : category;
@@ -67,7 +65,7 @@ const Category = () => {
 
     return (
         <>
-            {isFreeToView ? (CategoryContent) :
+            {freeToView ? (CategoryContent) :
                 (
                     <ProtectedRoute>
                         {CategoryContent}

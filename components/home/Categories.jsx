@@ -11,6 +11,22 @@ const Categories = () => {
     const categories = [
         {
             id: 1,
+            icon: icons.plastic,
+            name: 'Nettoyant plastique',
+            cat: 'plastic',
+            subcat: [],
+            parent: ''
+        },
+        {
+            id: 2,
+            icon: icons.universal,
+            name: 'Nettoyant universel',
+            cat: 'universal',
+            subcat: [],
+            parent: ''
+        },
+        {
+            id: 3,
             icon: icons.car,
             name: 'Carrosserie',
             cat: 'body',
@@ -26,7 +42,7 @@ const Categories = () => {
             parent: ''
         },
         {
-            id: 3,
+            id: 5,
             icon: icons.seat,
             name: 'Sièges',
             cat: 'seat',
@@ -34,27 +50,11 @@ const Categories = () => {
             parent: ''
         },
         {
-            id: 5,
+            id: 6,
             icon: icons.window,
             name: 'Vitre',
             cat: 'window',
             subcat: ['window', 'rain', 'fog'],
-            parent: ''
-        },
-        {
-            id: 2,
-            icon: icons.plastic,
-            name: 'Nettoyant plastique',
-            cat: 'plastic',
-            subcat: [],
-            parent: ''
-        },
-        {
-            id: 6,
-            icon: icons.universal,
-            name: 'Nettoyant universel',
-            cat: 'universal',
-            subcat: [],
             parent: ''
         }
     ];

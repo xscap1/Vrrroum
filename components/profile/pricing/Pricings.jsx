@@ -22,7 +22,7 @@ const Pricings = () => {
             {
                 id: 1,
                 available: true,
-                text: "Accès total au catalogue des produits"
+                text: "Accès total au catalogue des produits."
             },
             {
                 id: 2,

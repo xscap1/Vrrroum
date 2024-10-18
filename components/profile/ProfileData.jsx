@@ -28,11 +28,10 @@ const ProfileData = ({ logged }) => {
                 {/* <ListedButton disabled={!logged} text={'Gérer mon abonnement'} handlePress={() => {navigation.push('subscriptionManager');}}/> */}
                 <ListedButton text={'Mon coffre'} icon={icons.hatch} handlePress={() => { navigation.push('favs'); }} />
                 <ListedButton text={'Historique de scans'} icon={icons.search} handlePress={() => { navigation.push('history'); }} />
-                <ListedButton text={'Aide'} icon={icons.help} handlePress={() => { navigation.push('help'); }} />
                 <ListedButton text={'S\'abonner à Vrrroum'} icon={icons.unlock} handlePress={() => { navigation.push('pricing'); }} />
 
                 {user ?
-                    <ListedButton text={'Gérer mon compte'} icon={icons.edit_account} handlePress={() => { navigation.push('account');}} />
+                    <ListedButton text={'Gérer mon compte'} icon={icons.edit_account} handlePress={() => { navigation.push('account'); }} />
                     : null}
 
                 {subscription ?
@@ -40,7 +39,7 @@ const ProfileData = ({ logged }) => {
                     : null}
 
                 <ListedButton text={user ? 'Déconnexion' : 'Connexion'} icon={user ? icons.logout : icons.login} handlePress={() => { handleLogInOnPress(); }} />
-
+                <ListedButton text={'Aide'} icon={icons.help} handlePress={() => { navigation.push('help'); }} />
             </View>
         </View>
     );

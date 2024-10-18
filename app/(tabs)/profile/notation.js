@@ -21,7 +21,7 @@ const Notation = () => {
                         headerTitle: "",
                     }}
                 />
-                <View style={commonStyles.container}>
+                <View style={commonStyles.flexContainer}>
                     <Text style={commonStyles.heading}>Détails de la notation</Text>
                     <Text style={commonStyles.subtext}>Voici les critères de notation pour ce produit.</Text>
                     {criteria ? <NotationDetails criteria={criteria} effectiveness={effectiveness} durability={durability}/> : null}

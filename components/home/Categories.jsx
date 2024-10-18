@@ -15,7 +15,8 @@ const Categories = () => {
             name: 'Nettoyant plastique',
             cat: 'plastic',
             subcat: [],
-            parent: ''
+            parent: '',
+            free: true,
         },
         {
             id: 2,
@@ -23,7 +24,8 @@ const Categories = () => {
             name: 'Nettoyant universel',
             cat: 'universal',
             subcat: [],
-            parent: ''
+            parent: '',
+            free: true,
         },
         {
             id: 3,
@@ -31,7 +33,8 @@ const Categories = () => {
             name: 'Carrosserie',
             cat: 'body',
             subcat: ['body', 'shampoo', 'wax', 'polish', 'scratches', 'chrome', 'dirt', 'bugs'],
-            parent: ''
+            parent: '',
+            free: false,
         },
         {
             id: 4,
@@ -39,7 +42,8 @@ const Categories = () => {
             name: 'Roues',
             cat: 'wheel',
             subcat: ['rim', 'tire', 'brake'],
-            parent: ''
+            parent: '',
+            free: false,
         },
         {
             id: 5,
@@ -47,7 +51,8 @@ const Categories = () => {
             name: 'Sièges',
             cat: 'seat',
             subcat: ['textile', 'leather'],
-            parent: ''
+            parent: '',
+            free: false,
         },
         {
             id: 6,
@@ -55,7 +60,8 @@ const Categories = () => {
             name: 'Vitre',
             cat: 'window',
             subcat: ['window', 'rain', 'fog'],
-            parent: ''
+            parent: '',
+            free: false,
         }
     ];
 

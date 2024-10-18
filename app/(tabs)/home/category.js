@@ -20,7 +20,10 @@ const Category = () => {
 
     const category = local.category;
     const name = local.name;
-    const parent = local.parent
+    const parent = local.parent;
+
+    const free_categories = ['plastic', 'universal'];
+    const isFreeToView = free_categories.includes(category);
 
     useEffect(() => {
         const cat = parent != "" ? parent : category;
@@ -32,37 +35,47 @@ const Category = () => {
         try {
             const cat = parent != "" ? parent : category;
             const subcat = parent != "" ? category : 'products';
-
             api.getCategoryBatchFromApi(cat, subcat, cursor, setData, setLoading, setCursor);
         } catch (error) {
             console.error('Erreur lors du chargement des données:', error);
         }
     };
 
-    return (
-        <ProtectedRoute>
-            <View style={commonStyles.body}>
-                <SafeAreaView style={commonStyles.flexSafeArea}>
-                    <Stack.Screen
-                        options={{
-                            headerStyle: commonStyles.header,
-                            headerShadowVisible: false,
-                            headerTitle: "",
-                        }}
-                    />
-                    <View style={commonStyles.flexContainer}>
-                        <View style={{ flex: 1 }}>
-                            <Text style={commonStyles.heading}>{name}</Text>
+    const CategoryContent = (
+        <View style={commonStyles.body}>
+            <SafeAreaView style={commonStyles.flexSafeArea}>
+                <Stack.Screen
+                    options={{
+                        headerStyle: commonStyles.header,
+                        headerShadowVisible: false,
+                        headerTitle: "",
+                    }}
+                />
+                <View style={commonStyles.flexContainer}>
+                    <View style={{ flex: 1 }}>
+                        <Text style={commonStyles.heading}>{name}</Text>
 
-                            {isLoading ? <ActivityIndicator /> : (
-                                <ListedProducts products={data} onEndOnPress={fetchData} />
-                            )}
-                        </View>
+                        {isLoading ? <ActivityIndicator /> : (
+                            <ListedProducts products={data} onEndOnPress={fetchData} />
+                        )}
                     </View>
+                </View>
 
-                </SafeAreaView>
-            </View>
-        </ProtectedRoute>
+            </SafeAreaView>
+        </View>
+    );
+
+    return (
+        <>
+            {isFreeToView ? (CategoryContent) :
+                (
+                    <ProtectedRoute>
+                        {CategoryContent}
+                    </ProtectedRoute>
+                )
+            }
+        </>
+
     );
 };
 

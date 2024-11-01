@@ -64,16 +64,9 @@ const Category = () => {
     );
 
     return (
-        <>
-            {freeToView ? (CategoryContent) :
-                (
-                    <ProtectedRoute>
-                        {CategoryContent}
-                    </ProtectedRoute>
-                )
-            }
-        </>
-
+        <ProtectedRoute>
+            {CategoryContent}
+        </ProtectedRoute>
     );
 };
 

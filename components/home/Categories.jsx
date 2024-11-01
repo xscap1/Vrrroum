@@ -16,7 +16,7 @@ const Categories = () => {
             cat: 'plastic',
             subcat: [],
             parent: '',
-            free: true,
+            free: false,
         },
         {
             id: 2,
@@ -25,7 +25,7 @@ const Categories = () => {
             cat: 'universal',
             subcat: [],
             parent: '',
-            free: true,
+            free: false,
         },
         {
             id: 3,

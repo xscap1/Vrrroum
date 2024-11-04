@@ -16,28 +16,26 @@ const Trends = () => {
   }, []);
 
   return (
-    <ProtectedRoute>
-      <View style={commonStyles.body}>
-        <SafeAreaView style={commonStyles.flexSafeArea}>
-          <Stack.Screen
-            options={{
-              headerStyle: commonStyles.header,
-              headerShadowVisible: false,
-              headerTitle: "",
-            }}
-          />
-          <View style={commonStyles.flexContainer}>
-            <View style={{ flex: 1 }}>
-              <Text style={commonStyles.heading}>Les plus tendances</Text>
-              <Text style={commonStyles.subtext}>Voici notre sélection des produits les plus scannés de cette semaine</Text>
-              {isLoading ? <ActivityIndicator /> : (
-                <ListedProducts products={data} scan={true} />
-              )}
-            </View>
+    <View style={commonStyles.body}>
+      <SafeAreaView style={commonStyles.flexSafeArea}>
+        <Stack.Screen
+          options={{
+            headerStyle: commonStyles.header,
+            headerShadowVisible: false,
+            headerTitle: "",
+          }}
+        />
+        <View style={commonStyles.flexContainer}>
+          <View style={{ flex: 1 }}>
+            <Text style={commonStyles.heading}>Les plus tendances</Text>
+            <Text style={commonStyles.subtext}>Voici notre sélection des produits les plus scannés de cette semaine</Text>
+            {isLoading ? <ActivityIndicator /> : (
+              <ListedProducts products={data} scan={true} />
+            )}
           </View>
-        </SafeAreaView>
-      </View>
-    </ProtectedRoute>
+        </View>
+      </SafeAreaView>
+    </View>
   );
 };
 

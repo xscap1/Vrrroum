@@ -20,31 +20,29 @@ const BestRated = () => {
   }, []);
 
   return (
-    <ProtectedRoute>
-      <View style={commonStyles.body}>
-        <SafeAreaView style={commonStyles.flexSafeArea}>
-          <Stack.Screen
-            options={{
-              headerStyle: commonStyles.header,
-              headerShadowVisible: false,
-              headerTitle: "",
-            }}
-          />
-          <View style={commonStyles.flexContainer}>
+    <View style={commonStyles.body}>
+      <SafeAreaView style={commonStyles.flexSafeArea}>
+        <Stack.Screen
+          options={{
+            headerStyle: commonStyles.header,
+            headerShadowVisible: false,
+            headerTitle: "",
+          }}
+        />
+        <View style={commonStyles.flexContainer}>
 
-            <View style={{ flex: 1 }}>
-              <Text style={commonStyles.heading}>Les mieux notés</Text>
-              <Text style={commonStyles.subtext}>Voici notre sélection des meilleurs produits de cette semaine</Text>
+          <View style={{ flex: 1 }}>
+            <Text style={commonStyles.heading}>Les mieux notés</Text>
+            <Text style={commonStyles.subtext}>Voici notre sélection des meilleurs produits de cette semaine</Text>
 
-              {isLoading ? <ActivityIndicator /> : (
-                <ListedProducts products={data} />
-              )}
-            </View>
+            {isLoading ? <ActivityIndicator /> : (
+              <ListedProducts products={data} />
+            )}
           </View>
+        </View>
 
-        </SafeAreaView >
-      </View >
-    </ProtectedRoute>
+      </SafeAreaView >
+    </View >
   );
 };
 

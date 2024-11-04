@@ -65,11 +65,11 @@ const ListedProductCard = ({ product, scan }) => {
                                     <View style={{ height: product.isSponso ? '92.5%' : '100%', flexDirection: 'column', width: '100%' }}>
                                         <View style={{ height: '60%' }}>
                                             <View style={{ height: '50%' }}>
-                                                <Text numberOfLines={2} style={{ color: COLORS.lightwhite, fontWeight: '500', fontSize: 13 }}>{product.name}</Text>
+                                                <Text numberOfLines={2} style={{ color: COLORS.mainText, fontSize: 13, fontWeight: 'bold' }}>{product.name}</Text>
                                             </View>
                                             <View style={{ height: '50%', flexDirection: 'row', gap: 10, alignItems: 'center' }}>
-                                                <Text style={{ color: COLORS.yellow, fontSize: 13 }}>{utils.capitalizeFirstLetter(product.brand)}</Text>
-                                                <Text style={{ color: COLORS.subwhite, fontSize: 13 }}>{categoryLocalization[product.category]}</Text>
+                                                <Text style={{ color: COLORS.mainText, fontSize: 13 }}>{utils.capitalizeFirstLetter(product.brand)}</Text>
+                                                <Text style={{ color: 'gray', fontSize: 13 }}>{categoryLocalization[product.category]}</Text>
                                             </View>
                                         </View>
 
@@ -79,9 +79,9 @@ const ListedProductCard = ({ product, scan }) => {
                                                     <View style={{ width: 20, height: 20, backgroundColor: utils.noteToColor(product.score), borderRadius: 100, justifyContent: 'center', alignSelf: 'center' }}>
                                                     </View>
                                                     <View style={{ height: '100%', justifyContent: 'center' }}>
-                                                        {product.score > 0 ? <Text style={{ fontWeight: 'bold', color: 'white', fontSize: 11 }}>{utils.formatNote(product.score)}/10</Text> : null}
+                                                        {product.score > 0 ? <Text style={{ fontWeight: 'bold', color: COLORS.mainText, fontSize: 11 }}>{utils.formatNote(product.score)}/10</Text> : null}
 
-                                                        <Text style={{ fontWeight: 'bold', color: COLORS.subwhite, fontSize: 11 }}>{utils.noteToText(product.score)}</Text>
+                                                        <Text style={{ color: COLORS.mainText, fontSize: 11 }}>{utils.noteToText(product.score)}</Text>
                                                     </View>
                                                 </View>
 

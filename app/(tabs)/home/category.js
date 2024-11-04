@@ -64,9 +64,9 @@ const Category = () => {
     );
 
     return (
-        <ProtectedRoute>
+        <View style={{flex: 1}}>
             {CategoryContent}
-        </ProtectedRoute>
+        </View>
     );
 };
 

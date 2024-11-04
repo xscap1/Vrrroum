@@ -30,8 +30,9 @@ const ListedButton = ({ text, handlePress, disabled, icon }) => {
         },
 
         text: {
-            color: COLORS.lightwhite,
-            fontSize: 16
+            color: COLORS.mainText,
+            fontSize: 16,
+            fontWeight: "bold"
         },
 
         disabledText: {
@@ -44,7 +45,7 @@ const ListedButton = ({ text, handlePress, disabled, icon }) => {
         <TouchableOpacity disabled={disabled} onPress={handlePress} style={disabled ? styles.disabledBtnContainer : styles.btnContainer}>
             <View style={{
                 flexDirection: "row",
-                height: 0.05 * wh,
+                height: 0.04 * wh,
             }}>
                 <Image source={icon} style={{
                     height: '120%',

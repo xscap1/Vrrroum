@@ -10,13 +10,13 @@ const wh = Dimensions.get('window').height;
 const styles = StyleSheet.create({
     wrapper: {
         backgroundColor: COLORS.darkgray,
-        paddingTop: 0.05 * ww,
-        paddingBottom: 0.05 * ww,
-        paddingLeft: 0.05 * ww,
-        paddingRight: 0.05 * ww,
+        paddingTop: 0.025 * ww,
+        paddingBottom: 0.025 * ww,
+        paddingLeft: 0.025 * ww,
+        paddingRight: 0.025 * ww,
         borderRadius: 10,
-        width: 0.7 * ww,
-        height: 0.42 * wh
+        width: 0.5 * ww,
+        height: 0.35 * wh
     },
 
     categoryWrap: {

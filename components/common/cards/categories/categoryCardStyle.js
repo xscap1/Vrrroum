@@ -9,11 +9,11 @@ wh = Dimensions.get('window').height;
 const styles = StyleSheet.create({
     wrapper : {
         flexDirection : "row",
-        height: 0.05*wh,
+        height: 0.04*wh,
     },
 
     icon : {
-        height: '105%',
+        height: '150%',
         width: 0.12*ww,
         alignSelf: 'center'
     },

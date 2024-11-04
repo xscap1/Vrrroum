@@ -12,8 +12,8 @@ const Offers = () => {
 
     return (
         <View style={commonStyles.container}>
-            <Text style={commonStyles.heading}>Les offres du jour</Text>
-            <View style={{marginTop: 15}}>
+            {/* <Text style={commonStyles.heading}>Les offres du jour</Text> */}
+            <View>
                 <FlatList
                  data={data}
                  renderItem={({ item }) => (
@@ -21,7 +21,7 @@ const Offers = () => {
                     />
                  )}
                  keyExtractor={(item) => item}
-                 contentContainerStyle={{ columnGap: SIZES.medium }}
+                 contentContainerStyle={{ columnGap: SIZES.xSmall }}
                  horizontal
                  showsHorizontalScrollIndicator={false}
             />

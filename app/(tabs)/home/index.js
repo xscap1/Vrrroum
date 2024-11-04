@@ -8,7 +8,7 @@ import Offers from "../../../components/home/Offers";
 import commonStyles from "../../../styles/common";
 import ListedProducts from "../../../components/home/ListedProducts";
 import { Icon, SearchBar } from '@rneui/themed';
-import { COLORS } from "../../../constants";
+import { COLORS, SIZES } from "../../../constants";
 import DisplayTextInformations from "../../../components/common/cards/DisplayTextInformations";
 import { wh } from "../../../styles/common";
 import { useNavigation } from "expo-router";
@@ -69,6 +69,9 @@ const Home = () => {
       <SafeAreaView style={commonStyles.flexSafeArea} edges={['top', 'left', 'right']}>
         {/* scrollEnabled={!isSearching} */}
         <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={"always"}>
+          <View style={commonStyles.container}>
+            <Text style={{ textAlign: 'center', fontSize: SIZES.xLarge, color: COLORS.rosso, fontWeight: "bold" }}>Vrrroum</Text>
+          </View>
           <View>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
               <View>
@@ -85,9 +88,9 @@ const Home = () => {
                     value={search}
                     platform={"ios"}
                     searchIcon={null}
-                    containerStyle={{ backgroundColor: COLORS.background, width: isSearching ? '85%' : 'auto' }}
-                    inputContainerStyle={{ backgroundColor: COLORS.darkgray, borderRadius: 10 }}
-                    inputStyle={{ backgroundColor: COLORS.darkgray, color: COLORS.lightwhite, paddingLeft: 10 }}
+                    containerStyle={{ width: isSearching ? '85%' : 'auto' }}
+                    inputContainerStyle={{ backgroundColor: COLORS.darkgray, borderRadius: 10, height: 40 }}
+                    inputStyle={{ color: "black", fontSize: SIZES.xMedium, borderRadius: 10, paddingLeft: 10 }}
                     onFocus={() => {
                       setSearching(true);
                     }}
@@ -99,15 +102,12 @@ const Home = () => {
                   />
                 </View>
                 {isSearching ? (
-
                   <View style={commonStyles.flexFullScreenContainer}>
-                    <ProtectedRoute>
-                      {isLoading ? (
-                        <ActivityIndicator />
-                      ) : (
-                        searchData.length === 0 ? <View style={{ height: wh }}><DisplayTextInformations text={missingSearchDataText} /></View> : <ListedProducts products={searchData} flatlist={false} />
-                      )}
-                    </ProtectedRoute>
+                    {isLoading ? (
+                      <ActivityIndicator />
+                    ) : (
+                      searchData.length === 0 ? <View style={{ height: wh }}><DisplayTextInformations text={missingSearchDataText} /></View> : <ListedProducts products={searchData} flatlist={false} />
+                    )}
                   </View>
                 ) : null}
               </View>
@@ -116,7 +116,7 @@ const Home = () => {
 
             {!searchData ? (
               <View>
-                {/* <Offers /> */}
+                <Offers />
                 <Trendings />
                 <BestRated />
                 <Categories /></View>) : null}

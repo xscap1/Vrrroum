@@ -101,7 +101,7 @@ const ProductCard = ({ product, scan }) => {
                             </View>
 
                             <View style={{ marginTop: 20 }}>
-                                <Text style={commonStyles.subtextBold}>{product.name}</Text>
+                                <Text style={commonStyles.textBold}>{product.name}</Text>
                             </View>
                         </View>
                     ) : null}

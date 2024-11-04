@@ -16,7 +16,7 @@ const NotationDetails = ({ criteria, effectiveness, durability }) => {
                 <View style={{ width: '25%', flexDirection: 'row', gap: 10, alignItems: 'center', justifyContent: 'flex-start' }}>
                     <View style={{ width: 20, height: 20, backgroundColor: utils.noteToColor(note), borderRadius: 100, justifyContent: 'center', alignSelf: 'center' }}>
                     </View>
-                    <Text style={commonStyles.smallText}>{note}/10</Text>
+                    <Text style={commonStyles.smallTextBold}>{note}/10</Text>
                 </View>
             </View>
         );

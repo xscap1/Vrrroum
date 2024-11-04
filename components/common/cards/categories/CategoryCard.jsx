@@ -18,7 +18,7 @@ const CategoryCard = ({ category }) => {
                         <View style={styles.wrapper}>
                             <Image source={category.icon} style={styles.icon} />
                             <View style={styles.nameContainer}>
-                                <Text style={commonStyles.text}>{category.name}</Text>
+                                <Text style={{color: COLORS.mainText, fontWeight: "bold", fontSize: SIZES.medium}}>{category.name}</Text>
                             </View>
                         </View>
                     </View>
@@ -38,7 +38,7 @@ const CategoryCard = ({ category }) => {
                             <Image source={category.icon} style={styles.icon} />
                             <View style={styles.nameContainer}>
                                 {category.free ? <View style={{ backgroundColor: COLORS.yellow, borderRadius: 5, padding: 3, alignSelf: 'flex-start' }}><Text style={{ fontSize: SIZES.xSmall, fontWeight: 'bold' }}>Gratuit</Text></View> : null}
-                                <Text style={commonStyles.text}>{category.name}</Text>
+                                <Text style={{color: COLORS.mainText, fontWeight: "bold", fontSize: SIZES.medium}}>{category.name}</Text>
                             </View>
                         </View>
                     </View>

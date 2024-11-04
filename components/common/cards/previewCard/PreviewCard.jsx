@@ -32,18 +32,18 @@ const PreviewCard = ({ product, colorNote, scan }) => {
                 {product ? (
                     <View>
 
-                        <View style={{ marginTop: 15, height: '35%' }}>
-                            <Text style={{ fontSize: SIZES.xMedium, color: COLORS.lightwhite }}>{product.name}</Text>
+                        <View style={{ marginTop: 10, height: '35%' }}>
+                            <Text style={{ fontSize: SIZES.xMedium, color: COLORS.mainText, fontWeight: "bold" }} numberOfLines={2}>{product.name}</Text>
                         </View>
                         <View style={styles.notationContainer}>
 
-                            <View style={{ flexDirection: 'row', gap: 10, width: '40%' }}>
-                                <View style={{ width: '20%', height: 20, backgroundColor: utils.noteToColor(product.score), borderRadius: 100, justifyContent: 'center', alignSelf: 'center' }}>
+                            <View style={{ flexDirection: 'row', gap: 10, width: '50%' }}>
+                                <View style={{ width: 15, height: 15, backgroundColor: utils.noteToColor(product.score), borderRadius: 100, justifyContent: 'center', alignSelf: 'center' }}>
 
                                 </View>
-                                <View style={{ width: '80%', justifyContent: 'flex-start' }}>
-                                    <Text style={{ fontWeight: 'bold', color: 'white', fontSize: 14 }}>{utils.formatNote(product.score)}/10</Text>
-                                    <Text style={{ fontWeight: 'bold', color: COLORS.subwhite, fontSize: 12 }}>{utils.noteToText(product.score)}</Text>
+                                <View style={{ width: '80%', justifyContent: 'flex-start'}}>
+                                    <Text style={{ fontWeight: 'bold', color: COLORS.mainText, fontSize: 14 }}>{utils.formatNote(product.score)}/10</Text>
+                                    <Text style={{ color: COLORS.mainText, fontSize: 12 }}>{utils.noteToText(product.score)}</Text>
                                 </View>
                             </View>
 

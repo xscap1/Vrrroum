@@ -47,23 +47,25 @@ const Notation = ({ total, note, env, ingredients, criteria, effectiveness, dura
                 {note > 0 ?
                     <TouchableOpacity onPress={() => { navigation.navigate('notation', { criteria: criteria, effectiveness: effectiveness, durability: durability }); }}>
                         <View style={{
-                            flexDirection: "row",
-                            height: 50,
-                            backgroundColor: COLORS.background,
+                            // flexDirection: "row",
+                            height: 40,
+                            backgroundColor: COLORS.mainText,
                             borderRadius: 10,
-                            justifyContent: 'space-between',
+                            justifyContent: 'center',
                             padding: 10
                         }}>
-                            <View style={{
+                            <Text style={{ fontSize: SIZES.xMedium, color: "white", fontWeight: "bold", textAlign: 'center' }}>Détail de la notation</Text>
+
+                            {/* <View style={{
                                 alignSelf: 'center'
                             }}>
-                                <Text style={commonStyles.subtext}>Détail de la notation</Text>
-                            </View>
-                            <Image source={icons.list} style={{
+                                <Text style={{ fontSize: SIZES.medium, color: "white", fontWeight: "bold" }}>Détail de la notation</Text>
+                            </View> */}
+                            {/* <Image source={icons.list} style={{
                                 height: 30,
                                 width: 30,
                                 alignSelf: 'center'
-                            }} />
+                            }} /> */}
                         </View>
                     </TouchableOpacity>
                     :

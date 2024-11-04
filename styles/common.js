@@ -8,7 +8,7 @@ export const wh = Dimensions.get('window').height;
 
 const commonStyles = StyleSheet.create({
     body: {
-        backgroundColor: COLORS.darkgray,
+        backgroundColor: COLORS.yellow,
         width: '100%',
         height: '100%',
         flex: 1
@@ -90,18 +90,18 @@ const commonStyles = StyleSheet.create({
 
     text: {
         fontSize: SIZES.large,
-        color: COLORS.lightwhite
+        color: COLORS.mainText
     },
 
     textBold: {
         fontSize: SIZES.large,
-        color: COLORS.lightwhite,
+        color: COLORS.mainText,
         fontWeight: 'bold'
     },
 
     subtext: {
         fontSize: SIZES.medium,
-        color: COLORS.subwhite,
+        color: COLORS.mainText,
     },
 
     swipeWrapper: {
@@ -114,7 +114,7 @@ const commonStyles = StyleSheet.create({
 
     swipeSubtext: {
         fontSize: SIZES.xMedium,
-        color: COLORS.subwhite,
+        color: COLORS.yellow,
         paddingBottom: 3
     },
 
@@ -133,19 +133,21 @@ const commonStyles = StyleSheet.create({
 
     swipeContainer: {
         borderBottomWidth: 2,
-        padding: 10
+        padding: 10,
+        borderColor: COLORS.darkgray,
+
     },
 
     subtextBold: {
         fontSize: SIZES.medium,
-        color: COLORS.lightwhite,
+        color: COLORS.mainText,
         fontWeight: 'bold',
         lineHeight: 23
     },
 
     textCenter: {
-        fontSize: SIZES.large,
-        color: COLORS.subwhite,
+        fontSize: SIZES.medium,
+        color: COLORS.mainText,
         textAlign: 'center'
     },
 
@@ -163,7 +165,7 @@ const commonStyles = StyleSheet.create({
 
     smallText: {
         fontSize: SIZES.small,
-        color: COLORS.subwhite,
+        color: COLORS.mainText,
     },
 
     xsmallText: {
@@ -173,7 +175,7 @@ const commonStyles = StyleSheet.create({
 
     smallTextBold: {
         fontSize: SIZES.small,
-        color: 'white',
+        color: COLORS.mainText,
         fontWeight: 'bold'
     },
 
@@ -190,27 +192,27 @@ const commonStyles = StyleSheet.create({
     },
 
     heading: {
-        fontSize: SIZES.xLarge,
-        color: COLORS.lightwhite,
+        fontSize: SIZES.large,
+        color: COLORS.mainText,
         fontWeight: 'bold',
     },
 
     headingCenter: {
         fontSize: SIZES.xLarge,
-        color: COLORS.lightwhite,
+        color: COLORS.mainText,
         fontWeight: 'bold',
         textAlign: 'center'
     },
 
     subHeading: {
         fontSize: SIZES.large,
-        color: COLORS.lightwhite,
+        color: COLORS.mainText,
         fontWeight: 'bold',
     },
 
     subHeadingCenter: {
         fontSize: SIZES.large,
-        color: COLORS.lightwhite,
+        color: COLORS.mainText,
         fontWeight: 'bold',
         textAlign: 'center'
     },
@@ -235,7 +237,7 @@ const commonStyles = StyleSheet.create({
         fontSize: SIZES.medium,
         marginTop: 0,
         width: 40,
-        color: COLORS.lightwhite
+        color: COLORS.mainText
     },
 
     categoryWrap: {
@@ -254,9 +256,8 @@ const commonStyles = StyleSheet.create({
 
     scanContainer: {
         flexDirection: "row",
-        backgroundColor: COLORS.background,
-        borderColor: COLORS.lightgreen,
-        borderWidth: 1,
+        borderColor: COLORS.yellow,
+        borderWidth:1.5,
         borderRadius: 100,
         paddingVertical: 5,
         paddingHorizontal: 8,
@@ -265,8 +266,9 @@ const commonStyles = StyleSheet.create({
 
     scan: {
         fontSize: 11,
-        color: COLORS.lightgreen,
+        color: COLORS.yellow,
         alignSelf: "flex-start",
+        fontWeight: "bold"
     },
 
     dataActiveButton: {

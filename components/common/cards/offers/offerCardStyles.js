@@ -8,7 +8,6 @@ wh = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
     wrapper : {
-        backgroundColor : COLORS.darkgray,
         borderRadius: 10,
         width: 0.78*ww,
         height: 0.19*wh
@@ -17,7 +16,7 @@ const styles = StyleSheet.create({
     image : {
         borderRadius: 10,
         flex: 1, 
-        height: undefined, 
+        // height: undefined, 
         width: undefined
     },
 });

@@ -104,7 +104,7 @@ const Scan = () => {
                       Linking.openSettings();
                   }
                   }>
-                  <Text style={{ textAlign: 'center' }}>Continuer</Text>
+                  <Text style={{ textAlign: 'center', color: "white", fontWeight: "bold" }}>Continuer</Text>
                 </TouchableOpacity>
               </View>
             </View>

@@ -1,7 +1,11 @@
 const COLORS = {
-    yellow : "#ddff00",
-    background : "#1d1f1e",
-    darkgray : "#0f1213",
+    // yellow : "#ddff00",
+    yellow : "#03224c",
+    rosso : "#D40000",
+    // background : "#1d1f1e",
+    background : "#ffffff",
+    // darkgray : "#0f1213",
+    darkgray : "#f0f2f5",
     lightgray : "#3e4545",
     lightwhite : "#ecf0ef",
     subwhite : "#cdd3d2",
@@ -15,6 +19,7 @@ const COLORS = {
     whitesmoke : "#f2f2f2",
     gainsbora : "#e6e6e6",
     hyperlink: "#0000EE",
+    mainText: "#152233"
 };
 
 const SIZES = {

@@ -23,7 +23,7 @@ const Environnement = ({ env, hazard }) => {
     return (
         <View style={{ backgroundColor: COLORS.darkgray, padding: 5, borderRadius: 10, marginTop: 20, width: '100%', padding: 10, gap: 20 }}>
             <View style={{flexDirection: 'row', width: '100%', justifyContent: 'space-between'}}>
-                <Text style={{ color: 'white', alignSelf: 'center', textAlign: 'center', fontWeight: 'bold' }}>Éco-score</Text>
+                <Text style={{ color: COLORS.mainText, alignSelf: 'center', textAlign: 'center', fontWeight: 'bold' }}>Éco-score</Text>
 
                 <View style={{
                     borderWidth: 2,
@@ -49,19 +49,19 @@ const Environnement = ({ env, hazard }) => {
             <View style={{ gap: 10 }}>
                 <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between' }}>
                     <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                        <Text style={{ color: 'white', alignSelf: 'center', textAlign: 'center', fontWeight: 'bold' }}>Éco-danger</Text>
+                        <Text style={{ color: COLORS.mainText, alignSelf: 'center', textAlign: 'center', fontWeight: 'bold' }}>Éco-danger</Text>
                     </View>
                     <View style={{ backgroundColor: 'white', borderRadius: 7, justifyContent: 'center', alignItems: 'center', padding: 3 }}>
                         <Image source={icons.hazard_env_aquatic} style={{ width: 30, height: 30 }} />
                     </View>
                 </View>
                 <View>
-                    <Text style={{ color: COLORS.subwhite }}>{envDanger ? envDangerText : noEnvDangerText}</Text>
+                    <Text style={{ color: COLORS.mainText }}>{envDanger ? envDangerText : noEnvDangerText}</Text>
                 </View>
             </View>
             <View style={{ gap: 10 }}>
-                <Text style={{ color: 'white', fontWeight: 'bold' }}>Précaution</Text>
-                <Text style={{ color: COLORS.subwhite }}>{careText}</Text>
+                <Text style={{ color: COLORS.mainText, fontWeight: 'bold' }}>Précaution</Text>
+                <Text style={{ color: COLORS.mainText }}>{careText}</Text>
             </View>
         </View>
     );

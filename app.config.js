@@ -1,7 +1,7 @@
 export default {
   "expo": {
     "scheme": "vrrroum",
-    "version" : "1.4.1",
+    "version" : "1.4.2",
     "platforms": [
       "ios",
       "android",

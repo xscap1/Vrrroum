@@ -39,6 +39,22 @@ const commonStyles = StyleSheet.create({
         paddingRight: 0.05 * ww,
     },
 
+    centerContainer: {
+        paddingTop: 0.02 * ww,
+        paddingBottom: 0.02 * ww,
+        paddingLeft: 0.05 * ww,
+        paddingRight: 0.05 * ww,
+        justifyContent: 'center', 
+        alignItems: 'center'
+    },
+
+    logo: {
+        flex: 1,
+        width: null,
+        height: null,
+        resizeMode: 'contain'
+    },
+
     flexContainer: {
         paddingTop: 0.02 * ww,
         paddingLeft: 0.05 * ww,

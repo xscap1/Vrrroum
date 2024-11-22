@@ -3,7 +3,6 @@ import { Stack, useRouter } from "expo-router";
 import commonStyles from "../../../styles/common";
 import ListedProducts from "../../../components/home/ListedProducts";
 import React, { useEffect, useState } from 'react';
-import ProtectedRoute from "../../../components/sub/ProtectedRoute";
 
 const Trends = () => {
   const api = require('../../../api/api');

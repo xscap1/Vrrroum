@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ScrollView, View, Text, Platform, ActivityIndicator, TouchableOpacity, Keyboard, Button, TouchableWithoutFeedback } from "react-native";
+import { ScrollView, View, Text, Platform, ActivityIndicator, TouchableOpacity, Keyboard, Button, TouchableWithoutFeedback, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Trendings from "../../../components/home/Trendings";
 import BestRated from "../../../components/home/BestRated";
@@ -8,12 +8,12 @@ import Offers from "../../../components/home/Offers";
 import commonStyles from "../../../styles/common";
 import ListedProducts from "../../../components/home/ListedProducts";
 import { Icon, SearchBar } from '@rneui/themed';
-import { COLORS, SIZES } from "../../../constants";
+import { COLORS, SIZES, images } from "../../../constants";
 import DisplayTextInformations from "../../../components/common/cards/DisplayTextInformations";
 import { wh } from "../../../styles/common";
 import { useNavigation } from "expo-router";
-import ProtectedRoute from "../../../components/sub/ProtectedRoute";
 import Constants from 'expo-constants';
+
 
 const Home = () => {
 
@@ -69,8 +69,11 @@ const Home = () => {
       <SafeAreaView style={commonStyles.flexSafeArea} edges={['top', 'left', 'right']}>
         {/* scrollEnabled={!isSearching} */}
         <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={"always"}>
-          <View style={commonStyles.container}>
-            <Text style={{ textAlign: 'center', fontSize: SIZES.xLarge, color: COLORS.rosso, fontWeight: "bold" }}>Vrrroum</Text>
+          <View style={commonStyles.centerContainer}>
+            <View style={{ width: '80%', height: 30 }}>
+              <Image source={images.vrrroum_cropped} style={commonStyles.logo} />
+            </View>
+            {/* <Text style={{ textAlign: 'center', fontSize: SIZES.xLarge, color: COLORS.rosso, fontWeight: "bold" }}>Vrrroum</Text> */}
           </View>
           <View>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -116,7 +119,7 @@ const Home = () => {
 
             {!searchData ? (
               <View>
-                <Offers />
+                {/* <Offers /> */}
                 <Trendings />
                 <BestRated />
                 <Categories /></View>) : null}

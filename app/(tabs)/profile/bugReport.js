@@ -59,12 +59,12 @@ const BugReport = () => {
         },
         placeholderStyle: {
             fontSize: 16,
-            color: COLORS.lightwhite,
+            color: COLORS.mainText,
             padding: 5
         },
         selectedTextStyle: {
             fontSize: 16,
-            color: COLORS.lightwhite,
+            color: COLORS.mainText,
             padding: 5
         },
         iconStyle: {
@@ -80,7 +80,7 @@ const BugReport = () => {
         },
 
         itemText: {
-            color: COLORS.lightwhite
+            color: COLORS.mainText
         },
 
         textInputStyle: {
@@ -90,7 +90,7 @@ const BugReport = () => {
             paddingTop: 10,
             backgroundColor: COLORS.darkgray,
             borderRadius: 15,
-            color: COLORS.lightwhite,
+            color: COLORS.mainText,
             fontSize: 16,
             marginTop: 10
         }

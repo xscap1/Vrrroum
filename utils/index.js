@@ -22,17 +22,14 @@ export const storeFavoritesInCache = async (id) => {
     if (f) {
         f = new Set(JSON.parse(f));
 
-        if (f.size < 5) {
-
-            if (!f.has(id)) {
-                f.add(id);
-                await SecureStore.setItemAsync('favorites', JSON.stringify([...f]));
-                return 0;
-            }
-
-            else
-                return -1;
+        if (!f.has(id)) {
+            f.add(id);
+            await SecureStore.setItemAsync('favorites', JSON.stringify([...f]));
+            return 0;
         }
+
+        else
+            return -1;
 
         return -2;
     }
@@ -87,15 +84,8 @@ export const storeHistoryInCache = async (id) => {
     if (h) {
         let history = JSON.parse(h);
         const present = checkPresentInHistory(id, history);
-        if (history.length < 5) {
-            if (!present) {
-                history.push(id);
-                await SecureStore.setItemAsync('history', JSON.stringify(history));
-            }
-        }
-        else {
-            history.pop();
-            history.unshift(id);
+        if (!present) {
+            history.push(id);
             await SecureStore.setItemAsync('history', JSON.stringify(history));
         }
     }

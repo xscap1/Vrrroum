@@ -14,7 +14,7 @@ const ListedProductCard = ({ product, scan }) => {
         ["body"]: "Carrosserie",
         ["shampoo"]: "Shampoing",
         ["wax"]: "Cire",
-        ["tire"]: "Nettoyant pneus",
+        ["tire"]: "Pneus",
         ["rim"]: "Nettoyant jantes",
         ["polish"]: "Polish & Lustreur",
         ["rain"]: "Anti-pluie",
@@ -26,9 +26,9 @@ const ListedProductCard = ({ product, scan }) => {
         ["textile"]: "Nettoyant textile",
         ["leather"]: "Nettoyant cuir",
         ["plastic"]: "Nettoyant plastique",
-        ["universal"] : "Nettoyant universel",
-        ["brake"] : "Nettoyant frein",
-        ["bugs"] : "Nettoyant insecte",
+        ["universal"]: "Nettoyant universel",
+        ["brake"]: "Nettoyant frein",
+        ["bugs"]: "Nettoyant insecte",
     })
 
     const utils = require('../../../../constants/utils');
@@ -65,7 +65,7 @@ const ListedProductCard = ({ product, scan }) => {
                                     <View style={{ height: product.isSponso ? '92.5%' : '100%', flexDirection: 'column', width: '100%' }}>
                                         <View style={{ height: '60%' }}>
                                             <View style={{ height: '50%' }}>
-                                                <Text numberOfLines={2} style={{ color: COLORS.mainText, fontSize: 13, fontWeight: 'bold' }}>{product.name}</Text>
+                                                <Text numberOfLines={2} style={{ color: COLORS.mainText, fontSize: 13, fontWeight: 'bold' }}>{product.name ? product.name : product.title}</Text>
                                             </View>
                                             <View style={{ height: '50%', flexDirection: 'row', gap: 10, alignItems: 'center' }}>
                                                 <Text style={{ color: COLORS.mainText, fontSize: 13 }}>{utils.capitalizeFirstLetter(product.brand)}</Text>
@@ -74,7 +74,16 @@ const ListedProductCard = ({ product, scan }) => {
                                         </View>
 
                                         <View style={{ height: '40%' }}>
-                                            <View style={{ flexDirection: 'row', alignContent: 'center', alignItems: 'center', justifyContent: 'flex-end', marginRight: 20, height: '100%' }}>
+                                            <View style={{ flexDirection: 'row', alignContent: 'center', alignItems: 'center', justifyContent: 'flex-end', marginRight: 10, height: '100%' }}>
+                                                <View style={{ gap: 1, width: '60%' }}>
+                                                    {product.pneu_modele ?
+                                                        <View>
+                                                            <Text style={{ color: COLORS.mainText, fontSize: 11 }}>{product.size}</Text>
+                                                            <Text style={{ color: COLORS.mainText, fontSize: 11 }}>{product.pneu_modele}</Text>
+                                                            <Text style={{ color: COLORS.mainText, fontSize: 11 }}>{product.pneu_saison}</Text>
+                                                        </View>
+                                                        : null}
+                                                </View>
                                                 <View style={{ flexDirection: 'row', width: '40%', gap: 10, height: '100%' }}>
                                                     <View style={{ width: 20, height: 20, backgroundColor: utils.noteToColor(product.score), borderRadius: 100, justifyContent: 'center', alignSelf: 'center' }}>
                                                     </View>

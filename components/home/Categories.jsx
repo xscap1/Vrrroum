@@ -8,6 +8,18 @@ import { COLORS, SIZES, icons } from "../../constants";
 const Categories = () => {
     const router = useRouter();
 
+    const categoriesMec = [
+        {
+            id: 1,
+            icon: icons.tire,
+            name: 'Pneus',
+            cat: 'tiremec',
+            subcat: [],
+            parent: '',
+            free: false,
+        }
+    ]
+
     const categories = [
         {
             id: 1,
@@ -69,10 +81,20 @@ const Categories = () => {
         <CategoryCard key={cat.id} category={cat}></CategoryCard>
     ));
 
+    categoriesMecArr = categoriesMec.map(cat => (
+        <CategoryCard key={cat.id} category={cat}></CategoryCard>
+    ));
+
     return (
         <View style={commonStyles.container}>
             <View style={{ marginTop: 20 }}>
-                <Text style={commonStyles.heading}>Catégories</Text>
+                <Text style={commonStyles.heading}>Entretien mécanique</Text>
+                <View style={{ marginTop: 15 }}>
+                    {categoriesMecArr}
+                </View>
+            </View>
+            <View style={{ marginTop: 20 }}>
+                <Text style={commonStyles.heading}>Entretien esthétique</Text>
                 <View style={{ marginTop: 15 }}>
                     {categoriesArr}
                 </View>

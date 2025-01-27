@@ -49,8 +49,22 @@ const Details = ({ product }) => {
                 {product.capacity ?
                     <Information label={'Capacité'} text={product.capacity} border={true} />
                     : null}
+
                 <Information label={'Scans'} text={product.scans ? product.scans : 0} border={true} />
                 <Information label={'Note'} text={product.score} border={true} />
+
+                {product.category == "tiremec" ?
+                    <View>
+                        <Information label={'Taille'} text={product.size} border={true} />
+                        <Information label={'Saison'} text={product.pneu_saison} border={true} />
+                        <Information label={'Type véhicule'} text={product.pneu_modele} border={true} />
+                        <Information label={'Vitesse'} text={product.pneu_vitesse} border={true} />
+                        <Information label={'Runflat'} text={product.pneu_runflat} border={true} />
+                        <Information label={'Consommation essence'} text={product.fueleconomy ? product.fueleconomy : 'N/R'} border={true} />
+                        <Information label={'Charge'} text={product.pneu_charge} border={true} />
+                        <Information label={'Rechapé'} text={product.pneu_rechape ? product.pneu_rechape : 'N/R'} border={true} />
+                        <Information label={'Renforcé'} text={product.pneu_renforce ? product.pneu_renforce : 'N/R'} border={true} />
+                    </View> : null}
             </View>
         </View>
     );

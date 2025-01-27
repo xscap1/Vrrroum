@@ -14,7 +14,6 @@ import { wh } from "../../../styles/common";
 import { useNavigation } from "expo-router";
 import Constants from 'expo-constants';
 
-
 const Home = () => {
 
   const [search, setSearch] = useState("");
@@ -36,7 +35,7 @@ const Home = () => {
     // };
 
     // checkUpdate();
-    utils.checkForUpdates();
+    // utils.checkForUpdates();
   }, []);
 
   const updateSearch = (search) => {
@@ -119,10 +118,11 @@ const Home = () => {
 
             {!searchData ? (
               <View>
-                {/* <Offers /> */}
+                <Offers />
                 <Trendings />
                 <BestRated />
-                <Categories /></View>) : null}
+                <Categories />
+              </View>) : null}
           </View>
 
         </ScrollView>

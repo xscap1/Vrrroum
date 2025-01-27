@@ -4,8 +4,6 @@ import commonStyles from "../../../styles/common";
 import ListedProducts from "../../../components/home/ListedProducts";
 import React, { useEffect, useState } from 'react';
 import NoAccess from "../../../components/common/noaccess/NoAccess";
-import { isSubscriptionActiveFromRCProvider } from "../../../utils/rcprovider";
-import ProtectedRoute from "../../../components/sub/ProtectedRoute";
 
 const BestRated = () => {
   const router = useRouter();

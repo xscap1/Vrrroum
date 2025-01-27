@@ -44,7 +44,8 @@ const categories = {
     rain: "Anti-pluie",
     brake: "Nettoyant frein",
     bugs: "Nettoyant insecte",
-    universal: "Nettoyant universel"
+    universal: "Nettoyant universel",
+    tiremec: "Pneus"
 }
 
 const noteToColor = (note) => {

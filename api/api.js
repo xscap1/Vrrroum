@@ -190,6 +190,11 @@ const getCategoryBatchFromApi = async (category, subcategory, cursor, setData, s
 const getRecommendationsFromApi = async (id, category, parent, score, setData, setLoading) => {
     let q = serverip + '/recommendations/' + id + '?category=' + category + '&parent=' + parent + '&score=' + score;
 
+    // get full object and parse it to extract cat, parent, score, criterias?
+    // before sending the request
+    // or 
+    // do specific api requests for each specific cat
+
     try {
         await fetch(q)
             .then((response) => response.json())

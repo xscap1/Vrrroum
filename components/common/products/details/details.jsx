@@ -25,7 +25,7 @@ const Details = ({ product }) => {
     return (
         <View>
             <View style={{ backgroundColor: COLORS.darkgray, padding: 5, borderRadius: 10, marginTop: 20 }}>
-                <Information label={'Nom'} text={product.name} border={false} />
+                <Information label={'Nom'} text={product.name ? product.name : product.title} border={false} />
                 <Information label={'Marque'} text={product.brand} border={true} />
                 {product.ref ?
                     <Information label={'Référence'} text={product.ref} border={true} />

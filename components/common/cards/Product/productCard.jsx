@@ -11,6 +11,7 @@ import DisplayTextInformations from '../DisplayTextInformations';
 import Swiper from 'react-native-swiper';
 import Notation from '../../products/notation/notation';
 import Environnement from '../../products/environment/environment';
+import Compare from '../../products/compare/compare';
 
 const ProductCard = ({ product, scan }) => {
 
@@ -69,7 +70,7 @@ const ProductCard = ({ product, scan }) => {
             case 1:
                 return <Environnement hazard={product.hazard} env={product.env} key={1} />;
             case 2:
-                return <DisplayTextInformations text={priceCompareText} key={2} />;
+                return <Compare compareList={[{name: product.name ? product.name : product.title, price: product.price, logo: "", link: product.link}]} key={2} />;
             case 3:
                 return <Details product={product} key={3} />;
             default:

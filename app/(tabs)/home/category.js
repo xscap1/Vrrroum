@@ -1,4 +1,4 @@
-import { FlatList, SafeAreaView, ScrollView, View, Text, ActivityIndicator, TouchableOpacity, Dimensions, Modal } from "react-native";
+import { FlatList, SafeAreaView, SectionList, ScrollView, View, Text, ActivityIndicator, TouchableOpacity, Dimensions, Modal } from "react-native";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import commonStyles from "../../../styles/common";
 import ListedProducts from "../../../components/home/ListedProducts";
@@ -8,15 +8,34 @@ import { COLORS, SIZES } from "../../../constants";
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
-const FilterModal = ({ filters, visible, onClose, onSelectFilter, onReset, selectedFilter }) => {
+const LocalizeFilterSection = (section) => {
+    switch (section) {
+        case 'brands':
+            return 'Marques';
+        case 'sizes':
+            return 'Tailles';
+        case 'pneu_saisons':
+            return 'Saisons';
+        case 'viscosities':
+            return 'Viscosités';
+        default:
+            return section;
+    }
+}
+
+const FilterModal = ({ filters, visible, onClose, onSelectFilter, onReset, selectedFilter, onValidate }) => {
 
     const renderFilterItem = ({ item, section }) => (
-        <TouchableOpacity
-            style={{ padding: 10, backgroundColor: selectedFilter[section] && selectedFilter[section].includes(item) ? COLORS.darkgray : 'white', marginVertical: 5, borderRadius: 5 }}
-            onPress={() => onSelectFilter(section, item)}
-        >
-            <Text>{item}</Text>
-        </TouchableOpacity>
+        <View>
+            <TouchableOpacity
+                style={{ padding: 10, backgroundColor: selectedFilter[section] && selectedFilter[section].includes(item) ? COLORS.darkgray : 'white', marginVertical: 5, borderRadius: 5 }}
+                onPress={() => onSelectFilter(section, item)}
+            >
+                <Text>{item}</Text>
+            </TouchableOpacity>
+            <View style={{ height: 1, backgroundColor: COLORS.darkgray }}></View>
+        </View>
+
     );
 
     return (
@@ -29,29 +48,26 @@ const FilterModal = ({ filters, visible, onClose, onSelectFilter, onReset, selec
                             <Text style={{ textAlign: "center" }}>Fermer</Text>
                         </TouchableOpacity>
                     </View>
-                    <View>
-                        {filters ?
-                            Object.keys(filters).map((section, index) => (
-                                <View key={index} style={{ marginBottom: 20, flex: 1}}>
-                                    <Text style={{ fontSize: 16, fontWeight: 'bold', marginBottom: 10 }}>{section.charAt(0).toUpperCase() + section.slice(1)}</Text>
-                                    <FlatList
-                                        data={filters[section]}
-                                        renderItem={({ item }) => renderFilterItem({ item, section })}
-                                        keyExtractor={(item, index) => `${section}-${index}`}
-                                        showsVerticalScrollIndicator={false}
-                                    />
-                                </View>
-                            )) : <ActivityIndicator />}
-                        <View style={{ flexDirection: 'row', gap: 20, justifyContent: "center", padding: 10 }}>
-                            <TouchableOpacity
-                                onPress={onReset}
-                                style={{ marginTop: 20, alignItems: 'center', backgroundColor: COLORS.darkgray, padding: 10, borderRadius: 5, width: "30%" }}>
-                                <Text style={{ color: COLORS.mainText }}>Effacer</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={onClose} style={{ marginTop: 20, alignItems: 'center', backgroundColor: COLORS.mainText, padding: 10, borderRadius: 5, width: "70%" }}>
-                                <Text style={{ color: "white" }}>Valider</Text>
-                            </TouchableOpacity>
-                        </View>
+                    <SectionList
+                        sections={filters ? Object.keys(filters).map((section) => ({ title: LocalizeFilterSection(section), data: filters[section] })) : []}
+                        renderItem={({ item, section, index }) => renderFilterItem({ item, section: section.title, index })}
+                        keyExtractor={(item, index) => index.toString()}
+                        renderSectionHeader={({ section: { title } }) => (
+                            <View style={{ backgroundColor: 'white', paddingVertical: 5 }}>
+                                <Text style={{ fontSize: 16, fontWeight: 'bold', marginBottom: 10 }}>{title}</Text>
+                            </View>
+                        )}
+                        contentContainerStyle={{ flexGrow: 1 }}
+                    />
+                    <View style={{ flexDirection: 'row', gap: 20, justifyContent: "center", padding: 10 }}>
+                        <TouchableOpacity
+                            onPress={onReset}
+                            style={{ marginTop: 20, alignItems: 'center', backgroundColor: COLORS.darkgray, padding: 10, borderRadius: 5, width: "30%" }}>
+                            <Text style={{ color: COLORS.mainText }}>Effacer</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={onValidate} style={{ marginTop: 20, alignItems: 'center', backgroundColor: COLORS.mainText, padding: 10, borderRadius: 5, width: "70%" }}>
+                            <Text style={{ color: "white" }}>Valider</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </View>
@@ -59,8 +75,8 @@ const FilterModal = ({ filters, visible, onClose, onSelectFilter, onReset, selec
     );
 };
 
-const SortModal = ({ visible, onClose, onSelectSort, selectedSort }) => {
-    const sorts = ["Prix croissant", "Prix décroissant", "Popularité"];
+const SortModal = ({ visible, onClose, onSelectSort, onReset, selectedSort, onValidate }) => {
+    const sorts = ["Note efficacité", "Note environnement"];
 
     return (
         <Modal visible={visible} transparent={true} animationType="slide">
@@ -83,9 +99,16 @@ const SortModal = ({ visible, onClose, onSelectSort, selectedSort }) => {
                             </TouchableOpacity>
                         ))}
                     </ScrollView>
-                    <TouchableOpacity onPress={onClose} style={{ marginTop: 20, alignItems: 'center', backgroundColor: COLORS.primary, padding: 10, borderRadius: 5 }}>
-                        <Text style={{ color: 'white' }}>Valider</Text>
-                    </TouchableOpacity>
+                    <View style={{ flexDirection: 'row', gap: 20, justifyContent: "center", padding: 10 }}>
+                        <TouchableOpacity
+                            onPress={onReset}
+                            style={{ marginTop: 20, alignItems: 'center', backgroundColor: COLORS.darkgray, padding: 10, borderRadius: 5, width: "30%" }}>
+                            <Text style={{ color: COLORS.mainText }}>Effacer</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={onValidate} style={{ marginTop: 20, alignItems: 'center', backgroundColor: COLORS.mainText, padding: 10, borderRadius: 5, width: "70%" }}>
+                            <Text style={{ color: "white" }}>Valider</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </View>
         </Modal>
@@ -100,6 +123,7 @@ const Category = () => {
 
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState();
+    const [tmpData, setTmpData] = useState();
     const [cursor, setCursor] = useState(null);
     const [filterVisible, setFilterVisible] = useState(false);
     const [filterResult, setFilterresult] = useState(null);
@@ -113,13 +137,15 @@ const Category = () => {
     const name = local.name;
     const parent = local.parent;
     const freeToView = local.free;
+    const cat = parent != "" ? parent : category;
+    const subcat = parent != "" ? category : 'products';
 
     useEffect(() => {
-        
-
-        const cat = parent != "" ? parent : category;
-        const subcat = parent != "" ? category : 'products';
-        api.getCategoryBatchFromApi(cat, subcat, null, setData, setLoading, setCursor);
+        // const cat = parent != "" ? parent : category;
+        // const subcat = parent != "" ? category : 'products';
+        // api.getCategoryBatchFromApi(cat, subcat, null, setData, setLoading, setCursor);
+        console.log(cat, subcat);
+        api.getCategoryProductsFromApi(cat, subcat, setData, setLoading);
     }, []);
 
     useEffect(() => {
@@ -138,13 +164,16 @@ const Category = () => {
     }, []);
 
     const fetchData = () => {
-        try {
-            const cat = parent != "" ? parent : category;
-            const subcat = parent != "" ? category : 'products';
-            api.getCategoryBatchFromApi(cat, subcat, cursor, setData, setLoading, setCursor);
-        } catch (error) {
-            console.error('Erreur lors du chargement des données:', error);
-        }
+
+        // if (Object.keys(selectedFilter).length == 0) {
+        //     try {
+        //         const cat = parent != "" ? parent : category;
+        //         const subcat = parent != "" ? category : 'products';
+        //         api.getCategoryBatchFromApi(cat, subcat, cursor, setData, setLoading, setCursor);
+        //     } catch (error) {
+        //         console.error('Erreur lors du chargement des données:', error);
+        //     }
+        // }
     };
 
     const handleSelectFilter = useCallback((section, filter) => {
@@ -158,7 +187,6 @@ const Category = () => {
             } else {
                 newSelectedFilter[section].push(filter);
             }
-            console.log(newSelectedFilter);
             return newSelectedFilter;
         });
     }, []);
@@ -171,18 +199,46 @@ const Category = () => {
         setFilterVisible(true);
     };
 
-    const validateFilter = () => {
+    const onCloseFilter = () => {
         setFilterVisible(false);
-        // Envoyer le filtre sélectionné à category.js
     };
 
-    const validateSort = () => {
+    const onCloseSort = () => {
         setSortVisible(false);
+    };
+
+    const onValidateSort = () => {
+        setSortVisible(false);
+        if (selectedSort === "Note efficacité") {
+            data.sort((a, b) => b.score - a.score);
+        } else if (selectedSort === "Note environnement") {
+            data.sort((a, b) => b.env - a.env);
+        }
+        else {
+            
+        }
         // Envoyer le tri sélectionné à category.js
     };
 
     const onResetFilter = () => {
         setSelectedFilter({});
+    }
+
+    const onResetSort = () => {
+        setSelectedSort("");
+    }
+
+    const onValidateFilter = async () => {
+        if (Object.keys(selectedFilter).length > 0) {
+            setFilterVisible(false);
+            const filteredData = await api.getApiFilterResults(selectedFilter, cat, subcat, setData);
+            setData(filteredData);
+        }
+
+        else {
+            setFilterVisible(false);
+            await api.getCategoryBatchFromApi(cat, subcat, null, setData, setLoading, setCursor);
+        }
     }
 
     const CategoryContent = (
@@ -212,8 +268,8 @@ const Category = () => {
                                 <Text style={{ color: COLORS.mainText }}>Trier</Text>
                             </TouchableOpacity>
                         </View>
-                        <FilterModal filters={filters} visible={filterVisible} onClose={validateFilter} onSelectFilter={handleSelectFilter} onReset={onResetFilter} selectedFilter={selectedFilter} />
-                        <SortModal visible={sortVisible} onClose={validateSort} onSelectSort={handleSelectSort} selectedSort={selectedSort} />
+                        <FilterModal filters={filters} visible={filterVisible} onClose={onCloseFilter} onSelectFilter={handleSelectFilter} onReset={onResetFilter} selectedFilter={selectedFilter} onValidate={onValidateFilter} />
+                        <SortModal visible={sortVisible} onClose={onCloseSort} onSelectSort={handleSelectSort} selectedSort={selectedSort} onValidate={onValidateSort} onReset={onResetSort}/>
                         {isLoading ? <View style={{ flex: 1, justifyContent: 'center' }}><ActivityIndicator /></View> : (
                             <ListedProducts products={data} onEndOnPress={fetchData} />
                         )}

@@ -1,7 +1,8 @@
 import { deleteHistory, storeHistoryInCache } from "../utils";
 import { auth } from "../firebaseConfig";
 
-const serverip = process.env.EXPO_PUBLIC_API_PROD;
+// const serverip = process.env.EXPO_PUBLIC_API_PROD;
+const serverip = process.env.EXPO_PUBLIC_API_DEV;
 
 const ProtectedApiRoutes = () => {
 
@@ -109,8 +110,6 @@ const ProtectedApiRoutes = () => {
         }
     }
 
-
-
     return { PostSignUpUserFromApi, getBestRatedFromApi, updateSubscriptionFromApi, PostVerifyEmailToApi, PostDeleteUserToApi };
 }
 
@@ -161,6 +160,24 @@ const getTrendsFromApi = async (setData, setLoading) => {
         console.error(error);
     }
 };
+
+const getCategoryProductsFromApi = async (category, subcategory, setData, setLoading) => {
+    try {
+        let q = serverip + '/categoryProducts/' + category + "/" + subcategory;
+        // await fetch(q)
+        // .then((response) => response.json())
+        // .then((json) => {
+        //     console.log(json);
+        //     setData(json.data);
+        // })
+        // .catch((error) => console.error(error))
+        // .finally(() => { setLoading(false); });
+    }
+
+    catch (error) {
+        console.error(error);
+    }
+}
 
 const getCategoryBatchFromApi = async (category, subcategory, cursor, setData, setLoading, setCursor) => {
     try {
@@ -406,5 +423,35 @@ const CheckForUpdates = async () => {
     }
 }
 
-export { CheckForUpdates, PostIngredientsToApi, getBestRatedFromApi, getBestRatedPreviewFromApi, getTrendsFromApi, getTrendsPreviewFromApi, getCategoryBatchFromApi, getRecommendationsFromApi, getProductFromApi, PostUserLoginFromApi, PostIdsFromApi, PostSearchKeywordsToApi, PostReportBugToApi, PostReportMissingProductToApi, PostSignUpUserFromApi, getProductWithIdFromApi }
+const getUniqueTireSizeFromApi = async () => {
+    try {
+        const response = await fetch(serverip + '/unique-tire-brand-size');
+        const json = await response.json();
+        return json;
+    } catch (error) {
+        console.error(error);
+        throw error; // Renvoyer l'erreur pour que l'appelant puisse la gérer
+    }
+}
+
+const getApiFilterResults = async (filters, category, subcategory, setData) => {
+    try {
+        const queryString = new URLSearchParams(filters).toString();
+        const response = await fetch(`${serverip}/filterResults?${queryString}&category=${category}&subcategory=${subcategory}`, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }
+        });
+
+        const json = await response.json();
+        return json;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+}
+
+export { CheckForUpdates, PostIngredientsToApi, getBestRatedFromApi, getBestRatedPreviewFromApi, getTrendsFromApi, getTrendsPreviewFromApi, getCategoryBatchFromApi, getRecommendationsFromApi, getProductFromApi, PostUserLoginFromApi, PostIdsFromApi, PostSearchKeywordsToApi, PostReportBugToApi, PostReportMissingProductToApi, PostSignUpUserFromApi, getProductWithIdFromApi, getUniqueTireSizeFromApi, getApiFilterResults, getCategoryProductsFromApi }
 export default ProtectedApiRoutes;

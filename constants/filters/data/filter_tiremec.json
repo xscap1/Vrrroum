@@ -1,4 +1,9 @@
 {
+    "pneu_saisons": [
+        "4 saisons",
+        "Hiver",
+        "Ete"
+    ],
     "brands": [
         "LINGLONG",
         "GOODYEAR",

@@ -56,7 +56,7 @@ const ListedProductCard = ({ product, scan }) => {
                                     <View>
                                         <Text style={{
                                             fontSize: SIZES.small,
-                                            color: COLORS.subwhite,
+                                            color: 'gray',
                                             marginBottom: 5
                                         }}>Sponsorisé</Text>
                                     </View> : null}

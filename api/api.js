@@ -164,14 +164,13 @@ const getTrendsFromApi = async (setData, setLoading) => {
 const getCategoryProductsFromApi = async (category, subcategory, setData, setLoading) => {
     try {
         let q = serverip + '/categoryProducts/' + category + "/" + subcategory;
-        // await fetch(q)
-        // .then((response) => response.json())
-        // .then((json) => {
-        //     console.log(json);
-        //     setData(json.data);
-        // })
-        // .catch((error) => console.error(error))
-        // .finally(() => { setLoading(false); });
+        await fetch(q)
+        .then((response) => response.json())
+        .then((json) => {
+            setData(json.data);
+        })
+        .catch((error) => console.error(error))
+        .finally(() => { setLoading(false); });
     }
 
     catch (error) {

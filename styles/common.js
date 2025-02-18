@@ -175,7 +175,7 @@ const commonStyles = StyleSheet.create({
 
     smalltextCenter: {
         fontSize: SIZES.small,
-        color: COLORS.subwhite,
+        color: COLORS.mainText,
         textAlign: 'center'
     },
 

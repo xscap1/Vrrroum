@@ -18,14 +18,14 @@ const PriceCompare = ({ compare }) => {
 
     return (
         <View style={{ flexDirection: "row", alignItems: "center", marginBottom: 10, backgroundColor: COLORS.darkgray, padding: 10, borderRadius: 5 }}>
-            <Text style={{ flex: 5, marginRight: 10, color: COLORS.mainText, fontWeight: "bold" }}>{name}</Text>
-            <Text style={{ flex: 2, marginRight: 10, color: COLORS.mainText }}>{price}€</Text>
+            <Text style={{ flex: 3, marginRight: 10, color: COLORS.mainText, fontWeight: "bold", fontSize: 10 }}>{name}</Text>
+            <Text style={{ flex: 3, marginRight: 10, color: COLORS.mainText, fontWeight: "bold", fontSize: 20 }}>{price}€</Text>
             <Image source={{ uri: logo }} style={{ flex: 1, width: 20, height: 20, marginRight: 10, color: COLORS.mainText }} />
-            <View style={{ flex: 2 }}>
+            <View style={{ flex: 3 }}>
                 <TouchableOpacity 
                     style={{padding: 5, borderRadius: 5, alignItems: "center", backgroundColor: COLORS.yellow}}
                     onPress={() => Linking.openURL(link)}>
-                    <Text style={{color: "white", fontWeight: "bold"}}>Acheter</Text>
+                    <Text style={{color: "white", fontWeight: "bold", fontSize: 12, textAlign: "center"}}>Voir l'offre</Text>
                 </TouchableOpacity>
             </View>
         </View>

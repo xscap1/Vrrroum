@@ -144,7 +144,6 @@ const Category = () => {
         // const cat = parent != "" ? parent : category;
         // const subcat = parent != "" ? category : 'products';
         // api.getCategoryBatchFromApi(cat, subcat, null, setData, setLoading, setCursor);
-        console.log(cat, subcat);
         api.getCategoryProductsFromApi(cat, subcat, setData, setLoading);
     }, []);
 
@@ -179,7 +178,7 @@ const Category = () => {
     const handleSelectFilter = useCallback((section, filter) => {
         setSelectedFilter((prevSelectedFilter) => {
             const newSelectedFilter = { ...prevSelectedFilter };
-            if (!newSelectedFilter[section]) {
+            if (!newSelectedFilter[section]) { 
                 newSelectedFilter[section] = [];
             }
             if (newSelectedFilter[section].includes(filter)) {
@@ -187,6 +186,11 @@ const Category = () => {
             } else {
                 newSelectedFilter[section].push(filter);
             }
+
+            if (newSelectedFilter[section].length === 0) {
+                delete newSelectedFilter[section];
+            }
+
             return newSelectedFilter;
         });
     }, []);
@@ -230,6 +234,7 @@ const Category = () => {
 
     const onValidateFilter = async () => {
         if (Object.keys(selectedFilter).length > 0) {
+            console.log(selectedFilter);
             setFilterVisible(false);
             const filteredData = await api.getApiFilterResults(selectedFilter, cat, subcat, setData);
             setData(filteredData);
@@ -237,7 +242,7 @@ const Category = () => {
 
         else {
             setFilterVisible(false);
-            await api.getCategoryBatchFromApi(cat, subcat, null, setData, setLoading, setCursor);
+            api.getCategoryProductsFromApi(cat, subcat, setData, setLoading);
         }
     }
 

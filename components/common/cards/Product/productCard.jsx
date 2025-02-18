@@ -66,7 +66,7 @@ const ProductCard = ({ product, scan }) => {
     const renderContent = () => {
         switch (activeIndex) {
             case 0:
-                return <Notation note={product.score.toFixed(1)} criteria={product.criteria} effectiveness={product.effectiveness} durability={product.durability} key={0} />;
+                return <Notation note={product.score ? product.score.toFixed(1) : 0} criteria={product.criteria} effectiveness={product.effectiveness} durability={product.durability} key={0} />;
             case 1:
                 return <Environnement hazard={product.hazard} env={product.env} key={1} />;
             case 2:

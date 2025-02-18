@@ -17,6 +17,15 @@ const Categories = () => {
             subcat: [],
             parent: '',
             free: false,
+        },
+        {
+            id: 2,
+            icon: icons.oil,
+            name: 'Huile moteur',
+            cat: 'oil',
+            subcat: [],
+            parent: '',
+            free: false,
         }
     ]
 
